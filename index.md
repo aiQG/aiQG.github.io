@@ -7,7 +7,7 @@ layout: default
 
 <div id="post-li">
   <div class="header">
-    <a href="{{ post.url }}#0"> {{ post.title }} </a>
+    <a id="urlLinkColor" href="{{ post.url }}#0"> {{ post.title }} </a>
   </div>
   <div class="content">
     <span>
@@ -16,7 +16,8 @@ layout: default
   </div>
   <div class="footer">
     <span> {{ post.date | date: "20%y-%m-%d" }} </span>
-    <span> {% if post.tags %}
+    <span> 
+          {% if post.tags %}
           <small>
             <em>
               {{ post.tags | join: " " }}
