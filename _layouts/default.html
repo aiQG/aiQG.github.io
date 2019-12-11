@@ -31,9 +31,8 @@
           {% endif %}
           <a href="{{ site.github.owner_url }}" class="btn btn-github"><span class="icon"></span>aiQG's GitHub</a>
         </section>
-        <!--here can add tags-->
         {% for tag in site.tags %}
-       <a id="urlLinkColor" href="{{site.url}}"><font size=2>{{ tag[0] }}</font></a> 
+       <a id="urlLinkColor" href="/tags/{{ tag[0] }}å"><font size=2>{{ tag[0] }}</font></a> 
         {% endfor %}
       </div>
     </header>
