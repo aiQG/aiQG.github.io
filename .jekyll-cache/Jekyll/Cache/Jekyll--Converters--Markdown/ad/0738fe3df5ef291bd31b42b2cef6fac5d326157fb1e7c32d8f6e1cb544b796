@@ -1,0 +1,11 @@
+I"j<p>跟到main里发现main里的SHE节点已经初始化
+<img src="https://i.imgur.com/I7wUmgB.png" alt="p1" />
+重启程序找到初始化main的SHE节点的函数
+<img src="https://i.imgur.com/Gk37fQ8.png" alt="p2" />
+进入test函数的SHE节点初始化
+<img src="https://i.imgur.com/5jhJeCA.png" alt="p3" />
+触发断点后可以看见eip跳到了test函数的SE处理函数(并且在跳过去的过程中又创建了一个节点)
+<img src="https://i.imgur.com/AOUuNfP.png" alt="p4" />
+进入vcruntim, 往下找到获取异常处理函数地址的位置
+<img src="https://i.imgur.com/gfi0qtw.png" alt="p5" /></p>
+:ET

