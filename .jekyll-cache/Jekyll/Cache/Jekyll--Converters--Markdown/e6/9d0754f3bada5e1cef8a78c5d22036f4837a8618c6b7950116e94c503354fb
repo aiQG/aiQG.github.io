@@ -1,0 +1,52 @@
+I"D<p>这次尝试了调用摄像头
+//原来iOS Simulators 是没有摄像头的啊
+//于是用真机调试…</p>
+
+<p>文件 <code class="highlighter-rouge">ViewController.swift</code></p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">import</span> <span class="kt">UIKit</span>
+
+<span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UIImagePickerControllerDelegate</span><span class="p">,</span> <span class="kt">UINavigationControllerDelegate</span> <span class="p">{</span>
+
+	<span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+		<span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+	<span class="p">}</span>
+	
+	
+	<span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">buttonOne</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nf">print</span><span class="p">(</span><span class="s">"touch button"</span><span class="p">)</span>
+	
+		<span class="k">let</span> <span class="nv">imagePickerController</span><span class="p">:</span> <span class="kt">UIImagePickerController</span> <span class="o">=</span> <span class="kt">UIImagePickerController</span><span class="p">()</span>
+		<span class="c1">//print(UIImagePickerController.isSourceTypeAvailable(.camera))//可以用if判断有没有摄像头</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">modalTransitionStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">flipHorizontal</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">allowsEditing</span> <span class="o">=</span> <span class="kc">true</span><span class="c1">//允许编辑</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="o">.</span><span class="n">camera</span><span class="c1">//数据来源为摄像头</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">videoMaximumDuration</span> <span class="o">=</span> <span class="mi">15</span> <span class="c1">//录制视频长度/秒</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="p">[</span><span class="s">"public.image"</span><span class="p">,</span><span class="s">"public.movie"</span><span class="p">]</span> <span class="c1">//允许的相机类型</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">videoQuality</span> <span class="o">=</span> <span class="o">.</span><span class="n">typeHigh</span><span class="c1">//视频质量</span>
+		<span class="n">imagePickerController</span><span class="o">.</span><span class="n">cameraCaptureMode</span> <span class="o">=</span> <span class="o">.</span><span class="n">photo</span> <span class="c1">//初始摄像头模式/拍照 摄像</span>
+		<span class="k">self</span><span class="o">.</span><span class="nf">present</span><span class="p">(</span><span class="n">imagePickerController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">){</span>
+			<span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+			<span class="nf">print</span><span class="p">(</span><span class="s">"ok"</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<p>其中用到摄像头，要到<code class="highlighter-rouge">Info.plist</code>中加上
+<code class="highlighter-rouge">Privacy - Camera Usage Description</code>
+向用户请求摄像头权限
+如果是录制视频还需要加上
+<code class="highlighter-rouge">Privacy - Microphone Usage Description</code>
+向用户请求录制视频声音
+没有以上两句会导致程序崩溃 并在命令框里显示错误信息</p>
+
+<blockquote>
+  <p>参考资料 : <a href="http://sunxiang0918.cn/2016/01/02/在IOS中使用swift调用系统相机/">参考资料</a></p>
+</blockquote>
+:ET

@@ -1,16 +1,8 @@
----
-layout: post
-tag: Note
-author: aiQG_
----
-
-
-这次尝试了调用摄像头
+I"i<p>这次尝试了调用摄像头
 //原来iOS Simulators 是没有摄像头的啊
-//于是用真机调试...
+//于是用真机调试…</p>
 
-文件 ```ViewController.swift```
-
+<pre><code class="language-ViewController.swift```">
 ```swift
 
 import UIKit
@@ -36,7 +28,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 		imagePickerController.videoQuality = .typeHigh//视频质量
 		imagePickerController.cameraCaptureMode = .photo //初始摄像头模式/拍照 摄像
 		self.present(imagePickerController, animated: true){
-			() -> Void in
+			() -&gt; Void in
 			print("ok")
 		}
 	}
@@ -44,12 +36,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 }
 
 
-```
+</code></pre>
 
-其中用到摄像头，要到 ```Info.plist```中加上 ```Privacy - Camera Usage Description ```
+<p>其中用到摄像头，要到<code class="highlighter-rouge">Info.plist</code>中加上
+<code class="highlighter-rouge">Privacy - Camera Usage Description</code>
 向用户请求摄像头权限
-如果是录制视频还需要加上 ```Privacy - Microphone Usage Description```
+如果是录制视频还需要加上
+<code class="highlighter-rouge">Privacy - Microphone Usage Description</code>
 向用户请求录制视频声音
-没有以上两句会导致程序崩溃 并在命令框里显示错误信息
+没有以上两句会导致程序崩溃 并在命令框里显示错误信息</p>
 
-- 参考资料 : [参考资料](http://sunxiang0918.cn/2016/01/02/在IOS中使用swift调用系统相机/)
+<blockquote>
+  <p>参考资料 : <a href="http://sunxiang0918.cn/2016/01/02/在IOS中使用swift调用系统相机/">参考资料</a></p>
+</blockquote>
+:ET
