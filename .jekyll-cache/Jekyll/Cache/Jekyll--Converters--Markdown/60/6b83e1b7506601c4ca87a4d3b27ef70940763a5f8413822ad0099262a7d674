@@ -1,0 +1,266 @@
+I"A
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/03/01/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B9%9D).html#0"> Swift 学习笔记(九) </a>
+  </div>
+  <div class="content">
+    <span>
+      终于把视频流的图片取出来了
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-03-01 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/02/24/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E5%85%AB).html#0"> Swift 学习笔记(八) </a>
+  </div>
+  <div class="content">
+    <span>
+      ios swift 多线程(队列)//这篇笔记是看了这篇文章后的总结
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-02-24 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/02/22/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-(%E4%B8%83).html#0"> Swift 学习笔记 (七) </a>
+  </div>
+  <div class="content">
+    <span>
+      //英语不好真遭罪啊
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-02-22 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/02/19/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-(%E5%85%AD).html#0"> Swift 学习笔记 (六) </a>
+  </div>
+  <div class="content">
+    <span>
+        as 用于强制转换类型```swift//类型一let a = 123 as CGFloatlet b = 1.2 as Int//类型二 派生类转换为基类class Base{}class Son: Base{}let s = ...
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-02-19 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/01/27/2019%E6%9D%AD%E7%94%B5hgame-%E9%83%A8%E5%88%86wp.html#0"> 2019杭电hgame 部分wp </a>
+  </div>
+  <div class="content">
+    <span>
+      Web
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-01-27 </span>
+    <span> 
+          
+          <small>
+            <em>
+              CTF
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/01/25/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-(%E4%BA%94).html#0"> Swift 学习笔记 (五) </a>
+  </div>
+  <div class="content">
+    <span>
+      //回来恶补基础知识…
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-01-25 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/01/22/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E5%9B%9B).html#0"> Swift 学习笔记(四) </a>
+  </div>
+  <div class="content">
+    <span>
+      这次尝试了调用摄像头//原来iOS Simulators 是没有摄像头的啊//于是用真机调试…
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-01-22 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/01/21/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%BA%8C).html#0"> Swift 学习笔记(二) </a>
+  </div>
+  <div class="content">
+    <span>
+        iOSApp(基于SpriteKit)用代码实现了基本场景//删除两个sks文件///GameScene.sks Actions.sks
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-01-21 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2019/01/21/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B8%89).html#0"> Swift 学习笔记(三) </a>
+  </div>
+  <div class="content">
+    <span>
+      在iOS上构建了两个基本按钮
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2019-01-21 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2018/11/30/Swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B8%80).html#0"> Swift 学习笔记(一) </a>
+  </div>
+  <div class="content">
+    <span>
+        import Cocoa //目前没用到
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2018-11-30 </span>
+    <span> 
+          
+          <small>
+            <em>
+              Note
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+<div id="post-li">
+  <div class="header">
+    <a id="urlLinkColor" href="/2018/08/02/cgctf%E9%83%A8%E5%88%86-write-up.html#0"> Cgctf部分 write up </a>
+  </div>
+  <div class="content">
+    <span>
+      CG-CTF2018.7  Welcome to http://aiqg.vip/  web      md5 collision看源代码      &lt;?php$md51 = md5('QNKCDZO');$a = @$_GET...
+    </span>
+  </div>
+  <div class="footer">
+    <span> 2018-08-02 </span>
+    <span> 
+          
+          <small>
+            <em>
+              CTF
+            </em>
+          </small>
+           
+           <p></p>
+    </span>
+  </div>
+</div>
+
+:ET

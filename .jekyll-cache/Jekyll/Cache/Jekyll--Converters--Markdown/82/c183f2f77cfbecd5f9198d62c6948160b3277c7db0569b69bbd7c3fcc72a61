@@ -1,0 +1,331 @@
+I"gn<h2 id="web">Web</h2>
+
+<ul>
+  <li>谁吃了我的flag
+  hint: 据当事人回忆，那个夜晚他正在用vim编写题目页面，似乎没有保存就关机睡觉去了,现在就是后悔，十分的后悔。</li>
+</ul>
+
+<p>根据提示可以知道这和vim的缓存文件有关
+vim会在编辑文件的时候生成一个.swp的缓存文件, 用于意外退出时恢复未保存的文件
+目的很明确 下载这个文件
+url后面加上/.index.html.swp下载.swp 用winhex打开即可找到flag</p>
+
+<ul>
+  <li>
+    <p>can u find me?</p>
+
+    <p>几个web基础知识
+f12找到f12.php 需要post密码
+可以在头里找到<code class="highlighter-rouge">password: woyaoflag</code>
+用Hackbarpost一个password=woyaoflag
+把得到的链接下载下来得到flag</p>
+  </li>
+</ul>
+
+<h2 id="re">Re</h2>
+
+<ul>
+  <li>brainfxxker</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;cctype&gt;
+</span>
+<span class="c1">// Orz... I haven't learnt C++ before.</span>
+<span class="c1">// It seems like my brain was fxxked by these codes...</span>
+
+<span class="c1">// Notice:</span>
+<span class="c1">// 1. the answer is your input when nothing strange was printed</span>
+<span class="c1">// 2. that is, wrong inputs will encounter with the part "[+.]"</span>
+<span class="c1">// 3. [!!!] REMEMBER TO WRAP YOUR ANSWER WITH "hgame{" AND "}"</span>
+<span class="c1">//    [!!!] BEFORE YOU SUBMITTED IT</span>
+
+<span class="c1">// oyiadin, Jan 18, 2019</span>
+<span class="c1">// enjoy it! ;)</span>
+
+<span class="k">namespace</span> <span class="n">bf</span> <span class="p">{</span>
+
+<span class="k">class</span> <span class="nc">Parser</span> <span class="p">{</span>
+ <span class="nl">public:</span>
+  <span class="n">Parser</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="o">~</span><span class="n">Parser</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">execute</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+
+ <span class="nl">protected:</span>
+  <span class="kt">uint8_t</span> <span class="n">data</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">ptr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="kt">void</span> <span class="n">Parser</span><span class="o">::</span><span class="n">execute</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">buf</span><span class="p">.</span><span class="n">cbegin</span><span class="p">();</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">buf</span><span class="p">.</span><span class="n">cend</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="sc">'&gt;'</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">ptr</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">'&lt;'</span><span class="p">:</span>
+        <span class="o">--</span><span class="n">ptr</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">'+'</span><span class="p">:</span>
+        <span class="o">++</span><span class="n">data</span><span class="p">[</span><span class="n">ptr</span><span class="p">];</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">'-'</span><span class="p">:</span>
+        <span class="o">--</span><span class="n">data</span><span class="p">[</span><span class="n">ptr</span><span class="p">];</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">'.'</span><span class="p">:</span>
+        <span class="n">putchar</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">ptr</span><span class="p">]);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">','</span><span class="p">:</span>
+        <span class="k">while</span> <span class="p">((</span><span class="n">data</span><span class="p">[</span><span class="n">ptr</span><span class="p">]</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">())</span> <span class="o">==</span> <span class="sc">'\n'</span><span class="p">)</span> <span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">'['</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">[</span><span class="n">ptr</span><span class="p">])</span> <span class="p">{</span>
+          <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="o">++</span> <span class="o">!=</span> <span class="sc">']'</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+          <span class="o">--</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="sc">']'</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">ptr</span><span class="p">])</span> <span class="p">{</span>
+          <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="sc">'['</span><span class="p">)</span> <span class="o">--</span><span class="n">i</span><span class="p">;</span>
+          <span class="o">--</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="nl">default:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">bf</span><span class="o">::</span><span class="n">Parser</span> <span class="n">parser</span><span class="p">;</span>
+  <span class="n">parser</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">",&gt;++++++++++[&lt;----------&gt;-]&lt;++[+.],&gt;+++++++++[&lt;---------&gt;-]&lt;-[+.],&gt;+++++++[&lt;-------&gt;-]&lt;---[+.],&gt;++++++[&lt;------&gt;-]&lt;+++[+.],&gt;++++++++[&lt;----------&gt;-]&lt;++[+.],&gt;++++++++++[&lt;----------&gt;-]&lt;--[+.],&gt;++++++++++[&lt;--------&gt;-]&lt;-----[+.],&gt;++++++++++[&lt;----------&gt;-]&lt;+[+.],&gt;+++++++++[&lt;--------&gt;-]&lt;---[+.]"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>有点像一个vm 直接编译可以运行
+随便输入一点东西会返回一堆连续的字符
+尝试将指令整理一下 可以发现当最后需要操作的字符为0x00时会停止当前打印字符串的循环
+尝试让其只循环一次 构造出几个方程 解方程可得flag</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,&gt;++++++++++  [&lt;----------&gt;-]       &lt;++			[+.]	x-10*10+2=0		b
+,&gt;+++++++++   [&lt;---------&gt;-]        &lt;-			[+.] 	x-9*9-1=0		R
+,&gt;+++++++     [&lt;-------&gt;-]          &lt;---		[+.]	x-7*7-3=0		4
+,&gt;++++++      [&lt;------&gt;-]           &lt;+++		[+.]	x-6*6+3=0		!
+,&gt;++++++++    [&lt;----------&gt;-]       &lt;++			[+.]	x-8*10+2=0		N
+,&gt;++++++++++  [&lt;----------&gt;-]       &lt;--			[+.]	x-100-2=0		f
+,&gt;++++++++++  [&lt;--------&gt;-]         &lt;-----		[+.]	x-10*8-5=0		U
+,&gt;++++++++++  [&lt;----------&gt;-]       &lt;+			[+.]	x-100+1=0		c
+,&gt;+++++++++   [&lt;--------&gt;-]			&lt;---		[+.]	x-9*8-3=0		K
+</code></pre></div></div>
+
+<ul>
+  <li>わかります</li>
+</ul>
+
+<p>程序把输入分成了高低位两个数组
+都是6 * 6的矩阵 低位和一个已知矩阵进行加运算 高位进行乘运算
+最后进行明文对比
+低位减回去 高位求个逆乘回去 然后重新组合一下即可求出flag</p>
+
+<ul>
+  <li>ShinyShot!</li>
+</ul>
+
+<p>//ida里看到两个tls, 应该是反调试的, 但是似乎没起作用…
+程序最后要满足一个<code class="highlighter-rouge">strcmp</code>
+其中一个字符串来自程序最后0x20个字节
+程序一共有两个输入 第一个是int 被传入了<code class="highlighter-rouge">sub_401460</code> 里面有两个 <code class="highlighter-rouge">VirtualProtect</code>
+发现并不是SMC, 只是中间异或了401000某偏移的某一值
+再往下程序fgets了一个长度为22的字符串 然后丢到<code class="highlighter-rouge">sub_4014fa</code>里
+进入<code class="highlighter-rouge">sub_4014fa</code>看起来像一个base64编码的过程
+shift+F12查找到加密表, 显然不是标准的base64</p>
+<pre><code class="language-sub_4014fa```最后将编码出来的字符串前后异或了一下">这里似乎编码后的字符串没有用到, 开始动态分析
+这里运行程序程序随便输入一个(无符号整)数(不大于131072) 和一个长22到字符串, 发现程序会崩溃
+
+动态分析看看程序崩溃在了哪里
+od依靠字符串定位到main函数 第一次同样随便输入一个数
+往下步过到0x4018de的地方发现一个无条件跳转, 直接跳到了0x4018f5的call sub_4014fa //进入了base编码的函数
+显然函数没有传参因此导致了崩溃
+我们重新设置一下EIP, 程序成功得到了编码后的字符串, 并与程序二进制文件最后0x20个字符进行strcmp
+
+这里先将已知的字符串xor回来
+```C++
+	for ( int i = 32; i&gt;0; --i )
+	{
+		s[i] ^= s[i-1];
+	}
+</code></pre>
+<p>再对换表base解码//工具: RandomBase64 可以自定义密码表
+得到flag前半部分
+输入的整数要把0x4018df处的0x15修改成0x05
+整数»3后是偏移0x8df,  1 « (整数 &amp; 7)是拿来和0x15异或的
+所以得到整数是(0x8df«3) + 4       //0x15^0x5== 0x10 ==1«4
+得到整数0x46fc == 18172</p>
+
+<ul>
+  <li>brainfxxker’s revenge</li>
+</ul>
+
+<p>又是一个brainfxxk
+足足上千个符号, 显然不可能一个个看懂的//当然也不可能个个都有意义
+稍微读几个, 发现&gt;和&lt;, +和- 是互逆的操作, 所以删掉所有的<code class="highlighter-rouge">&lt;&gt;</code> <code class="highlighter-rouge">&gt;&lt;</code> <code class="highlighter-rouge">+-</code> <code class="highlighter-rouge">-+</code>这几个组合, 基本上化简了很多
+运行程序发现程序需要输入很多的字符, 然后会有提示信息”wrong answer!” or “congratulations!”
+在switch下个断点, 发现程序没有执行<code class="highlighter-rouge">case '.': putchar(*ptr);</code>这一句, 说明还有花代码
+但是程序获取输入可以确定是 ‘ , ‘ 号, 但是一搜索发现足足有上千个//显然不会每个都执行
+再观察最后输出反馈信息的语句, 发现判断了data一个标识位是否有值
+在最后的<code class="highlighter-rouge">default: putchar(*i);</code>下个断点, 观察data数组
+可以看见判断了data[0] 如果有值就输出”wrong answer!”, 并且data[0]的值可能会随不同的输入变大或变小//能猜到如果输入正确则data[0]不加1///构造hgame开头的字符串可以验证
+下断点稍微跟程序跑一下, 发现每一次输入主要依靠,&gt;++…
+在前面加个换行整理一下, 一共72行//正好就是data[0]的最大值, 也是输入的字符串长度
+//其中<code class="highlighter-rouge">[-]</code>这个结构是用来归零循环标志位的
+把没有进入的循环删除掉
+再稍微整理一下得到</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;
+,&gt;++++++++		[&lt;-------------&gt;-]&lt;//h
+,&gt;++++++++		[&lt;------------&gt;-]&lt;-------//g
+,&gt;++++++++		[&lt;------------&gt;-]&lt;-//a
+,&gt;++++++		[&lt;------------------&gt;-]&lt;-//m
+,&gt;++++++		[&lt;----------------&gt;-]&lt;-----//e
+,&gt;++++++++		[&lt;---------------&gt;-]&lt;---//{
+,&gt;++++++++++	[&lt;----------&gt;-]//d
+,&gt;++++++++++	[&lt;----------&gt;-]&lt;--//f
+,&gt;++++++++++	[&lt;-----&gt;-]&lt;---//5
+,&gt;+++++++		[&lt;--------&gt;-]&lt;-//9
+,&gt;++++++		[&lt;-----------------&gt;-]&lt;//f
+,&gt;+++++++		[&lt;-------&gt;-]&lt;------//7
+,&gt;+++++++		[&lt;--------------&gt;-]&lt;//b
+,&gt;+++++			[&lt;-------------------&gt;-]&lt;--//a
+,&gt;++++++++++	[&lt;----------&gt;-]&lt;//d
+,&gt;++++++		[&lt;--------&gt;-]&lt;---//3
+......
+</code></pre></div></div>
+<p>得到flag</p>
+
+<h2 id="misc">misc</h2>
+
+<ul>
+  <li>Try</li>
+</ul>
+
+<p>得到一个数据包
+筛选出http 找到包含zip的包, 选定media type的位置, 点击file-&gt;export selected Packet Bytes, 在弹出的框中将文件保存成二进制文件</p>
+
+<p>一个password.txt和一个带密码的压缩包
+掩码爆破hgame????????得到压缩包密码 
+解压出一张图片 binwalk可以发现有个压缩包 提取出来是伪加密 改一下标识位
+得到.docx 把docx解压找到word文件夹 有个文件里有flag</p>
+
+<h2 id="crypto">Crypto</h2>
+
+<ul>
+  <li>perfect_secrecy!</li>
+</ul>
+
+<p>一个py脚本 flag和 poem.txt 未知
+提示OTP(一次性密码)
+题中多次用一个随机密码按位异或明文
+因此密文相互异或就可以干掉一次性密码
+然后分析出明文
+git上找到脚本</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python
+## OTP - Recovering the private key from a set of messages that were encrypted w/ the same private key (Many time pad attack) - crypto100-many_time_secret @ alexctf 2017
+# Original code by jwomers: https://github.com/Jwomers/many-time-pad-attack/blob/master/attack.py)
+</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">sets</span><span class="p">,</span> <span class="n">sys</span>
+
+<span class="c1"># 11 unknown ciphertexts (in hex format), all encrpyted with the same key
+</span><span class="n">c1</span><span class="o">=</span><span class="s">'daaa4b4e8c996dc786889cd63bc4df4d1e7dc6f3f0b7a0b61ad48811f6f7c9bfabd7083c53ba54'</span>
+<span class="n">c2</span><span class="o">=</span><span class="s">'c5a342468c8c7a88999a9dd623c0cc4b0f7c829acaf8f3ac13c78300b3b1c7a3ef8e193840bb'</span>
+<span class="n">c3</span><span class="o">=</span><span class="s">'dda342458c897a8285df879e3285ce511e7c8d9afff9b7ff15de8a16b394c7bdab920e7946a05e9941d8308e'</span>
+<span class="n">c4</span><span class="o">=</span><span class="s">'d9b05b4cd5ce7c8f938bd39e24d0df191d7694dfeaf8bfbb56e28900e1b8dff1bb985c2d5aa154'</span>
+<span class="n">c5</span><span class="o">=</span><span class="s">'d9aa4b00c88b7fc79d99d38223c08d54146b88d3f0f0f38c03df8d52f0bfc1bda3d7133712a55e9948c32c8a'</span>
+<span class="n">c6</span><span class="o">=</span><span class="s">'c4b60e46c9827cc79e9698936bd1c55c5b6e87c8f0febdb856fe8052e4bfc9a5efbe5c3f57ad4b9944de34'</span>
+<span class="n">c7</span><span class="o">=</span><span class="s">'d9aa5700da817f94d29e81936bc4c1555b7b94d5f5f2bdff37df8252ffbecfb9bbd7152a12bc4fc00ad7229090'</span>
+<span class="n">c8</span><span class="o">=</span><span class="s">'c4e24645cd9c28939a86d3982ac8c819086989d1fbf9f39e18d5c601fbb6dab4ef9e12795bbc549959d9229090'</span>
+<span class="n">c9</span><span class="o">=</span><span class="s">'d9aa4b598c80698a97df879e2ec08d5b1e7f89c8fbb7beba56f0c619fdb2c4bdef8313795fa149dc0ad4228f'</span>
+<span class="n">c10</span><span class="o">=</span><span class="s">'cce25d48d98a6c8280df909926c0de19143983c8befab6ff21d99f52e4b2daa5ef83143647e854d60ad5269c87'</span>
+<span class="n">c11</span><span class="o">=</span><span class="s">'d9aa4b598c85668885df9d993f85e419107783cdbee3bbba1391b11afcf7c3bfaa805c2d5aad42995ede2cdd82977244'</span>
+<span class="n">ciphers</span> <span class="o">=</span> <span class="p">[</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">,</span> <span class="n">c4</span><span class="p">,</span> <span class="n">c5</span><span class="p">,</span> <span class="n">c6</span><span class="p">,</span> <span class="n">c7</span><span class="p">,</span> <span class="n">c8</span><span class="p">,</span> <span class="n">c9</span><span class="p">,</span> <span class="n">c10</span><span class="p">,</span> <span class="n">c11</span><span class="p">]</span>
+<span class="c1"># The target ciphertext we want to crack
+</span>
+<span class="c1"># XORs two string
+</span><span class="k">def</span> <span class="nf">strxor</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>     <span class="c1"># xor two strings (trims the longer input)
+</span>    <span class="k">return</span> <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)])</span>
+
+<span class="k">def</span> <span class="nf">target_fix</span><span class="p">(</span><span class="n">target_cipher</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">'-------begin-------'</span>
+
+    <span class="c1"># To store the final key
+</span>    <span class="n">final_key</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="o">*</span><span class="mi">150</span>
+    <span class="c1"># To store the positions we know are broken
+</span>    <span class="n">known_key_positions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># For each ciphertext
+</span>    <span class="k">for</span> <span class="n">current_index</span><span class="p">,</span> <span class="n">ciphertext</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ciphers</span><span class="p">):</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="c1"># for each other ciphertext
+</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">ciphertext2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ciphers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">current_index</span> <span class="o">!=</span> <span class="n">index</span><span class="p">:</span> <span class="c1"># don't xor a ciphertext with itself
+</span>                <span class="k">for</span> <span class="n">indexOfChar</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">strxor</span><span class="p">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">),</span> <span class="n">ciphertext2</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">))):</span> <span class="c1"># Xor the two ciphertexts
+</span>                    <span class="c1"># If a character in the xored result is a alphanumeric character, it means there was probably a space character in one of the plaintexts (we don't know which one)
+</span>                    <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">printable</span> <span class="ow">and</span> <span class="n">char</span><span class="o">.</span><span class="n">isalpha</span><span class="p">():</span> <span class="n">counter</span><span class="p">[</span><span class="n">indexOfChar</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># Increment the counter at this index
+</span>        <span class="n">knownSpaceIndexes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Loop through all positions where a space character was possible in the current_index cipher
+</span>        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">counter</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># If a space was found at least 7 times at this index out of the 9 possible XORS, then the space character was likely from the current_index cipher!
+</span>            <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">:</span> <span class="n">knownSpaceIndexes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+        <span class="c1">#print knownSpaceIndexes # Shows all the positions where we now know the key!
+</span>
+        <span class="c1"># Now Xor the current_index with spaces, and at the knownSpaceIndexes positions we get the key back!
+</span>        <span class="n">xor_with_spaces</span> <span class="o">=</span> <span class="n">strxor</span><span class="p">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">),</span><span class="s">' '</span><span class="o">*</span><span class="mi">150</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">knownSpaceIndexes</span><span class="p">:</span>
+            <span class="c1"># Store the key's value at the correct position
+</span>            <span class="n">final_key</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">xor_with_spaces</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">)</span>
+            <span class="c1"># Record that we known the key at this position
+</span>            <span class="n">known_key_positions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="c1"># Construct a hex key from the currently known key, adding in '00' hex chars where we do not know (to make a complete hex string)
+</span>    <span class="n">final_key_hex</span> <span class="o">=</span> <span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">val</span> <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="s">'00'</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">final_key</span><span class="p">])</span>
+    <span class="c1"># Xor the currently known key with the target cipher
+</span>    <span class="n">output</span> <span class="o">=</span> <span class="n">strxor</span><span class="p">(</span><span class="n">target_cipher</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">),</span><span class="n">final_key_hex</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'hex'</span><span class="p">))</span>
+
+    <span class="k">print</span> <span class="s">"Fix this sentence:"</span>
+    <span class="k">print</span> <span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">char</span> <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">known_key_positions</span> <span class="k">else</span> <span class="s">'*'</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">output</span><span class="p">)])</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+
+    <span class="c1"># WAIT.. MANUAL STEP HERE 
+</span>    <span class="c1"># This output are printing a * if that character is not known yet
+</span>    <span class="c1"># fix the missing characters like this: "Let*M**k*ow if *o{*a" = "cure, Let Me know if you a"
+</span>    <span class="c1"># if is too hard, change the target_cipher to another one and try again
+</span>    <span class="c1"># and we have our key to fix the entire text!
+</span>
+    <span class="c1">#sys.exit(0) #comment and continue if u got a good key
+</span>
+  
+
+    <span class="k">print</span> <span class="s">'------end------'</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ciphers</span><span class="p">:</span>
+    <span class="n">target_fix</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+<p>这里只选用了11行密文进行修复
+可以发现其中</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------begin-------
+Fix this sentence:
+*hen*we two parted In silence *n* tear*
+
+------end------
+</code></pre></div></div>
+<p>能基本识别出正常含义
+谷歌这句话 发现是一首由乔治·戈登·拜伦创作的诗歌《When We Two Parted》中的第一句话</p>
+<blockquote>
+  <p>When we two parted in silence and tears</p>
+</blockquote>
+
+<p>那么一条明文出来了 把这句话和第一条密文按位异或 就可以推出随机的密钥了</p>
+
+<p>最后拿密钥按位异或被加密的flag 得到flag</p>
+
+:ET

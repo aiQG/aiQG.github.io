@@ -1,0 +1,81 @@
+I"C,<p>终于把视频流的图片取出来了</p>
+
+<p>先构建session设置输入输出</p>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+		
+		<span class="k">let</span> <span class="nv">session</span> <span class="o">=</span> <span class="kt">AVCaptureSession</span><span class="p">()</span> <span class="c1">//创建会话</span>
+		<span class="k">let</span> <span class="nv">device</span> <span class="o">=</span> <span class="kt">AVCaptureDevice</span><span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span><span class="o">.</span><span class="n">builtInWideAngleCamera</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">video</span><span class="p">,</span> <span class="nv">position</span><span class="p">:</span> <span class="o">.</span><span class="n">back</span><span class="p">)</span> <span class="c1">//选择设备</span>
+		
+		<span class="c1">//设置输入</span>
+		<span class="k">do</span> <span class="p">{</span>
+			<span class="k">let</span> <span class="nv">videoInput</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">AVCaptureDeviceInput</span><span class="p">(</span><span class="nv">device</span><span class="p">:</span> <span class="n">device</span><span class="o">!</span><span class="p">)</span>
+			<span class="n">session</span><span class="o">.</span><span class="nf">addInput</span><span class="p">(</span><span class="n">videoInput</span><span class="p">)</span>
+		<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+			<span class="nf">print</span><span class="p">(</span><span class="s">"error"</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="c1">//设置输出</span>
+		<span class="k">let</span> <span class="nv">videoOutput</span> <span class="o">=</span> <span class="kt">AVCaptureVideoDataOutput</span><span class="p">()</span> <span class="c1">//相当于截获输出🔴可以访问帧</span>
+		
+		<span class="c1">//这里设置了回调队列才可以让下面的captureOutput函数能够同时运行</span>
+		<span class="k">let</span> <span class="nv">myQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="p">(</span><span class="nv">label</span><span class="p">:</span> <span class="s">"myQueue"</span><span class="p">)</span><span class="c1">//设置队列</span>
+		<span class="n">videoOutput</span><span class="o">.</span><span class="nf">setSampleBufferDelegate</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">queue</span><span class="p">:</span> <span class="n">myQueue</span><span class="p">)</span><span class="c1">//回调</span>
+		
+		<span class="n">session</span><span class="o">.</span><span class="nf">addOutput</span><span class="p">(</span><span class="n">videoOutput</span><span class="p">)</span>
+		
+		<span class="c1">//对于UIView控件要设置预览层//相当于图层. 可以多个图层叠加</span>
+		<span class="k">let</span> <span class="nv">ViewLayer</span> <span class="o">=</span> <span class="kt">AVCaptureVideoPreviewLayer</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="n">session</span><span class="p">)</span> <span class="c1">//设置预览层</span>
+		<span class="kt">ViewLayer</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">myView</span><span class="o">!.</span><span class="n">bounds</span>
+		<span class="n">myView</span><span class="p">?</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="nf">addSublayer</span><span class="p">(</span><span class="kt">ViewLayer</span><span class="p">)</span>
+
+		<span class="k">self</span><span class="o">.</span><span class="n">mySession</span> <span class="o">=</span> <span class="n">session</span> <span class="c1">//会话传到外部变量中</span>
+	<span class="p">}</span>
+	
+	<span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">myView2</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span>
+	<span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">myView</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?</span> <span class="c1">//视窗</span>
+	<span class="c1">//按钮</span>
+	<span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">myButton</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">self</span><span class="o">.</span><span class="n">mySession</span><span class="o">!.</span><span class="nf">startRunning</span><span class="p">()</span>
+	<span class="p">}</span>
+	<span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">myBt2</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">self</span><span class="o">.</span><span class="n">mySession</span><span class="o">!.</span><span class="nf">stopRunning</span><span class="p">()</span>
+	<span class="p">}</span>
+	
+	<span class="c1">//这个函数会在俘获到每一帧运行. sampleBuffer参数就是多媒体缓存</span>
+	<span class="kd">func</span> <span class="nf">captureOutput</span><span class="p">(</span><span class="n">_</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">AVCaptureOutput</span><span class="p">,</span> <span class="n">didOutput</span> <span class="nv">sampleBuffer</span><span class="p">:</span> <span class="kt">CMSampleBuffer</span><span class="p">,</span> <span class="n">from</span> <span class="nv">connection</span><span class="p">:</span> <span class="kt">AVCaptureConnection</span><span class="p">)</span> <span class="p">{</span>
+		
+		<span class="c1">//取出图片缓存</span>
+		<span class="k">guard</span> <span class="k">let</span> <span class="nv">pixelBuffer</span> <span class="o">=</span> <span class="kt">CMSampleBufferGetImageBuffer</span><span class="p">(</span><span class="n">sampleBuffer</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"提取图片失败"</span><span class="p">)</span>
+			<span class="k">return</span> <span class="p">}</span>
+	
+		
+		<span class="k">let</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="nf">convert</span><span class="p">(</span><span class="nv">pixelBuffer</span><span class="p">:</span> <span class="n">pixelBuffer</span><span class="p">)</span> <span class="c1">//CVImageBuffer转换成UIImage</span>
+			<span class="c1">//设置图片角度</span>
+			<span class="k">let</span> <span class="nv">jiaodu</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">imageOrientation</span><span class="o">.</span><span class="n">rawValue</span> <span class="o">+</span> <span class="mi">3</span>
+			<span class="k">let</span> <span class="nv">okimage</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">cgImage</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">cgImage</span><span class="o">!</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="nv">orientation</span><span class="p">:</span><span class="kt">UIImage</span><span class="o">.</span><span class="kt">Orientation</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="n">jiaodu</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
+		<span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">sync</span> <span class="p">{</span>
+		<span class="c1">//这里是UIImageView控件, 只能放一张图//不存在多图层//要想在图上画画必须重新绘制图片</span>
+			<span class="k">self</span><span class="o">.</span><span class="n">myView2</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">okimage</span> <span class="c1">//更新UI</span>
+		<span class="p">}</span>
+		
+		
+	<span class="p">}</span>
+	
+	<span class="c1">//CVImageBuffer-&gt;CIImage-&gt;CGImage-&gt;UIImage</span>
+	<span class="kd">func</span> <span class="nf">convert</span><span class="p">(</span><span class="nv">pixelBuffer</span><span class="p">:</span><span class="kt">CVImageBuffer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span>
+	<span class="p">{</span>
+		<span class="k">let</span> <span class="nv">ciimage</span><span class="p">:</span> <span class="kt">CIImage</span> <span class="o">=</span> <span class="kt">CIImage</span><span class="p">(</span><span class="nv">cvImageBuffer</span><span class="p">:</span> <span class="n">pixelBuffer</span><span class="p">)</span>
+		<span class="k">let</span> <span class="nv">context</span><span class="p">:</span><span class="kt">CIContext</span> <span class="o">=</span> <span class="kt">CIContext</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">options</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+		<span class="k">let</span> <span class="nv">cgImage</span><span class="p">:</span><span class="kt">CGImage</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="nf">createCGImage</span><span class="p">(</span><span class="n">ciimage</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="n">ciimage</span><span class="o">.</span><span class="n">extent</span><span class="p">)</span><span class="o">!</span>
+		<span class="k">let</span> <span class="nv">image</span><span class="p">:</span><span class="kt">UIImage</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">cgImage</span><span class="p">:</span> <span class="n">cgImage</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="n">image</span>
+	<span class="p">}</span>
+	
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>////readLine()读取用户输入 返回可选类型</p>
+:ET
