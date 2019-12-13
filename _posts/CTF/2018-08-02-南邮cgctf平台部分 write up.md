@@ -4,6 +4,7 @@ tag: CTF
 author: aiQG_
 ---
 
+[My_CSDN_Blog](blog.csdn.net/qq_42863361)
 [CG-CTF](https://cgctf.nuptsast.com/)
 2018.7
 >Welcome to http://aiqg.vip/
@@ -45,7 +46,7 @@ nctf{follow_me_to_exploit}
 ---
 ·这题不是web
 打开看到一奇怪的图片
-![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL2NoaW5hbG92ZXIuc2luYWFwcC5jb20vd2ViMi8yLmdpZg)
+![这里写图片描述](https://i.imgur.com/anihqQY.gif)
 下载下来用文本打开
 最后一行
 nctf{photo_can_also_hid3_msg} 
@@ -54,29 +55,29 @@ nctf{photo_can_also_hid3_msg}
 - 层层递进
 打开似乎看到一大堆广告
 查看Network发现一个奇怪的404.html
-![这里写图片描述](https://img-blog.csdn.net/20180802160917899?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/hNvovtZ.png)
 进去看源码
-![这里写图片描述](https://img-blog.csdn.net/20180802160956252?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/BfaxFyc.png)
 nctf{this_is_a_fl4g}
 
 ---
 - AAencode
 js的aa加密 打开时一堆表情+乱码￼
-![这里写图片描述](https://img-blog.csdn.net/20180802161044800?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/C0B1Z6z.png)
 (若都是表情则省去下面一步 具体情况因人而异)
 下载此页￼￼
-![这里写图片描述](https://img-blog.csdn.net/20180802161109368?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-![这里写图片描述](https://img-blog.csdn.net/20180802161125503?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/VceRIBM.png)
+![这里写图片描述](https://i.imgur.com/V828vlE.png)
 随便找一个网站解去
-![这里写图片描述](https://img-blog.csdn.net/20180802161202507?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/LOSwRbW.png)
 nctf{javascript_aaencode}
 
 ---
 - 单身二十年
 点击链接很明显发生了一个跳转
 直接下载链接地址
-![这里写图片描述](https://img-blog.csdn.net/20180802161251546?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-![这里写图片描述](https://img-blog.csdn.net/20180802161301985?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/VGsDDxU.png)
+![这里写图片描述](https://i.imgur.com/YFjCJ9B.png)
 搞定
 nctf{yougotit_script_now}
 
@@ -96,13 +97,13 @@ Tip :https://www.cnblogs.com/wh4am1/p/6542398.html
 用base64编码index.php后输出
 令file=php://filter/read=convert.base64-encode/resource=index.php
 再拿去解码￼
-![这里写图片描述](https://img-blog.csdn.net/20180802161444147?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/3oWLbaB.png)
 nctf{edulcni_elif_lacol_si_siht}
 
 ---
 - 单身一百年也没用
 点开链接 发现响应头里藏着flag
-![这里写图片描述](https://img-blog.csdn.net/20180802161721489?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/w9h7lOf.png)
 nctf{this_is_302_redirect}
 
 ---
@@ -110,7 +111,7 @@ nctf{this_is_302_redirect}
 点开链接发现请求头
 Cookie:Login=0
 根据tip将0改成1￼
-![这里写图片描述](https://img-blog.csdn.net/2018080216160889?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/R5ytPx8.png)
 
 nctf{cookie_is_different_from_session}
 
@@ -119,35 +120,35 @@ nctf{cookie_is_different_from_session}
 - MYSQL
  科普了robots协议
 进入robots.txt看看(别少了s别少了s别少了s)￼
-![这里写图片描述](https://img-blog.csdn.net/20180802161836282?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/PcyHbWe.png)
 发现源代码
 发现1024为判断关键
 分析
 GET到的id不能为1024
 保留整数后id为1024￼
-![这里写图片描述](https://img-blog.csdn.net/20180802161859185?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/9qjxufJ.png)
 nctf{query_in_mysql}
 
 ---
 - sql injection 3
-![这里写图片描述](https://img-blog.csdn.net/20180802162106808?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/nPcIpKB.png)
 看到id=1
 就想试试234...
-![id=2](https://img-blog.csdn.net/20180802162156101?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-![id=3](https://img-blog.csdn.net/20180802162215375?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![id=2](https://i.imgur.com/soDKbpw.png)
+![id=3](https://i.imgur.com/jwZ5Ree.png)
 得到提示 gbk
 输入id='
 ('=%27; #=%23; 空格=%20)￼
-![id='](https://img-blog.csdn.net/20180802162332677?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![id='](https://i.imgur.com/Vwseku9.png)
 被转义掉了
 构造宽字节,用来闭合单引号(低位为%27即可 )
 令id=%ee%27
 出现warning 说明思路正确
 最后加上#（%23）把后面的语句注释掉 运行正常￼
-![这里写图片描述](https://img-blog.csdn.net/20180802162405527?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/p35FHoF.png)
 接下来就是union select了
 先找到返回的是哪个字段 (1,2,3,666什么的多试几次)￼
-![这里写图片描述](https://img-blog.csdn.net/2018080216244179?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/DmzQ1Nx.png)
 将该字段替换成要查找的内容..
 
 [Union select 手工注入](https://www.cnblogs.com/ermei/p/7929501.html)
@@ -162,20 +163,20 @@ nctf{query_in_mysql}
 查看库中所有表
 >id=%ee%27union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()%23￼
 
-![这里写图片描述](https://img-blog.csdn.net/20180802163046930?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/BvjXKJ0.png)
 可以看到一共五个库,之前id=3时返回的"the fourth table"明显提示了flag在ctf4中
 再看看ctf4中有哪些列
 >id=%ee%27union select 1,group_concat(column_name) from information_schema.columns where table_name=0x63746634%23
 
 (其中0x63746634是ctf4的16进制gbk编码 [转码网站](http://www.mytju.com/classcode/tools/encode_gb2312.asp))
-![这里写图片描述](https://img-blog.csdn.net/20180802163532601?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/HZQnbIJ.png)
 flag！
  
 在ctf4中搜索flag
 令
 >id=%ee%27union select 1,flag from ctf4%23
 
-![这里写图片描述](https://img-blog.csdn.net/20180802163618682?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/I4e9unp.png)
 总的来说就是 爆库 爆表 爆字段(列)
 nctf{gbk_3sqli}
  
@@ -202,7 +203,7 @@ nctf{gbk_3sqli}
 必须输入数字  必须包含#biubiubiu
 题目提示了00截断
 令nctf=666%00%23biubiubiu (%23为#)￼
-![这里写图片描述](https://img-blog.csdn.net/20180802164056978?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/RtoWePN.png)
 nctf{use_00_to_jieduan}
 
 ---
@@ -238,7 +239,7 @@ nctf{php_is_so_cool}
 ```
 POST方式提交 
 pass==thepassword_123输出flag
-![这里写图片描述](https://img-blog.csdn.net/2018080216474973?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/3FUi9Rq.png)
 nctf{bian_liang_fu_gai!}
 
 ---
@@ -266,7 +267,7 @@ echo $query[user];
 ```
 只需要user==admin 
 令user=admin’)#￼
-![这里写图片描述](https://img-blog.csdn.net/2018080216492785?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/1x5HGk4.png)
 nctf{ni_ye_hui_sql?}
 
 ---
@@ -289,7 +290,7 @@ echo "please input pass!";
 ```
 要满足!strcmp($pass,$pass1)
 让strcmp 返回0 即可(比较非字符串时会返回0 )￼
-![这里写图片描述](https://img-blog.csdn.net/20180802165044942?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/ywUg1Vm.png)
 nctf{strcmp_is_n0t_3afe}
 
 ---
@@ -322,7 +323,7 @@ number =='54975581388'
 那么只能是0和字母
 而且是个整数
 那么就是十六进制数了￼
-![这里写图片描述](https://img-blog.csdn.net/20180802165330351?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/7lpvDfo.png)
 nctf{follow_your_dream}
 
 ---
@@ -333,7 +334,7 @@ jother编码
 访问此文件的响应头有tip:history of bash
 百度一下 是bash的history文件
 进入发现flag 下载即可￼
-![这里写图片描述](https://img-blog.csdn.net/20180802165445735?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/GmMda6D.png)
 nctf{bash_history_means_what}
 
 ---
@@ -370,7 +371,7 @@ ntcf{union_select_is_wtf}
 input 28 1
 其中1是计数变量
 读两遍汇编基本就知道函数在干什么了
-![这里写图片描述](https://img-blog.csdn.net/20180802182418460?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/Mq4MPVh.png)
 flag{read_asm_is_the_basic}
 
 ---
@@ -400,16 +401,16 @@ else:
 ```
 flag经过encode后是correct
 反过来做一遍就好了
-![这里写图片描述](https://img-blog.csdn.net/20180803095856294?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/Gu6VCML.png)
 
 nctf{d3c0mpil1n9_PyC}
 
 ---
 - WxyVM
 丢到ida里F5()
-![这里写图片描述](https://img-blog.csdn.net/20180803150732203?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/j34kFXb.png)
 加密函数 sub_4005b6
-![这里写图片描述](https://img-blog.csdn.net/20180803150901837?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![这里写图片描述](https://i.imgur.com/L4lTxb9.png)
 
 输入被一个数组加密
 数组的第n个元素选择运算方式（加减乘异或）
@@ -491,7 +492,7 @@ nctf{Embr4ce_Vm_j0in_R3}
 - Single
 //开始没注意到single啥意思..走了很多弯路......
 丢到IDA里
-![在这里插入图片描述](https://img-blog.csdn.net/20180929212049784?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/zRCBF4R.png)
 
 发现三个子函数
 ```C++
@@ -634,9 +635,9 @@ sub_400AD4_2//检查每一列
 sub_400AD4_3//检查每一宫
 
 数独表就是那个unk_602080
-![在这里插入图片描述](https://img-blog.csdn.net/20180929214024312?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/9CEwzjZ.png)
 百度在线解数独...
-![在这里插入图片描述](https://img-blog.csdn.net/2018092921414245?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/EAMKeVn.png)
 灰色的数字是题目中的，在flag中灰色为0
 横着一行行拼接成flag
 
@@ -644,8 +645,8 @@ sub_400AD4_3//检查每一宫
 
 - 480小时精通C++
 //这题学到了很多东西...
-丢到ida里一脸懵B:![在这里插入图片描述](https://img-blog.csdn.net/20181002161058765?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-![在这里插入图片描述](https://img-blog.csdn.net/20181002160931113?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+丢到ida里一脸懵B:![在这里插入图片描述](https://i.imgur.com/j6iEq4m.png)
+![在这里插入图片描述](https://i.imgur.com/WjTKbeA.png)
  
  //那么多的加密函数主函数里怎么没有调用？(v6 v7 v8 v9 v10的字符串不是flag)
  然后把v6~v10的字符串提出来用各种姿势跑了 StringEncryptFunction()    //然鹅并没有什么X用
@@ -653,14 +654,14 @@ sub_400AD4_3//检查每一宫
  才知道这是叫Self-Modifying Code(SMC) (感谢人人人)
  >[浅析SMC技术](https://blog.csdn.net/whatday/article/details/7265931)
 
-![在这里插入图片描述](https://img-blog.csdn.net/20181002161506469?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/EJwsVtD.png)
 
 这样就需要把程序跑起来 让他自己还原自己了
 然鹅在win上跑不了elf 所以在linux上用ida远程调试
 [IDA远程调试(elf文件)设置](https://blog.csdn.net/qq_42863361/article/details/82927093)
-![在这里插入图片描述](https://img-blog.csdn.net/20181002162303972?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/vyVdZVT.png)
 ok 加密后的代码出来了 
-![在这里插入图片描述](https://img-blog.csdn.net/20181002162559758?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/YIVIJR7.png)
 让它跑完 StringEncryptFunction() flag就出来了
 flag{N0body_c4n_Mast3r_c_p1us_pLus!}
 
@@ -668,7 +669,9 @@ flag{N0body_c4n_Mast3r_c_p1us_pLus!}
 - 你大概需要一个优秀的mac
 
 三个加密函数 很容易整理出流程
-![在这里插入图片描述](https://img-blog.csdn.net/20181002183547777?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)最后和check里的unk_100000ED0比较![在这里插入图片描述](https://img-blog.csdn.net/20181002183656265?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/tgtHlDm.png)
+最后和check里的unk_100000ED0比较
+![在这里插入图片描述](https://i.imgur.com/JoJfYM3.png)
 flag{I5_th1s_7he_PR1c3_I'M_PAyiNG_f0r_my_pA57_m1stAk35?}
 
 ---
@@ -680,18 +683,18 @@ flag{I5_th1s_7he_PR1c3_I'M_PAyiNG_f0r_my_pA57_m1stAk35?}
 //难的就是不知道怎么加密的
 两堆字符被传入了sub_8DC//猜测是加密函数
 //有个sub_8AA函数点进去发现是getpid getsid什么的 基本上可以确定是反调试
-![在这里插入图片描述](https://img-blog.csdn.net/20181005120646712?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/uLXMeKN.png)
 传入进来后按照每位减67的方式 跳转到dword_1048+deword_1048[v1]位置去执行代码(学习到了JUMPOUT居然还有这种用处...)
-![在这里插入图片描述](https://img-blog.csdn.net/20181005121115962?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/8sxW0Eh.png)
 dword_1048长度是59 可以发现里面存着一堆十六进制数: 0xFFFFF***(能猜测到是相关地址)
 so 代码的位置就是dword_1048首地址 + 0xFFFFF*** = 0x00000*** (1048的‘1’被‘FFFFF’进位丢失了) 所以代码地址在0x048+0x***处 
-然后到各个地址处看汇编(又复习了各种test cmp jz jnz) 可以总结出![在这里插入图片描述](https://img-blog.csdn.net/20181005123236549?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)其中bdb相当于什么也没做
+然后到各个地址处看汇编(又复习了各种test cmp jz jnz) 可以总结出![在这里插入图片描述](https://i.imgur.com/t2t1dkF.png)其中bdb相当于什么也没做
 
 再回到main里的两大堆字符 可以发现有大量重复的字符
 (与代码联系起来 猜测和循环有关)
 于是可以发现有大量重复的hv{aG}[ur]ov......MCh{mG}结构(中间夹着不同数量的a和r)
 跑个脚本 给hv{aG}[ur]ov  MCh{mG}  a  v  h[ur]ov(仅出现在开头) 这五种结构各位各减67 看看对应了哪些代码
-得到![在这里插入图片描述](https://img-blog.csdn.net/20181005124332445?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)这里把hv{aG}[ur]ov作为每个结构的开始 MCh{mG}作为结束ind是下标(对应的汇编是将input的偏移地址调整4位//感谢前辈的指点)
+得到![在这里插入图片描述](https://i.imgur.com/9hqD2j0.png)这里把hv{aG}[ur]ov作为每个结构的开始 MCh{mG}作为结束ind是下标(对应的汇编是将input的偏移地址调整4位//感谢前辈的指点)
 经过整理后发现开始的h[ur]ov不起作用 得到
 ```C++
 void head()
@@ -747,7 +750,7 @@ for ch in range(0,128):
         print(chr(ch),end='')
         break
 ```
-为单位 把各个结构的a和r数量填上去....//学习使用了py...虽然还不是很懂...![在这里插入图片描述](https://img-blog.csdn.net/20181005131629793?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+为单位 把各个结构的a和r数量填上去....//学习使用了py...虽然还不是很懂...![在这里插入图片描述](https://i.imgur.com/UzqW3Tf.png)
 这里从code_v5[1]开始 导致flag从第三位开始(不清楚为什么要从1开始)
 flag{D3v1L_H0mur4_f**k_y0uR_bra1N}
 //踩的坑：之前把code_v5填错了 导致浪费半天时间 
@@ -756,18 +759,18 @@ for ch in range(0,128):
 
 - 丘比龙De女神
 下载文件
-![在这里插入图片描述](https://img-blog.csdn.net/20181017191639238?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/l6kJPvL.gif)
 
 winhex打开能看到 nvshen.jpg  (由于有文件名所以猜测是压缩文件)
 搜索jpg 能找到几个jpg的位置 其中发现附近有一个 love(应该就是提示了)
-![在这里插入图片描述](https://img-blog.csdn.net/20181017192015506?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![在这里插入图片描述](https://i.imgur.com/EBPebW1.png)
 love 附近的数据形式与zip(0x504B030414...)相似 
 >更多文件头 : https://www.cnblogs.com/WangAoBo/p/6366211.html
 
 love正好覆盖了0x504B0304 
-更改后用.zip打开 有密码 猜测当然是love了～![在这里插入图片描述](https://img-blog.csdn.net/2018101719252285?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+更改后用.zip打开 有密码 猜测当然是love了～![在这里插入图片描述](https://i.imgur.com/MGom9LQ.png)
 
-计算图片md5 得到flag![在这里插入图片描述](https://img-blog.csdn.net/20181017193432363?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+计算图片md5 得到flag![在这里插入图片描述](https://i.imgur.com/xQP0OuR.png)
 flag{a6caad3aaafa11b6d5ed583bef4d8a54}
 
 ---
@@ -777,9 +780,9 @@ flag{a6caad3aaafa11b6d5ed583bef4d8a54}
 丢到ida发现
 input必须是25个字节
 一大堆的+-^(但是真正影响到input的只有那么几个byte形的东西)
-复制下来py处理一下吧![在这里插入图片描述](https://img-blog.csdn.net/20181019170508750?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+复制下来py处理一下吧![在这里插入图片描述](https://i.imgur.com/WyXyIzT.png)
 再把它们倒过来 +改成- ，-改成+ ，^不变
-然后找到各个相对input的偏移![在这里插入图片描述](https://img-blog.csdn.net/20181019170650694?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+然后找到各个相对input的偏移![在这里插入图片描述](https://i.imgur.com/Rnw989o.png)
 复制到程序里编译运行即可
 nctf{th3_vM_w1th0ut_dAta}
 
@@ -788,7 +791,7 @@ nctf{th3_vM_w1th0ut_dAta}
 - simple machine
 这道题可以说是标准的逆向题了
 首先丢到ida里 能看到第一个是给变量分配内存的函数 第二个是反调试的(小小分析一下就知道了) 主要是后面两个加密的函数
-![在这里插入图片描述](https://img-blog.csdn.net/201810212056295?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70) 
+![在这里插入图片描述](https://i.imgur.com/bvagYMa.png) 
 进去看了看 发现逻辑有点复杂 无意义的语句很多, 决定从output开始 向上分析函数作用 (不静态分析单个函数的作用)
 
 encode_2(将被异或的input按一定规则放进output):
@@ -837,7 +840,7 @@ flag{wh4t_a_fuck1ng_4ss3mbly_styl3_C_progr4mm1ng_c0de}
 先将p, q 从n分解出来
 并计算出d
 最后将密文复制进去解密
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181107193936800.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://i.imgur.com/tpTpJoX.png)
 flag{Acdxvf5vD_15_W7f}
 
 ---
@@ -845,7 +848,7 @@ flag{Acdxvf5vD_15_W7f}
 # misc
 - Remove Boyfriend
 打开流量包可以看见有FTP流量
-追踪流可以看到各种操作![在这里插入图片描述](https://img-blog.csdnimg.cn/2019071509214630.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyODYzMzYx,size_16,color_FFFFFF,t_70)
+追踪流可以看到各种操作![在这里插入图片描述](https://i.imgur.com/7IisDFW.png)
 两个文件 一个py 一个图片
 py用来解密flag
 flag{who_am_1}
@@ -854,7 +857,7 @@ flag{who_am_1}
 
 - Coding Gay
 可以从这张图片提取出4张图片
-![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9jZ2N0Zi5udXB0c2FzdC5jb20vaW1hZ2VzL21pc2MxMTEuanBn)
+![](https://i.imgur.com/UaLoPtp.jpg)
 
 文件结构大概是这样：
 A图片在最前面显示，C图片中插着两张B图片（C图片看似png但是改成jpg格式才能打开）
