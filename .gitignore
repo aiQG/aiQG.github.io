@@ -5,3 +5,4 @@ Gemfile.lock
 
 *.old.png
 TODO.md
+.jekyll-cache
