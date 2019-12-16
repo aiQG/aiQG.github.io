@@ -16,3 +16,24 @@ layout: default
 <p>
   <a href="{{ site.url }}">return</a>
 </p>
+
+<!-- Gitalk 评论 start  -->
+
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script> 
+<div id="gitalk-container"></div>     <script type="text/javascript">
+    var gitalk = new Gitalk({
+
+    // gitalk的主要参数
+		clientID: `a8fd4eea3122269a279b`,
+		clientSecret: `147ed1fe14b9120767f20303857c10cc3ceb55e5`,
+		repo: `aiqg.github.io`,
+		owner: 'aiQG_',
+		admin: ['aiQG_'],
+		id: '{{ page.title }}',
+    
+    });
+    gitalk.render('gitalk-container');
+</script> 
+<!-- Gitalk end -->
