@@ -24,16 +24,18 @@ layout: default
 
 <div id="gitalk-container"></div>
 <script>
+	import md5 from "md5";
 	const gitalk = new Gitalk({
 		clientID: 'a8fd4eea3122269a279b',
 		clientSecret: '147ed1fe14b9120767f20303857c10cc3ceb55e5',
 		repo: 'aiQG.github.io',
 		owner: 'aiQG',
 		admin: ['aiQG'],
-		id: ('{{ page.title }}').split("/").pop().substring(0, 49),
+		id: md5('{{ page.title }}'),
 		distractionFreeMode: false
 	})
 
 	gitalk.render('gitalk-container')
 
 </script>
+{{page.date}}
