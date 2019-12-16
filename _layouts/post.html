@@ -30,7 +30,7 @@ layout: default
 		repo: 'aiQG.github.io',
 		owner: 'aiQG',
 		admin: ['aiQG'],
-		id: '{{ page.title }}',
+		id: ('{{ page.title }}').split("/").pop().substring(0, 49),
 		distractionFreeMode: false
 	})
 
