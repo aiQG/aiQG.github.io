@@ -4,6 +4,8 @@ tag: Note
 author: aiQG_
 ---
 
+> *Premature optimisation is the root of all evil.*
+
 - map
 
 map 理解为对数组中每个元素进行一个相同的操作, 然后返回到原来的位置(元素之间不互相影响)
@@ -151,6 +153,4 @@ arr.map{$0 * 3}.filter{$0 % 2 == 0}.reduce(-100){$0 + $1}
 
 
 
----
 
-> *Premature optimisation is the root of all evil.*
