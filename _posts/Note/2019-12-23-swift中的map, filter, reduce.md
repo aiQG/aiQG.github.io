@@ -150,7 +150,45 @@ var arr: [Int] = [1,2,3,4,5,6,7]
 arr.map{$0 * 3}.filter{$0 % 2 == 0}.reduce(-100){$0 + $1}
 //-64
 ```
+---
 
+补充:
 
+- flatMap
+
+将数组降低一个纬度
+
+```swift
+var a = [[5, 2, 7], [4, 8], [9, 1, 3], [1,[2,3],4] ]
+a.flatMap{$0}
+//>>>[5, 2, 7, 4, 8, 9, 1, 3, 1, [2, 3], 4]
+```
+
+flatMap还有一个重载可以将Optional类型解包, 但是会有警告: 
+
+> 'flatMap' is deprecated: Please use compactMap(_:) for the case where closure returns an optional value
+> Use 'compactMap(_:)' instead
+
+- compactMap
+
+可以把一个集合中的空值去除，并且返回一个去除nil值得数组
+
+其实就是对flatMap第二个重载的重命名
+
+//听说命名是参考了Ruby的Array::compact方法
+
+```swift
+let numbers = ["1", "2", "three", "5 - 1", "5"]
+
+let mapResult = numbers.map { (number) -> Int? in
+    return Int(number)
+}
+//>>>[Optional(1), Optional(2), nil, nil, Optional(5)]
+
+let compactMapResult = numbers.compactMap { (number) -> Int? in
+    return Int(number)
+}
+//>>>[1, 2, 5]
+```
 
 
