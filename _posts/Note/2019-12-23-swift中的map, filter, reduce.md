@@ -166,8 +166,8 @@ a.flatMap{$0}
 
 flatMap还有一个重载可以将Optional类型解包, 但是会有警告: 
 
-> 'flatMap' is deprecated: Please use compactMap(_:) for the case where closure returns an optional value
-> Use 'compactMap(_:)' instead
+> 'flatMap' is deprecated: Please use compactMap(\_:) for the case where closure returns an optional value
+> Use 'compactMap(\_:)' instead
 
 - compactMap
 
