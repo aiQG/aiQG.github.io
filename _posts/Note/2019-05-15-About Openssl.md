@@ -16,6 +16,13 @@ openssl实现了大部分的加密
   openssl rsa -in k.txt -RSAPublicKey_out  -out p.txt #取出RSAPublicKey格式公钥：RSA PUBLIC KEY
 ```
 
+快速使用: 
+
+```shell
+echo -n "Y0u_h4v3_4_Sm4rt_Br41n" | openssl sha1
+# -n 表示不接收换行符
+```
+
 openssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式）
 可以使用在线平台解码 http://lapo.it/asn1js/
 也可以用openssl的asn1parse命令查看
