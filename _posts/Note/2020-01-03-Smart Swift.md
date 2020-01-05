@@ -48,3 +48,38 @@ print(
 	temp.first{ $0 == 7}!
 )
 ```
+
+---
+
+`class` 与 `struct`
+
+- `class` 
+
+引用类型
+
+```swift
+class temp {
+}
+var temp0 = temp()
+var temp1 = temp0
+print(temp0 === temp1)
+```
+
+类可以继承, 但只有类可以继承 (可以用协议代替)
+
+可以 `deinit` (析构函数)
+
+用 ```===``` 判断是否指向同一实例
+
+- `struct`
+
+值类型(写时复制(COW)特性)
+
+不能继承
+
+不可以 `deinit`
+
+用 ```==``` 判断数据是否相等
+
+
+
