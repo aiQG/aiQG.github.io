@@ -81,5 +81,40 @@ print(temp0 === temp1)
 
 用 ```==``` 判断数据是否相等
 
+---
+
+反射 和 `Mirror`
+
+"反射"是一种在==运行时==检测、访问或者修改类型的行为的特性
+
+通过 Mirror 初始化得到的结果中包含的元素的描述都被集合在 children 属性下
+
+```swift
+struct Point {
+	let x: Int
+	let y: Int
+}
+let p = Point(x: 21, y: 30)
+for (label, value) in Mirror(reflecting: p).children {
+	print("label: \(label)\tvalue: \(value)")
+}
+//>>> label: Optional("x")	value: 21
+//>>> label: Optional("y")	value: 30
+
+也可以用dump
+
+dump(p)
+//>>>▿ __lldb_expr_3.Point
+//>>>  - x: 21
+//>>>  - y: 30
+```
+
+可以用来生成json, 但是反射是swift一直存在的非正式的功能, 所以可能将来会有很大变动
+
+//目前只能访问属性, 不能修改
+
+
+
+
 
 
