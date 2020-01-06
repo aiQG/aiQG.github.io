@@ -101,7 +101,7 @@ for (label, value) in Mirror(reflecting: p).children {
 //>>> label: Optional("x")	value: 21
 //>>> label: Optional("y")	value: 30
 
-也可以用dump
+//也可以用dump
 
 dump(p)
 //>>>▿ __lldb_expr_3.Point
