@@ -9,6 +9,8 @@ author: aiQG_
 //这是一个macOS下用swift5 + SpriteKit框架写出来的touchbar上的游戏
 考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法...
 
+//[动态分析链接](/2020/01/08/macOS逆向-之-你大概需要一个带bar的mac-动态.html)
+
 得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个```touchbarGame```这个就是游戏本体
 
 
