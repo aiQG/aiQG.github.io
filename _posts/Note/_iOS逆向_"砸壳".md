@@ -1,0 +1,85 @@
+
+
+
+
+iOS逆向第一步: "砸壳"
+
+由于App Store上下载下来的应用是套了层壳的(目测是压缩壳), 所以要dump一下
+
+#### 工具
+
+###### macOS端
+
+- `iproxy` 用于把端口代理到ssh上(iproxy是usbmuxd自带的一个小工具)
+     `brew install usbmuxd` 
+
+-  [frida](https://frida.re/) 和 [frida-ios-dump](https://github.com/AloneMonkey/frida-ios-dump) dump的主角
+
+###### iOS端
+
+- 越狱 // axi0mX 大佬挖到iPhone BootROM级别的漏洞让iPhone5s到iPhoneX, iOS 12.3 及以上系统能够越狱 https://checkra.in/ 🐮🍺
+- Cydia上安装Frida
+    添加源 https://build.frida.re/ 
+
+
+
+安装frida注意安装到python2还是python3, 对应frida-ios-dump的不同分支(3.x的分支是python3的)//python2官方都不支持了, 还是安装python3吧
+
+克隆frida-ios-dump
+
+`git clone -b 3.x https://github.com/AloneMonkey/frida-ios-dump.git` 
+
+//可以到dump.py里修改连接的参数
+一般默认:
+
+```
+User = 'root'
+Password = 'alpine'
+Host = 'localhost'
+Port = 2222
+```
+
+进入 frida-ios-dump 目录更新一下依赖
+
+`sudo pip3 install -r requirements.txt --upgrade`
+
+//遇到一个prompt-toolkit版本不符合的信息, 卸载重装一下就好了
+
+iPhone连接上Mac
+
+`python3 dump.py -l` 查看iPhone上安装的软件
+
+
+
+启动端口代理
+
+`iproxy 2222 22`
+
+开始dump
+
+`python3 dump.py [Identifier | Name | PID]` 
+
+dump下来的.ipa会保存在当前目录
+
+
+
+---
+
+
+
+抓了个包, 对比了一下dump之前和之后的.ipa差别
+
+dump之前解压会出错
+
+`202 directories, 1662 files, 9,118,768 bytes`
+
+dump之后
+
+`200 directories, 1672 files, 257,141,079 bytes`
+
+
+
+
+
+
+
