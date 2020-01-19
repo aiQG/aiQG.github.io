@@ -1,13 +1,13 @@
 ---
 layout: post
-tag: Note
+tag: Other
 author: aiQG_
 ---
 
 
-0. 爆破出n的因数, p/q相差很大或很小 可以分解n
+1. 爆破出n的因数, p/q相差很大或很小 可以分解n
 
-1. 低模指数e=3, 已知m高位和n,c 可以求出完整明文
+2. 低模指数e=3, 已知m高位和n,c 可以求出完整明文
 ```python
 # sage
 n = 

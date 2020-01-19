@@ -1,6 +1,6 @@
 ---
 layout: post
-tag: Note
+tag: Other
 author: aiQG_
 ---
 
