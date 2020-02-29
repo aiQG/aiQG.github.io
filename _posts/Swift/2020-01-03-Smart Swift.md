@@ -118,8 +118,35 @@ dump(p)
 `defer` 延时调用
 
 `defer` 所声明的 block 会在当前代码执行退出后被调用。
+
 多个 `defer` 按照入栈顺序调用
 
+一般用于资源的释放
 
+在某个函数有多个返回出口(多个 `return` )的时候特别有用。
 
+```swift
+class Foo {
+    var num = 0
+    func foo() -> Int {
+        defer { num += 1 }
+        return num
+    }
+    
+    // 没有 `defer` 的话我们可能要这么写
+    // func foo() -> Int {
+    //    num += 1
+    //    return num - 1
+    // }
+}
 
+let f = Foo()
+f.foo() // 0
+f.foo() // 1
+f.num   // 2
+
+// 类似的可以实现"后++"
+
+```
+
+> ⚠️This means that a defer statement can be used, for example, to perform manual resource management such as closing file descriptors, and to perform actions that need to happen **even if an error is thrown**.
