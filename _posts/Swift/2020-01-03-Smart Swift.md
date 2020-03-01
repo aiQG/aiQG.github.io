@@ -150,3 +150,41 @@ f.num   // 2
 ```
 
 > ⚠️This means that a defer statement can be used, for example, to perform manual resource management such as closing file descriptors, and to perform actions that need to happen **even if an error is thrown**.
+
+---
+
+`enum` 满足协议以作为隐式 `rawValue`
+
+一般为 `String` or `Int`
+
+`enum` 可以递归( `indirect` 关键字表明是一个递归的 `enum` / `case` )
+
+```swift
+indirect enum ArithmeticExpression {
+    case number(Int)
+    case addition(ArithmeticExpression, ArithmeticExpression)
+    case multiplication(ArithmeticExpression, ArithmeticExpression)
+}
+
+// 创建表达式:(5+4)*2
+let five = ArithmeticExpression.number(5)
+let four = ArithmeticExpression.number(4)
+let sum = ArithmeticExpression.addition(five, four)
+let product = ArithmeticExpression.multiplication(sum, ArithmeticExpression.number(2))
+
+//计算
+func evaluate(_ expression: ArithmeticExpression) -> Int {
+    switch expression {
+    case let .number(value):
+        return value
+    case let .addition(left, right):
+        return evaluate(left) + evaluate(right)
+    case let .multiplication(left, right):
+        return evaluate(left) * evaluate(right)
+    }
+}
+
+print(evaluate(product))
+```
+
+---
