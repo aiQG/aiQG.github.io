@@ -188,3 +188,25 @@ print(evaluate(product))
 ```
 
 ---
+
+`@escaping` & `@autoclosure`
+
+闭包为引用类型.
+
+`@escaping` 关键字可以让闭包避免在编译时计算(而是使其引用次数+1). //否则闭包将不会被保存
+
+`@autoclosure` 关键字可以将传入的表达式变成闭包
+
+```swift
+UIView.animate(withDuration: 0.25) {
+    view.frame.origin.y = 100
+}
+//也可以写成
+func animate(_ animation: @autoclosure @escaping () -> Void,
+             duration: TimeInterval = 0.25) {
+    UIView.animate(withDuration: duration, animations: animation)
+}
+animate(view.frame.origin.y = 100)
+```
+
+---
