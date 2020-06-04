@@ -190,7 +190,20 @@ openssl des -in flag.txt  #可以发现密文前面都默认带有"Salted__"
 ```
 
 key的填充和盐有关
+
 猜测密文格式应该是"Salted__"+随机或指定的盐+初始化向量+密文
+
+---
+
+openssl 测试tls握手
+
+`openssl s_client -connect www.baidu.com:443`
+
+可以看到包括连接请求、证书的验证、加密算法的协商等过程
+
+服务端可用 `s_server` 参数
+
+更多参见 `openssl s_client help`
 
 
 
