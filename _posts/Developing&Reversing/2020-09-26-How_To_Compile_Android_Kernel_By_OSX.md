@@ -4,7 +4,6 @@ tag: Developing&Reversing
 author: aiQG_
 ---
 
-# How to Compile Android Kernel on OSX
 
 (在OSX上用clang编译arm64的安卓内核)
 
