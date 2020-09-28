@@ -4,7 +4,7 @@ layout: default
 
 
 - <a id="urlLinkColor" href="https://cgctf.nuptsast.com/challenges">南邮 CG-CTF</a>
-- <a id="urlLinkColor" href="https://www.x1ct34m.com">南邮 X1cT34m</a>
+- <a id="urlLinkColor" href="https://ctf.njupt.edu.cn/">南邮 X1cT34m</a>
 - <a id="urlLinkColor" href="https://blog.csdn.net/qq_42863361">My CSDN</a>
 - <a id="urlLinkColor" href="http://120.79.211.91/#qixi2018">C0ss4ck</a>
 - <a id="urlLinkColor" href="http://mozhucy.cn">MozhuCY</a>
