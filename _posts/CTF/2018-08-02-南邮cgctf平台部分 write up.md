@@ -5,7 +5,7 @@ author: aiQG_
 ---
 
 [My_CSDN_Blog](blog.csdn.net/qq_42863361)
-[CG-CTF](https://cgctf.nuptsast.com/)
+[CG-CTF](https://cgctf.x1ct34m.com/)
 2018.7
 >Welcome to http://aiqg.vip/
 ---------------------------
