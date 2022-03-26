@@ -6,17 +6,7 @@
     <description>Recent content in Posts on aiQG_s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 26 Mar 2022 17:45:38 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>other</title>
-      <link>https://aiQG.github.io/post/other/</link>
-      <pubDate>Sat, 26 Mar 2022 17:45:38 +0800</pubDate>
-      
-      <guid>https://aiQG.github.io/post/other/</guid>
-      <description>乘法
-func mul(a:Int, b:Int) -&amp;gt; Int { 	var big = a &amp;gt; b ? a : b 	var sma = a &amp;lt; b ? a : b 	var sum = 0 	while sma &amp;gt; 0 { 	sum += sma &amp;amp; 1 == 0 ? 0 : big 	sma = sma &amp;gt;&amp;gt; 1 	big = big &amp;lt;&amp;lt; 1 	} 	return sum }  加法</description>
-    </item>
-    
+    <lastBuildDate>Fri, 31 May 2019 19:28:08 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RSA Attack</title>
       <link>https://aiQG.github.io/post/rsa-attack/</link>
@@ -69,6 +59,16 @@ openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.</
    回到IDA 选择菜单栏&amp;gt;Debugger&amp;gt;Select a debugger(或者是switch debugger)&amp;gt;选择Remote linux debugger&amp;gt;ok  设置各种参数(这里调试的文件是cpp 路径在linux的桌面 Hostname是linux虚拟机的ip地址 密码是root的密码)  ok之后程序闪了一下就运行完了(因为没下断点) 然后取看linux上的终端程序跑完了
   如果要调试就先下断点 再点击 之后的操作和OD里基本一样
   </description>
+    </item>
+    
+    <item>
+      <title>other</title>
+      <link>https://aiQG.github.io/post/other/</link>
+      <pubDate>Sat, 01 Jan 2000 17:45:38 +0800</pubDate>
+      
+      <guid>https://aiQG.github.io/post/other/</guid>
+      <description>乘法
+func mul(a:Int, b:Int) -&amp;gt; Int { 	var big = a &amp;gt; b ? a : b 	var sma = a &amp;lt; b ? a : b 	var sum = 0 	while sma &amp;gt; 0 { 	sum += sma &amp;amp; 1 == 0 ? 0 : big 	sma = sma &amp;gt;&amp;gt; 1 	big = big &amp;lt;&amp;lt; 1 	} 	return sum }  加法</description>
     </item>
     
   </channel>
