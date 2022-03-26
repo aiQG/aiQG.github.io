@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ida on aiQG_s blog</title>
+    <link>https://aiQG.github.io/tags/ida/</link>
+    <description>Recent content in ida on aiQG_s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 26 Mar 2022 19:05:08 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/tags/ida/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Xx</title>
+      <link>https://aiQG.github.io/post/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Sat, 26 Mar 2022 19:05:08 +0800</pubDate>
+      
+      <guid>https://aiQG.github.io/post/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</guid>
+      <description>  把文件丢到IDA里
+  把文件丢到Linux里 (这里是Ubuntu16.04)
+  在IDA的安装路径里找到这两个文件(一般在dbgsrv文件夹里) 把它们丢到Linux里
+  在Linux里cd到linux_server的路径(这里是桌面) 然后取得管理员权限  给要调试的程序和linux_server权限(这样才能运行)(这里调试的是x64程序 所以用linux_serverx64)
+ chmod a+x 文件名
+   启动linux_serverx64
+ ./linux_serverx64
+   回到IDA 选择菜单栏&amp;gt;Debugger&amp;gt;Select a debugger(或者是switch debugger)&amp;gt;选择Remote linux debugger&amp;gt;ok  设置各种参数(这里调试的文件是cpp 路径在linux的桌面 Hostname是linux虚拟机的ip地址 密码是root的密码)  ok之后程序闪了一下就运行完了(因为没下断点) 然后取看linux上的终端程序跑完了
+  如果要调试就先下断点 再点击 之后的操作和OD里基本一样
+  </description>
+    </item>
+    
+  </channel>
+</rss>

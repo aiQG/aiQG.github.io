@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <title>Xx</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="" />
+    <style>
+@import "https://fonts.googleapis.com/css2?family=Inconsolata&display=swap";:root{--cursor-visibility:hidden}html,body{width:100%;height:100%;overflow:auto;font-family:inconsolata,monospace;font-size:4vmin;line-height:4.1vmin;font-weight:400}body{margin:0;display:flex;flex-direction:row;justify-content:center;align-items:center}#content{min-width:82vmin;min-height:82vmin}::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{border-radius:10px;box-shadow:inset 0 0 1px white}::-webkit-scrollbar-thumb{border-radius:10px;box-shadow:0 0 0 1px white}.cursor,#activity-title:after,#activity-content:after,#ps1_01:after,#cd:after,#ps1_02:after,#cat:after,#std_out_01:after,#ps1_03:after,#std_out_02:after,#ps1_04:after{visibility:var(--cursor-visibility);content:"|";overflow:hidden;color:#fff;animation:blink 500ms linear infinite alternate}@keyframes blink{0%{opacity:0}100%{opacity:1}}@media only screen and (min-width:768px){body{font-size:2.5vmin;line-height:2.6vmin}#content{min-width:60vmin}}:root{--cursor-visibility:hidden}body{align-items:unset;overflow-y:scroll}#content{max-width:80vmin}pre{overflow-x:scroll;white-space:pre}@keyframes blink{0%{opacity:0}100%{opacity:1}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+body{background:#000}body #terminal{color:#00f633}body #user{color:#00f633}body #dir{color:#00f633}body .Typewriter__cursor{color:#00f633}a{color:#00f633}
+
+        
+.navFull {
+    background-color: #353535;
+    font-family: "Courier New";
+    font-size: 17px;
+    display: inline;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding-top: 5px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navCredits {
+    float: right;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+#content::after {
+    content: "\a\a";
+    white-space: pre;
+}
+        
+        
+</style>
+
+
+
+</head><body><div id="content">
+    
+    
+    
+
+
+    <span id="activity-title"></span> <br>
+ <span id="activity-content"></span> <br>
+
+<script type="text/javascript">
+    async function typewriter(text, elementId, waitAfter) {
+        var n = 0,
+            isTag = false
+        addText = "";
+        const el = document.getElementById(elementId);
+
+        const wait = () => new Promise(r => setTimeout(r, waitAfter));
+        const nowait = () => new Promise(r => r());
+
+        const render = () => el.innerHTML = (text.slice(0, n + 1) + addText);
+
+        const cursor = document.createElement('span');
+        cursor.id = "blink";
+
+        el.style.setProperty("--cursor-visibility", "visible");
+        while (n < text.length) {
+            if (text.charAt(n + 1) === "<") isTag = true;
+            if (text.charAt(n + 1) === ">") isTag = false;
+
+            if (isTag) {
+                n++;
+                continue;
+            }
+
+            requestAnimationFrame(render);
+
+            if (waitAfter === 0) {
+                await nowait();
+            } else {
+                await wait();
+            }
+
+            n++;
+        }
+        el.style.setProperty("--cursor-visibility", "collapse");
+    }
+
+    function parseDelay(d) {
+        const parsed = parseInt(d, 10);
+        if (isNaN(parsed)) return 0;
+        return parsed;
+    }
+
+    const titleDelay = parseDelay("0"),
+        contentDelay = parseDelay("0");
+    const typeeffetct = async () => {
+        await typewriter("\u003cspan id=\u0027terminal\u0027\u003e\u003ch1 id=\u0027title\u0027\u003eXx\u003c\/h1\u003e\u003c\/span\u003e", "activity-title", titleDelay);
+        await typewriter("\u003cspan id=\u0027terminal\u0027\u003e\u003cp\u003eopenssl实现了大部分的加密\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  -out \u003cspan style=\u0022color:#75715e\u0022\u003e#输出文件\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  -in \u003cspan style=\u0022color:#75715e\u0022\u003e#输入文件\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  - RSA\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  \topenssl genrsa -out 1.key \u003cspan style=\u0022color:#ae81ff\u0022\u003e1024\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#生成私钥对：RSA PRIVATE KEY\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  \topenssl rsa -in k.txt -pubout -out p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#取出公钥：PUBLIC KEY（文件中记录算法类型）\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  openssl rsa -in k.txt -RSAPublicKey_out  -out p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#取出RSAPublicKey格式公钥：RSA PUBLIC KEY\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e快速使用:\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eecho -n \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Y0u_h4v3_4_Sm4rt_Br41n\u0026#34;\u003c\/span\u003e | openssl sha1\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# -n 表示不接收换行符\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003eopenssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)\/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式）\n可以使用在线平台解码 \u003ca href=\u0022http:\/\/lapo.it\/asn1js\/\u0022\u003ehttp:\/\/lapo.it\/asn1js\/\u003c\/a\u003e\n也可以用openssl的asn1parse命令查看\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003easn1parse是一个诊断工具，可以解析ASN.1结构的密钥，证书等\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003chr\u003e\n\u003cp\u003e生成RSA:\u003c\/p\u003e\n\u003cp\u003e私钥：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl genrsa -out k.txt \u003cspan style=\u0022color:#ae81ff\u0022\u003e50\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#生成50位的私钥\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl asn1parse -i -in k.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#解码ASN.1\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e返回：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e0:d=0  hl=2 l=  55 cons: SEQUENCE\n2:d=1  hl=2 l=   1 prim:  INTEGER           :00\n5:d=1  hl=2 l=   7 prim:  INTEGER           :03A20D44C84679\n14:d=1  hl=2 l=   3 prim:  INTEGER           :010001\n19:d=1  hl=2 l=   7 prim:  INTEGER           :021B398DFA6501\n28:d=1  hl=2 l=   4 prim:  INTEGER           :01F85261\n34:d=1  hl=2 l=   4 prim:  INTEGER           :01D81B19\n40:d=1  hl=2 l=   4 prim:  INTEGER           :015DE4E1\n46:d=1  hl=2 l=   3 prim:  INTEGER           :5435F1\n51:d=1  hl=2 l=   4 prim:  INTEGER           :E068D6\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e对应结构：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eRSAPrivateKey ::= SEQUENCE {\nversionVersion,\nmodulusINTEGER, \u0026ndash; n\npublicExponentINTEGER, \u0026ndash; e\nprivateExponentINTEGER, \u0026ndash; d\nprime1INTEGER, \u0026ndash; p\nprime2INTEGER, \u0026ndash; q\nexponent1INTEGER, \u0026ndash; d mod (p-1)\nexponent2INTEGER, \u0026ndash; d mod (q-1)\ncoefficientINTEGER, \u0026ndash; (inverse of q) mod p\notherPrimeInfosOtherPrimeInfos OPTIONAL\n}\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003chr\u003e\n\u003cp\u003e记录算法类型的公钥：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsa -in k.txt -pubout -out p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#从私钥生成公钥，这里生成的公钥是\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl asn1parse -i -in p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#分析ASN.1格式\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e返回：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e0:d=0  hl=2 l=  34 cons: SEQUENCE\n2:d=1  hl=2 l=  13 cons:  SEQUENCE\n4:d=2  hl=2 l=   9 prim:   OBJECT            :rsaEncryption\n15:d=2  hl=2 l=   0 prim:   NULL\n17:d=1  hl=2 l=  17 prim:  BIT STRING\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e对应结构：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eSubjectPublicKeyInfo ::=SEQUENCE {\nalgorithmAlgorithmIdentifier{{SupportedAlgorithms}},\nsubjectPublicKeyBIT STRING\n}\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e这里偏移17的地方：\u003ccode\u003eBIT STRING \u003c\/code\u003e对应了结构中的\u003ccode\u003esubjectPublicKeyBIT STRING\u003c\/code\u003e\n这里还保存了加密算法类型\u003c\/p\u003e\n\u003cp\u003e继续分析偏移17的地方：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl asn1parse -i -in p.txt -strparse \u003cspan style=\u0022color:#ae81ff\u0022\u003e17\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e返回：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e0:d=0  hl=2 l=  14 cons: SEQUENCE\n2:d=1  hl=2 l=   7 prim:  INTEGER           :03A20D44C84679\n11:d=1  hl=2 l=   3 prim:  INTEGER           :010001\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e对应结构：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eRSAPublicKey ::= SEQUENCE  {\nmodulus INTEGER, \u0026ndash; n\npublicExponentINTEGER \u0026ndash; e\n}\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003chr\u003e\n\u003cp\u003e不记录算法类型的公钥：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsa -in k.txt -RSAPublicKey_out  -out p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#生成公钥\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl asn1parse -i -in p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#分析ASN.1格式\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e返回：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003e0:d=0  hl=2 l=  14 cons: SEQUENCE\n2:d=1  hl=2 l=   7 prim:  INTEGER           :03A20D44C84679\n11:d=1  hl=2 l=   3 prim:  INTEGER           :010001\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e对应格式：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eRSAPublicKey ::= SEQUENCE  {\nmodulus INTEGER, \u0026ndash; n\npublicExponentINTEGER \u0026ndash; e\n}\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003chr\u003e\n\u003cp\u003e加密：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eopenssl rsautl -encrypt  -inkey p.txt -pubin -in flag.txt -out enflag.txt\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e用公钥p.txt加密\n\/*\n注意，如果生成的公钥开头为\u003ccode\u003e-----BEGIN RSA PUBLIC KEY-----\u003c\/code\u003e开头（RSA公钥）(pkcs1公钥)\nopenssl似乎并不支持，会返回\u003ccode\u003eunable to load Public Key\u003c\/code\u003e的错误\nopenssl支持\u003ccode\u003e-----BEGIN PUBLIC KEY-----\u003c\/code\u003e的公钥（SSL公钥）(pkcs8公钥)\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsa -pubin -in p.txt -RSAPublicKey_out -out p2.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#pkcs8公钥转pkcs1公钥\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsa -RSAPublicKey_in -in p2.txt -pubout -out p.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#pkcs1公钥转换为pkcs8公钥\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e*\/\n\/\/如果明文信息太长会出现\u003ccode\u003edata too large for key size\u003c\/code\u003e的错误，这时应该生成更长的key。或者使用大文件加密方法。\u003c\/p\u003e\n\u003cp\u003e解密：\u003c\/p\u003e\n\u003cblockquote\u003e\n\u003cp\u003eopenssl rsautl -decrypt -inkey k.txt -in enflag.txt -out deflag.txt\u003c\/p\u003e\n\u003c\/blockquote\u003e\n\u003cp\u003e如果私钥错误会返回\u003ccode\u003eRSA operation error\u003c\/code\u003e\u003c\/p\u003e\n\u003chr\u003e\n\u003cp\u003e签名：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsautl -sign -inkey k.txt -in flag.txt -out sigflag.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#用私钥签名\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsautl -verify -inkey p.txt -pubin -in sigflag.txt -out checkflag.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#用公钥验证签名\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e注意如果签名的是明文本身，验证出来的也是明文本身，所以一般对hash签名\n一般采取先签名后加密的方法\u003c\/p\u003e\n\u003cp\u003e关于openssl的签名这里写的更清楚一些: \u003ca href=\u0022https:\/\/medium.com\/@bn121rajesh\/rsa-sign-and-verify-using-openssl-behind-the-scene-bf3cac0aade2\u0022\u003emedium.com\/@bn121ra\u0026hellip;\u003c\/a\u003e\u003c\/p\u003e\n\u003chr\u003e\n\u003cp\u003e生成加密的私钥\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl genrsa -des -out k.txt \u003cspan style=\u0022color:#ae81ff\u0022\u003e1000\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#用DES加密（默认CBC模式）\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsa -in k.txt -text \u003cspan style=\u0022color:#75715e\u0022\u003e#查看私钥信息\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl rsa -in k.txt -out k.txt \u003cspan style=\u0022color:#75715e\u0022\u003e#删除密码\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003chr\u003e\n\u003chr\u003e\n\u003chr\u003e\n\u003cp\u003e其他加密算法（DES为例）：\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-shell\u0022 data-lang=\u0022shell\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#DES\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eopenssl des -in flag.txt  \u003cspan style=\u0022color:#75715e\u0022\u003e#可以发现密文前面都默认带有\u0026#34;Salted__\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-base64 加密后或者解密前进行base64\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-K 指定密码 并且需要-vi指定初始化向量\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-k 指定密码 初始化向量可以自动生成\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-d 解密 如果密文格式不正确会报\u0026#34;bad magic number\u0026#34; \/\/注意openssl并不只保存密文，还有初始化向量等数据 \/\/一般解密用openssl enc -d -算法\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-salt 使用随机盐\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-S 指定盐\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#-p 输出各参数\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003ekey的填充和盐有关\u003c\/p\u003e\n\u003cp\u003e猜测密文格式应该是\u0026quot;Salted__\u0026quot;\u002b随机或指定的盐\u002b初始化向量\u002b密文\u003c\/p\u003e\n\u003chr\u003e\n\u003cp\u003eopenssl 测试tls握手\u003c\/p\u003e\n\u003cp\u003e\u003ccode\u003eopenssl s_client -connect www.baidu.com:443\u003c\/code\u003e\u003c\/p\u003e\n\u003cp\u003e可以看到包括连接请求、证书的验证、加密算法的协商等过程\u003c\/p\u003e\n\u003cp\u003e服务端可用 \u003ccode\u003es_server\u003c\/code\u003e 参数\u003c\/p\u003e\n\u003cp\u003e更多参见 \u003ccode\u003eopenssl s_client help\u003c\/code\u003e\u003c\/p\u003e\n\u003c\/span\u003e", "activity-content", contentDelay);
+        return;
+    }
+
+    typeeffetct()
+</script>
+
+        </div>
+        
+        <span class="navFull">
+        
+    
+    
+
+    
+        
+
+<span>
+    <a href="/">Home</a>
+    <span>&#8192;|&#8192;</span>
+    <a href="./..">/post/</a>
+</span>
+
+    
+
+        
+        <span class="navCredits">
+            Hugo theme created by
+            <a href="https://github.com/Yukuro/hugo-theme-shell" target="_blank" rel="noopener">Yukuro</a>
+        </span>
+</span>
+
+        
+         
+    </body>
+</html>

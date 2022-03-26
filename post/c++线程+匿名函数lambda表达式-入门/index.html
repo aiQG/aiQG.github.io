@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <title>Xx</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="" />
+    <style>
+@import "https://fonts.googleapis.com/css2?family=Inconsolata&display=swap";:root{--cursor-visibility:hidden}html,body{width:100%;height:100%;overflow:auto;font-family:inconsolata,monospace;font-size:4vmin;line-height:4.1vmin;font-weight:400}body{margin:0;display:flex;flex-direction:row;justify-content:center;align-items:center}#content{min-width:82vmin;min-height:82vmin}::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{border-radius:10px;box-shadow:inset 0 0 1px white}::-webkit-scrollbar-thumb{border-radius:10px;box-shadow:0 0 0 1px white}.cursor,#activity-title:after,#activity-content:after,#ps1_01:after,#cd:after,#ps1_02:after,#cat:after,#std_out_01:after,#ps1_03:after,#std_out_02:after,#ps1_04:after{visibility:var(--cursor-visibility);content:"|";overflow:hidden;color:#fff;animation:blink 500ms linear infinite alternate}@keyframes blink{0%{opacity:0}100%{opacity:1}}@media only screen and (min-width:768px){body{font-size:2.5vmin;line-height:2.6vmin}#content{min-width:60vmin}}:root{--cursor-visibility:hidden}body{align-items:unset;overflow-y:scroll}#content{max-width:80vmin}pre{overflow-x:scroll;white-space:pre}@keyframes blink{0%{opacity:0}100%{opacity:1}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+body{background:#000}body #terminal{color:#00f633}body #user{color:#00f633}body #dir{color:#00f633}body .Typewriter__cursor{color:#00f633}a{color:#00f633}
+
+        
+.navFull {
+    background-color: #353535;
+    font-family: "Courier New";
+    font-size: 17px;
+    display: inline;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding-top: 5px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navCredits {
+    float: right;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+#content::after {
+    content: "\a\a";
+    white-space: pre;
+}
+        
+        
+</style>
+
+
+
+</head><body><div id="content">
+    
+    
+    
+
+
+    <span id="activity-title"></span> <br>
+ <span id="activity-content"></span> <br>
+
+<script type="text/javascript">
+    async function typewriter(text, elementId, waitAfter) {
+        var n = 0,
+            isTag = false
+        addText = "";
+        const el = document.getElementById(elementId);
+
+        const wait = () => new Promise(r => setTimeout(r, waitAfter));
+        const nowait = () => new Promise(r => r());
+
+        const render = () => el.innerHTML = (text.slice(0, n + 1) + addText);
+
+        const cursor = document.createElement('span');
+        cursor.id = "blink";
+
+        el.style.setProperty("--cursor-visibility", "visible");
+        while (n < text.length) {
+            if (text.charAt(n + 1) === "<") isTag = true;
+            if (text.charAt(n + 1) === ">") isTag = false;
+
+            if (isTag) {
+                n++;
+                continue;
+            }
+
+            requestAnimationFrame(render);
+
+            if (waitAfter === 0) {
+                await nowait();
+            } else {
+                await wait();
+            }
+
+            n++;
+        }
+        el.style.setProperty("--cursor-visibility", "collapse");
+    }
+
+    function parseDelay(d) {
+        const parsed = parseInt(d, 10);
+        if (isNaN(parsed)) return 0;
+        return parsed;
+    }
+
+    const titleDelay = parseDelay("0"),
+        contentDelay = parseDelay("0");
+    const typeeffetct = async () => {
+        await typewriter("\u003cspan id=\u0027terminal\u0027\u003e\u003ch1 id=\u0027title\u0027\u003eXx\u003c\/h1\u003e\u003c\/span\u003e", "activity-title", titleDelay);
+        await typewriter("\u003cspan id=\u0027terminal\u0027\u003e\u003ch5 id=\u0022线程\u0022\u003e线程\u003c\/h5\u003e\n\u003cp\u003e我们写的程序都是一个main从上到下执行的，main怎么写，程序就怎么运行\n那么这时好奇的小朋友一定想问：怎么能让程序同时做两件事呢？\n聪明的五号机回答到：可以用多线程呀\n这时好奇的小朋友又要问了：线程和进程有什么区别呢？\n聪明的五号机又回答到：一个进程可以包括多个线程，进程之间不共享资源，线程之间共享同一个进程的资源\n嗯\u0026hellip; 也可以结合下面这幅图解释\n\u003cimg src=\u0022https:\/\/i.imgur.com\/7O4VU7x.png\u0022 alt=\u0022\u0022\u003e\n一只怪力可以可以看成是一个进程，一只怪力有几只手就可以看成是一个进程有几个线程\u0026hellip;（不过这里的线程是虚拟线程，有别于CPU的线程）\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;iostream\u0026gt;\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;thread\u0026gt;\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eusing\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enamespace\u003c\/span\u003e std;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/这是线程要执行的函数\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003evoid\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ehellofun\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    cout\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Helloworld\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e\\t\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003ei\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003eendl;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/main函数相当于主线程\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t    \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e; i\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e10\u003c\/span\u003e;i\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u002b\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t    {\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \t\t\u003cspan style=\u0022color:#66d9ef\u0022\u003ethread\u003c\/span\u003e THR1(hellofun, i);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \t\tTHR1.join();\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/THR1.detach();\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\t    }\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e\u003ccode\u003ehellofun(int i)\u003c\/code\u003e 将会被线程执行\/\/相当于线程的main函数\n\u003ccode\u003ethread THR1(hellofun, i)\u003c\/code\u003e 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，\u003ccode\u003ehellofun\u003c\/code\u003e 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数)\n\u003ccode\u003ethread thrName(Fun, a, b, c, ...);\u003c\/code\u003e\n那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢\n这就涉及到线程的两个方法：\n\u003ccode\u003edetach()\u003c\/code\u003e 方法让线程并行，不会阻塞主线程的运行\n\u003ccode\u003ejoin()\u003c\/code\u003e 方法让线程串行，主线程会等待线程的结束\n调皮的小朋友又要问了：如果两个方法都用会发生什么？\n五号机：当然是报错了\n调皮的小朋友又要问了：那我最多可以创建多少线程呢？\n那我们把程序改一改，再跑跑看\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;iostream\u0026gt;\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;thread\u0026gt;\/\/线程，C\u002b\u002b11\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eusing\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enamespace\u003c\/span\u003e std;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003evoid\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ehellofun\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    cout\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Helloworld\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e\\t\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003ei\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003eendl;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003ewhile\u003c\/span\u003e(\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e);\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e; ;i\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u002b\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \t\t\u003cspan style=\u0022color:#66d9ef\u0022\u003ethread\u003c\/span\u003e THR1(hellofun, i);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \t\tTHR1.detach();\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \t\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/THR1.join();\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e    \t}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e好的 现在调皮的小朋友被卡死了，我们继续。\n我们创建的线程都说main函数的子线程，会在main函数return后挂掉\/\/当然有不让它挂掉的方法\n线程还有很多的方法，可以实现很多功能具体的百度去吧~\u003c\/p\u003e\n\u003chr\u003e\n\u003ch5 id=\u0022匿名函数lambda表达式\u0022\u003e匿名函数(lambda表达式)\u003c\/h5\u003e\n\u003cp\u003e我们创建线程必须要编写一个函数作为线程的\u0026quot;主函数\u0026quot;，这就不免要有函数的声明，定义\u0026hellip;写起来不仅麻烦，线程执行了什么内容也不能一目了然。于是C\u002b\u002b11又送来了一个新特性：\u003cdel\u003e拉姆达表达式\u003c\/del\u003e  lambda表达式。\n有了lambda表达式，我们上面的程序就可以这样写了\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;iostream\u0026gt;\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#include\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e\u0026lt;thread\u0026gt;\u003c\/span\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eusing\u003c\/span\u003e \u003cspan style=\u0022color:#66d9ef\u0022\u003enamespace\u003c\/span\u003e std;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emain\u003c\/span\u003e()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e(\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e; i\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e10\u003c\/span\u003e; i\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u002b\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t{\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t        \u003cspan style=\u0022color:#66d9ef\u0022\u003ethread\u003c\/span\u003e THR1([](\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i){\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t            cout\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Helloworld\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e\\t\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003ei\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003eendl;\t\t\t\t\t\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t        }, i);\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t        THR1.detach();\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\t        \u003cspan style=\u0022color:#75715e\u0022\u003e\/\/THR1.join();\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e    \t}\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \t\u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e看懂了么？我们把hellofun换成了\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e[](\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e i){cout\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Helloworld\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e\\t\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003ei\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003eendl;}\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e它没有名字(匿名)了！\u003c\/p\u003e\n\u003cp\u003e匿名函数是个神奇的东西，它配合auto用似乎又可以有名字\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eauto\u003c\/span\u003e fun \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e [](){cout\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;helloworld!\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003eendl;};\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\tfun();\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/helloworld!\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e但是外部的变量对于匿名函数并不是可见的\u003c\/p\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-cpp\u0022 data-lang=\u0022cpp\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eint\u003c\/span\u003e a \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e666\u003c\/span\u003e;\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\t\u003cspan style=\u0022color:#66d9ef\u0022\u003eauto\u003c\/span\u003e fun \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e [](){cout\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;helloworld!\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003ea\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026lt;\u0026lt;\u003c\/span\u003eendl;};\u003cspan style=\u0022color:#75715e\u0022\u003e\/\/这里编译器会说不知道a是什么\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e\u003c\/span\u003e\tfun();\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003cp\u003e要想使用外部变量就要修改中括号部分:\n[]：默认不捕获任何变量；\n[=]：默认以值捕获所有变量；\n[\u0026amp;]：默认以引用捕获所有变量；\n[x]：仅以值捕获x，其它变量不捕获；\n[x,y,z]：仅以值捕获x,y,z，其它变量不捕获；\n[\u0026amp;x]：仅以引用捕获x，其它变量不捕获；\n[=, \u0026amp;x]：默认以值捕获所有变量，但是x是例外，通过引用捕获；\n[\u0026amp;, x]：默认以引用捕获所有变量，但是x是例外，通过值捕获；\n[this]：通过引用捕获当前对象（其实是复制指针）；\n[*this]：通过传值方式捕获当前对象；\u003c\/p\u003e\n\u003cp\u003e关于lambda表达式，也可以看看这篇文章: \u003ca href=\u0022https:\/\/www.jianshu.com\/p\/d686ad9de817\u0022\u003ehttps:\/\/www.jianshu.com\/p\/d686ad9de817\u003c\/a\u003e\u003c\/p\u003e\n\u003cp\u003e\/\/C\u002b\u002b的lambda表达式同时用到了大括号中括号小括号，真帅！\u003c\/p\u003e\n\u003c\/span\u003e", "activity-content", contentDelay);
+        return;
+    }
+
+    typeeffetct()
+</script>
+
+        </div>
+        
+        <span class="navFull">
+        
+    
+    
+
+    
+        
+
+<span>
+    <a href="/">Home</a>
+    <span>&#8192;|&#8192;</span>
+    <a href="./..">/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda</a>
+</span>
+
+    
+
+        
+        <span class="navCredits">
+            Hugo theme created by
+            <a href="https://github.com/Yukuro/hugo-theme-shell" target="_blank" rel="noopener">Yukuro</a>
+        </span>
+</span>
+
+        
+         
+    </body>
+</html>

@@ -6,23 +6,48 @@
     <description>Recent content in Other on aiQG_s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 26 Mar 2022 18:42:30 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/categories/other/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Mar 2022 19:08:19 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/categories/other/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Testpage22xx</title>
-      <link>https://aiQG.github.io/post/testpage22xx/</link>
-      <pubDate>Sat, 26 Mar 2022 18:42:30 +0800</pubDate>
+      <title>Xx</title>
+      <link>https://aiQG.github.io/post/about-openssl/</link>
+      <pubDate>Sat, 26 Mar 2022 19:08:19 +0800</pubDate>
       
-      <guid>https://aiQG.github.io/post/testpage22xx/</guid>
-      <description></description>
+      <guid>https://aiQG.github.io/post/about-openssl/</guid>
+      <description>openssl实现了大部分的加密
+ -out #输出文件  -in #输入文件   - RSA  openssl genrsa -out 1.key 1024 #生成私钥对：RSA PRIVATE KEY  openssl rsa -in k.txt -pubout -out p.txt #取出公钥：PUBLIC KEY（文件中记录算法类型）  openssl rsa -in k.txt -RSAPublicKey_out -out p.txt #取出RSAPublicKey格式公钥：RSA PUBLIC KEY 快速使用:
+echo -n &amp;#34;Y0u_h4v3_4_Sm4rt_Br41n&amp;#34; | openssl sha1 # -n 表示不接收换行符 openssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式） 可以使用在线平台解码 http://lapo.it/asn1js/ 也可以用openssl的asn1parse命令查看
+ asn1parse是一个诊断工具，可以解析ASN.1结构的密钥，证书等
+  生成RSA:
+私钥：
+openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.</description>
     </item>
     
     <item>
-      <title>Testpage22</title>
-      <link>https://aiQG.github.io/post/testpage22/</link>
-      <pubDate>Sat, 26 Mar 2022 18:37:58 +0800</pubDate>
+      <title>Xx</title>
+      <link>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Sat, 26 Mar 2022 19:06:38 +0800</pubDate>
       
-      <guid>https://aiQG.github.io/post/testpage22/</guid>
-      <description></description>
+      <guid>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
+      <description>线程 我们写的程序都是一个main从上到下执行的，main怎么写，程序就怎么运行 那么这时好奇的小朋友一定想问：怎么能让程序同时做两件事呢？ 聪明的五号机回答到：可以用多线程呀 这时好奇的小朋友又要问了：线程和进程有什么区别呢？ 聪明的五号机又回答到：一个进程可以包括多个线程，进程之间不共享资源，线程之间共享同一个进程的资源 嗯&amp;hellip; 也可以结合下面这幅图解释 一只怪力可以可以看成是一个进程，一只怪力有几只手就可以看成是一个进程有几个线程&amp;hellip;（不过这里的线程是虚拟线程，有别于CPU的线程）
+#include &amp;lt;iostream&amp;gt;#include &amp;lt;thread&amp;gt;using namespace std; //这是线程要执行的函数 void hellofun(int i) {  cout&amp;lt;&amp;lt;&amp;#34;Helloworld\t&amp;#34;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl;  return; } //main函数相当于主线程 int main() { 	for(int i=0; i&amp;lt;10;i++) 	{  thread THR1(hellofun, i);  THR1.join();  //THR1.detach(); 	}  return 0; } hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看</description>
+    </item>
+    
+    <item>
+      <title>Xx</title>
+      <link>https://aiQG.github.io/post/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Sat, 26 Mar 2022 19:05:08 +0800</pubDate>
+      
+      <guid>https://aiQG.github.io/post/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</guid>
+      <description>  把文件丢到IDA里
+  把文件丢到Linux里 (这里是Ubuntu16.04)
+  在IDA的安装路径里找到这两个文件(一般在dbgsrv文件夹里) 把它们丢到Linux里
+  在Linux里cd到linux_server的路径(这里是桌面) 然后取得管理员权限  给要调试的程序和linux_server权限(这样才能运行)(这里调试的是x64程序 所以用linux_serverx64)
+ chmod a+x 文件名
+   启动linux_serverx64
+ ./linux_serverx64
+   回到IDA 选择菜单栏&amp;gt;Debugger&amp;gt;Select a debugger(或者是switch debugger)&amp;gt;选择Remote linux debugger&amp;gt;ok  设置各种参数(这里调试的文件是cpp 路径在linux的桌面 Hostname是linux虚拟机的ip地址 密码是root的密码)  ok之后程序闪了一下就运行完了(因为没下断点) 然后取看linux上的终端程序跑完了
+  如果要调试就先下断点 再点击 之后的操作和OD里基本一样
+  </description>
     </item>
     
   </channel>
