@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RSA on aiQG_s blog</title>
+    <link>https://aiQG.github.io/tags/rsa/</link>
+    <description>Recent content in RSA on aiQG_s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 31 May 2019 19:28:08 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/tags/rsa/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RSA Attack</title>
+      <link>https://aiQG.github.io/post/rsa-attack/</link>
+      <pubDate>Fri, 31 May 2019 19:28:08 +0800</pubDate>
+      
+      <guid>https://aiQG.github.io/post/rsa-attack/</guid>
+      <description>爆破出n的因数, p/q相差很大或很小 可以分解n
+  低模指数e=3, 已知m高位和n,c 可以求出完整明文
+  # sage n = e = 3 c = m = #完整的m k = #未知的位数 PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = (x + m)^e-c x0 = f.small_roots(X=2^kbits, beta=1)[0] #明文为m+x0 已知p（或q）高位, 已知n,c,e 可求出p,q  #sage n = e = p = #完整的p pk = #原p的位数 k = #p未知的位数 pbar = p_fake &amp;amp; (2^pbits-2^kbits) # PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.</description>
+    </item>
+    
+  </channel>
+</rss>

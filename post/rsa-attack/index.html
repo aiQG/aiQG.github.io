@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <title>RSA Attack</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="" />
+    <style>
+@import "https://fonts.googleapis.com/css2?family=Inconsolata&display=swap";:root{--cursor-visibility:hidden}html,body{width:100%;height:100%;overflow:auto;font-family:inconsolata,monospace;font-size:4vmin;line-height:4.1vmin;font-weight:400}body{margin:0;display:flex;flex-direction:row;justify-content:center;align-items:center}#content{min-width:82vmin;min-height:82vmin}::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{border-radius:10px;box-shadow:inset 0 0 1px white}::-webkit-scrollbar-thumb{border-radius:10px;box-shadow:0 0 0 1px white}.cursor,#activity-title:after,#activity-content:after,#ps1_01:after,#cd:after,#ps1_02:after,#cat:after,#std_out_01:after,#ps1_03:after,#std_out_02:after,#ps1_04:after{visibility:var(--cursor-visibility);content:"|";overflow:hidden;color:#fff;animation:blink 500ms linear infinite alternate}@keyframes blink{0%{opacity:0}100%{opacity:1}}@media only screen and (min-width:768px){body{font-size:2.5vmin;line-height:2.6vmin}#content{min-width:60vmin}}:root{--cursor-visibility:hidden}body{align-items:unset;overflow-y:scroll}#content{max-width:80vmin}pre{overflow-x:scroll;white-space:pre}@keyframes blink{0%{opacity:0}100%{opacity:1}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+body{background:#1b1d1e}body #terminal{color:#BBBBBB}body #user{color:#23E298}body #dir{color:#D08010}body .Typewriter__cursor{color:#BBBBBB}a{color:#BBBBBB}
+
+        
+.navFull {
+    background-color: #353535;
+    font-family: "Courier New";
+    font-size: 17px;
+    display: inline;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding-top: 5px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navCredits {
+    float: right;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+#content::after {
+    content: "\a\a";
+    white-space: pre;
+}
+        
+        
+</style>
+
+
+
+</head><body><div id="content">
+    
+    
+    
+
+
+    <span id="activity-title"></span> <br>
+ <span id="activity-content"></span> <br>
+
+<script type="text/javascript">
+    async function typewriter(text, elementId, waitAfter) {
+        var n = 0,
+            isTag = false
+        addText = "";
+        const el = document.getElementById(elementId);
+
+        const wait = () => new Promise(r => setTimeout(r, waitAfter));
+        const nowait = () => new Promise(r => r());
+
+        const render = () => el.innerHTML = (text.slice(0, n + 1) + addText);
+
+        const cursor = document.createElement('span');
+        cursor.id = "blink";
+
+        el.style.setProperty("--cursor-visibility", "visible");
+        while (n < text.length) {
+            if (text.charAt(n + 1) === "<") isTag = true;
+            if (text.charAt(n + 1) === ">") isTag = false;
+
+            if (isTag) {
+                n++;
+                continue;
+            }
+
+            requestAnimationFrame(render);
+
+            if (waitAfter === 0) {
+                await nowait();
+            } else {
+                await wait();
+            }
+
+            n++;
+        }
+        el.style.setProperty("--cursor-visibility", "collapse");
+    }
+
+    function parseDelay(d) {
+        const parsed = parseInt(d, 10);
+        if (isNaN(parsed)) return 0;
+        return parsed;
+    }
+
+    const titleDelay = parseDelay("0"),
+        contentDelay = parseDelay("0");
+    const typeeffetct = async () => {
+        await typewriter("\u003cspan id=\u0027terminal\u0027\u003e\u003ch1 id=\u0027title\u0027\u003eRSA Attack\u003c\/h1\u003e\u003c\/span\u003e", "activity-title", titleDelay);
+        await typewriter("\u003cspan id=\u0027terminal\u0027\u003e\u003col\u003e\n\u003cli\u003e\n\u003cp\u003e爆破出n的因数, p\/q相差很大或很小 可以分解n\u003c\/p\u003e\n\u003c\/li\u003e\n\u003cli\u003e\n\u003cp\u003e低模指数e=3, 已知m高位和n,c 可以求出完整明文\u003c\/p\u003e\n\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# sage\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003en \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ee \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e3\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ec \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003em \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#完整的m\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ek \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#未知的位数\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ePR\u003cspan style=\u0022color:#f92672\u0022\u003e.\u0026lt;\u003c\/span\u003ex\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e PolynomialRing(Zmod(n))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ef \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e (x \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e m)\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ee\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003ec\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ex0 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e f\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esmall_roots(X\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits, beta\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e)[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#明文为m\u002bx0\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00222\u0022\u003e\n\u003cli\u003e已知p（或q）高位, 已知n,c,e 可求出p,q\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#sage\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003en \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ee \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ep \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#完整的p\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003epk \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#原p的位数\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ek \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#75715e\u0022\u003e#p未知的位数\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003epbar \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e p_fake \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026amp;\u003c\/span\u003e (\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003epbits\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ePR\u003cspan style=\u0022color:#f92672\u0022\u003e.\u0026lt;\u003c\/span\u003ex\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e PolynomialRing(Zmod(n))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ef \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e x \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e pbar\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ex0 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e f\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esmall_roots(X\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits, beta\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0.4\u003c\/span\u003e)[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e]  \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eprint x0 \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e pbar \u003cspan style=\u0022color:#75715e\u0022\u003e#计算出来的p\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00223\u0022\u003e\n\u003cli\u003e低模指数e=3, 已知n, c和私钥d的低位(在模指数低的情况下，d高位的一半可以认为已知)\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#sage\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003epartial_p\u003c\/span\u003e(p0, kbits, n):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    PR\u003cspan style=\u0022color:#f92672\u0022\u003e.\u0026lt;\u003c\/span\u003ex\u003cspan style=\u0022color:#f92672\u0022\u003e\u0026gt;\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e PolynomialRing(Zmod(n))\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    nbits \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e n\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enbits()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    f \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003ex \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e p0\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    f \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e f\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003emonic()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    roots \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e f\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003esmall_roots(X\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003e(nbits\u003cspan style=\u0022color:#f92672\u0022\u003e\/\/\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003ekbits), beta\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e0.3\u003c\/span\u003e)  \u003cspan style=\u0022color:#75715e\u0022\u003e# find root \u0026lt; 2^(nbits\/\/2-kbits) with factor \u0026gt;= n^0.3\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e roots:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        x0 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e roots[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        p \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e gcd(\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003ex0 \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e p0, n)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e ZZ(p)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003efind_p\u003c\/span\u003e(d0, kbits, e, n):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    X \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e var(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39;X\u0026#39;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e k \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e xrange(\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e, e\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        results \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e solve_mod([e\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003ed0\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003eX \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e k\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003eX\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e(n\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003eX\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e) \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e k\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003en \u003cspan style=\u0022color:#f92672\u0022\u003e==\u003c\/span\u003e X], \u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e x \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e results:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            p0 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e ZZ(x[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e])\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            p \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e partial_p(p0, kbits, n)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e            \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e p:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e                \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e p\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e __name__ \u003cspan style=\u0022color:#f92672\u0022\u003e==\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39;__main__\u0026#39;\u003c\/span\u003e:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    n \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    e \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e3\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    d \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    beta \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0.5\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    epsilon \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e beta\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\/\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e7\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    nbits \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e n\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003enbits() \u003cspan style=\u0022color:#75715e\u0022\u003e#获取n的位数\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    kbits \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e floor(nbits\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e(beta\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003eepsilon)) \u003cspan style=\u0022color:#75715e\u0022\u003e#已知部分d的位数 一般是正常d的一半\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    d0 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e d \u003cspan style=\u0022color:#f92672\u0022\u003e\u0026amp;\u003c\/span\u003e (\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e^\u003c\/span\u003ekbits\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e) \u003cspan style=\u0022color:#75715e\u0022\u003e#已知的部分d \u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    print \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;lower \u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e%d\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e bits (of \u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e%d\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e bits) is given\u0026#34;\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e (kbits, nbits)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    p \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e find_p(d0, kbits, e, n)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    print \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;found p: \u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e%d\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e p\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    q \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e n\u003cspan style=\u0022color:#f92672\u0022\u003e\/\/\u003c\/span\u003ep\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    print d\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    print inverse_mod(e, (p\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e)\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003e(q\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e))\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00224\u0022\u003e\n\u003cli\u003e\n\u003cp\u003ee太小m也不大的情况下，c=pow(m,e,n)=pow(m,e)，gmpy2的iroot开根爆破\u003c\/p\u003e\n\u003c\/li\u003e\n\u003cli\u003e\n\u003cp\u003e在e太大(d小)的情况下($ d \u0026lt; \\cfrac{1}{3}N^{\\frac{1}{4} }\\ mod\\ n \\equiv m^{(re_1\u002bse_2)}\\ mod\\ n \\equiv m\\ mod\\ n$)\u003c\/p\u003e\n\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e [RSAwienerHacker](https:\u003cspan style=\u0022color:#f92672\u0022\u003e\/\/\u003c\/span\u003egithub\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ecom\u003cspan style=\u0022color:#f92672\u0022\u003e\/\u003c\/span\u003epablocelayes\u003cspan style=\u0022color:#f92672\u0022\u003e\/\u003c\/span\u003ersa\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003ewiener\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003eattack\u003cspan style=\u0022color:#75715e\u0022\u003e#rsa-wiener-attack)\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eRSAwienerHacker\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ehack_RSA(e,n) \u003cspan style=\u0022color:#75715e\u0022\u003e#得到d\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00226\u0022\u003e\n\u003cli\u003e相同的N不同的e(私钥d)，加密同一明文\n$re_1 \u002b se_2 = 1\\ mod\\ n$求出$r$和$s$\n$c_1^rc_2^s \\equiv m^{re_1}m^{se_2}\\  mod\\  n \\equiv m^{(re_1\u002bse_2)}\\ mod\\ n \\equiv m\\ mod\\ n$ 求出$m$\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# -*- coding:utf-8 \u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#py3\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003efrom\u003c\/span\u003e libnum \u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e n2s, s2n\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003efrom\u003c\/span\u003e gmpy2 \u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e invert\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003en\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e raw_input( \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Input the n: \u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ee1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e raw_input( \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34; Input the e1:\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ee1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e raw_input (\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Input the e2:\u0026#34;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003eegcd\u003c\/span\u003e(a, b) :\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e a \u003cspan style=\u0022color:#f92672\u0022\u003e==\u003c\/span\u003e O:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e (b , \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e, \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eelse\u003c\/span\u003e:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        g,y,x\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003eegcd(b\u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003ea,a)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e (g, x \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e (b\u003cspan style=\u0022color:#f92672\u0022\u003e\/\u003c\/span\u003e\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003ea)\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003ey,y)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003efo1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e open(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39; flag.enc1\u0026#39;\u003c\/span\u003e,\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39;rb\u0026#39;\u003c\/span\u003e )\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003efo2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e open(\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39; flag.enc2\u0026#39;\u003c\/span\u003e, \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39;rb\u0026#39;\u003c\/span\u003e)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003edatafo1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e fo1\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eread( )\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003edatafo2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e fo2\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eread( )\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ec1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s2n(datafo1)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ec2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s2n(datafo2)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003efo1\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eclose()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003efo2\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eclose()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ec2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e invert(c2, n)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eS \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e egcd(e1, e2)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003es1 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s[\u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003es2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e s[\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003es2 \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003e s2\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003em \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e pow(c1, s1, n)\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003epow(c2, s2, n) \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e n\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eprint n2s(m)\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00228\u0022\u003e\n\u003cli\u003e低加密指数广播攻击：相同的e，对相同的明文m加密了N(至少为e)次\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#f92672\u0022\u003eimport\u003c\/span\u003e gmpy\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003emy_parse_number\u003c\/span\u003e(number):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    string \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e%x\u003c\/span\u003e\u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;\u003c\/span\u003e \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e number\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    erg \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e []\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003ewhile\u003c\/span\u003e string \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39;\u0026#39;\u003c\/span\u003e:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        erg \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e erg \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b\u003c\/span\u003e [chr(int(string[:\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e], \u003cspan style=\u0022color:#ae81ff\u0022\u003e16\u003c\/span\u003e))]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        string \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e string[\u003cspan style=\u0022color:#ae81ff\u0022\u003e2\u003c\/span\u003e:]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#39;\u0026#39;\u003c\/span\u003e\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003ejoin(erg)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003ee_gcd\u003c\/span\u003e(a, b):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    x,y \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e, \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    lastx, lasty \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e, \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003ewhile\u003c\/span\u003e b:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        a, (q, b) \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e b, divmod(a,b)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        x, lastx \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e lastx\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003eq\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003ex, x\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e        y, lasty \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e lasty\u003cspan style=\u0022color:#f92672\u0022\u003e-\u003c\/span\u003eq\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003ey, y\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e (lastx, lasty, a)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003edef\u003c\/span\u003e \u003cspan style=\u0022color:#a6e22e\u0022\u003echinese_remainder_theorem\u003c\/span\u003e(items):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  N \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e a, n \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e items:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    N \u003cspan style=\u0022color:#f92672\u0022\u003e*=\u003c\/span\u003e n\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  result \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  \u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e a, n \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e items:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    m \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e N\u003cspan style=\u0022color:#f92672\u0022\u003e\/\u003c\/span\u003en\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    r, s, d \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e e_gcd(n, m)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    \u003cspan style=\u0022color:#66d9ef\u0022\u003eif\u003c\/span\u003e d \u003cspan style=\u0022color:#f92672\u0022\u003e!=\u003c\/span\u003e \u003cspan style=\u0022color:#ae81ff\u0022\u003e1\u003c\/span\u003e:\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e      \u003cspan style=\u0022color:#66d9ef\u0022\u003eraise\u003c\/span\u003e \u003cspan style=\u0022color:#e6db74\u0022\u003e\u0026#34;Input not pairwise co-prime\u0026#34;\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    result \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b=\u003c\/span\u003e a\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003es\u003cspan style=\u0022color:#f92672\u0022\u003e*\u003c\/span\u003em\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e  \u003cspan style=\u0022color:#66d9ef\u0022\u003ereturn\u003c\/span\u003e result \u003cspan style=\u0022color:#f92672\u0022\u003e%\u003c\/span\u003e N, N\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ee\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003en\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e[,,,\u003cspan style=\u0022color:#f92672\u0022\u003e...\u003c\/span\u003e]\u003cspan style=\u0022color:#75715e\u0022\u003e#\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ec\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e[,,,\u003cspan style=\u0022color:#f92672\u0022\u003e...\u003c\/span\u003e]\u003cspan style=\u0022color:#75715e\u0022\u003e#\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003edata\u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e[]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#66d9ef\u0022\u003efor\u003c\/span\u003e i \u003cspan style=\u0022color:#f92672\u0022\u003ein\u003c\/span\u003e range(len(c)):\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e    data \u003cspan style=\u0022color:#f92672\u0022\u003e\u002b=\u003c\/span\u003e [(c[i],n[i])]\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003ex, n \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e chinese_remainder_theorem(data)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003erealnum \u003cspan style=\u0022color:#f92672\u0022\u003e=\u003c\/span\u003e gmpy\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003empz(x)\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003eroot(e)[\u003cspan style=\u0022color:#ae81ff\u0022\u003e0\u003c\/span\u003e]\u003cspan style=\u0022color:#f92672\u0022\u003e.\u003c\/span\u003edigits()\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eprint my_parse_number(int(realnum))\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00227\u0022\u003e\n\u003cli\u003e同一公钥加密的\u003cstrong\u003e具有线性关系的\u003c\/strong\u003e两条明文（Related Message Attack）\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#import FranklinReiter\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#?#import hastads\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#sage\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e# c2=c1\u002br\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003efranklinReiter(n,e,r,c1,c2)\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#?#hastads(,,,,,)\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00228\u0022\u003e\n\u003cli\u003e$d\u0026lt;N^{0.292}$\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cdiv class=\u0022highlight\u0022\u003e\u003cpre tabindex=\u00220\u0022 style=\u0022color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;\u0022\u003e\u003ccode class=\u0022language-python\u0022 data-lang=\u0022python\u0022\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003e\u003cspan style=\u0022color:#75715e\u0022\u003e#import [boneh_durfee](https:\/\/github.com\/mimoo\/RSA-and-LLL-attacks\/blob\/master\/boneh_durfee.sage)\u003c\/span\u003e\n\u003c\/span\u003e\u003c\/span\u003e\u003cspan style=\u0022display:flex;\u0022\u003e\u003cspan\u003eexample()\n\u003c\/span\u003e\u003c\/span\u003e\u003c\/code\u003e\u003c\/pre\u003e\u003c\/div\u003e\u003col start=\u00229\u0022\u003e\n\u003cli\u003e两个n不互相素，可以gmpy2.gcd(n1,n2)得到p,q\u003c\/li\u003e\n\u003c\/ol\u003e\n\u003cp\u003e$\\infty .​$\n\u003ca href=\u0022https:\/\/github.com\/ValarDragon\/CTF-Crypto\u0022\u003eCTF-Crypto\u003c\/a\u003e\n\u003ca href=\u0022https:\/\/github.com\/3summer\/CTF-RSA-tool\u0022\u003eCTF-RSA-tool\u003c\/a\u003e\n\u003ca href=\u0022http:\/\/lanvnal.com\/2018\/07\/28\/RSA%E9%A2%98%E5%9E%8B%E6%80%BB%E7%BB%93\/index.html\u0022\u003e总结\u003c\/a\u003e\n\u003ca href=\u0022https:\/\/github.com\/Ganapati\/RsaCtfTool\u0022\u003eRsaCtfTool(成套)\u003c\/a\u003e\n\u003ca href=\u0022https:\/\/github.com\/mimoo\/RSA-and-LLL-attacks\u0022\u003eRSA-and-LLL-attacks\u003c\/a\u003e\n\u003ca href=\u0022https:\/\/github.com\/mimoo\/RSA-and-LLL-attacks\u0022\u003ethis man TQL.github\u003c\/a\u003e\u003c\/p\u003e\n\u003c\/span\u003e", "activity-content", contentDelay);
+        return;
+    }
+
+    typeeffetct()
+</script>
+
+        </div>
+        
+        <span class="navFull">
+        
+    
+    
+
+    
+        
+
+<span>
+    <a href="/">Home</a>
+    <span>&#8192;|&#8192;</span>
+    <a href="./..">/post/</a>
+</span>
+
+    
+
+        
+        <span class="navCredits">
+            Hugo theme created by
+            <a href="https://github.com/Yukuro/hugo-theme-shell" target="_blank" rel="noopener">Yukuro</a>
+        </span>
+</span>
+
+        
+         
+    </body>
+</html>
