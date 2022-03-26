@@ -6,32 +6,15 @@
     <description>Recent content in Posts on aiQG_s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 26 Mar 2022 18:42:30 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Mar 2022 17:45:38 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Testpage22xx</title>
-      <link>https://aiQG.github.io/post/testpage22xx/</link>
-      <pubDate>Sat, 26 Mar 2022 18:42:30 +0800</pubDate>
-      
-      <guid>https://aiQG.github.io/post/testpage22xx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Testpage22</title>
-      <link>https://aiQG.github.io/post/testpage22/</link>
-      <pubDate>Sat, 26 Mar 2022 18:37:58 +0800</pubDate>
-      
-      <guid>https://aiQG.github.io/post/testpage22/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Testpage</title>
-      <link>https://aiQG.github.io/post/testpage/</link>
+      <title>other</title>
+      <link>https://aiQG.github.io/post/other/</link>
       <pubDate>Sat, 26 Mar 2022 17:45:38 +0800</pubDate>
       
-      <guid>https://aiQG.github.io/post/testpage/</guid>
-      <description></description>
+      <guid>https://aiQG.github.io/post/other/</guid>
+      <description>乘法
+func mul(a:Int, b:Int) -&amp;gt; Int { 	var big = a &amp;gt; b ? a : b 	var sma = a &amp;lt; b ? a : b 	var sum = 0 	while sma &amp;gt; 0 { 	sum += sma &amp;amp; 1 == 0 ? 0 : big 	sma = sma &amp;gt;&amp;gt; 1 	big = big &amp;lt;&amp;lt; 1 	} 	return sum }  加法</description>
     </item>
     
   </channel>
