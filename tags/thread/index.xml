@@ -6,11 +6,11 @@
     <description>Recent content in thread on aiQG_s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 26 Mar 2022 19:06:38 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/tags/thread/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Apr 2019 19:06:38 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/tags/thread/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Xx</title>
+      <title>C&#43;&#43;线程&#43;匿名函数(lambda表达式) 入门</title>
       <link>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</link>
-      <pubDate>Sat, 26 Mar 2022 19:06:38 +0800</pubDate>
+      <pubDate>Thu, 04 Apr 2019 19:06:38 +0800</pubDate>
       
       <guid>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
       <description>线程 我们写的程序都是一个main从上到下执行的，main怎么写，程序就怎么运行 那么这时好奇的小朋友一定想问：怎么能让程序同时做两件事呢？ 聪明的五号机回答到：可以用多线程呀 这时好奇的小朋友又要问了：线程和进程有什么区别呢？ 聪明的五号机又回答到：一个进程可以包括多个线程，进程之间不共享资源，线程之间共享同一个进程的资源 嗯&amp;hellip; 也可以结合下面这幅图解释 一只怪力可以可以看成是一个进程，一只怪力有几只手就可以看成是一个进程有几个线程&amp;hellip;（不过这里的线程是虚拟线程，有别于CPU的线程）
