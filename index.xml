@@ -6,7 +6,18 @@
     <description>Recent content on aiQG_s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 31 May 2019 19:28:08 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Oct 2019 19:36:02 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux进程</title>
+      <link>https://aiQG.github.io/post/linux%E8%BF%9B%E7%A8%8B/</link>
+      <pubDate>Tue, 01 Oct 2019 19:36:02 +0800</pubDate>
+      
+      <guid>https://aiQG.github.io/post/linux%E8%BF%9B%E7%A8%8B/</guid>
+      <description>Linux 中线程就是共享上下文的进程
+  用fork()创建进程  #include&amp;lt;stdio.h&amp;gt;//printf()#include&amp;lt;unistd.h&amp;gt; //fork()... pid_t pid; pid = fork()//创建进程 if(pid == 0) { 	printf(&amp;#34;child PID [%d], getpid = %d, getppid = %d\n&amp;#34;,pid,getpid(),getppid()); } else { 	printf(&amp;#34;parent PID [%d], getpid = %d, getppid = %d\n&amp;#34;,pid,getpid(),getppid()); } printf(&amp;#34;%d finish&amp;#34;,pid); 运行结果:
+child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end 相当于利用父进程创建了一个子进程并从fork()开始向下进行  孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果:  parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end 可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)</description>
+    </item>
+    
     <item>
       <title>RSA Attack</title>
       <link>https://aiQG.github.io/post/rsa-attack/</link>
