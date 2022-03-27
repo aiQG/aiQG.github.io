@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="generator" content="Hugo 0.95.0" />
+  <link rel="canonical" href="https://aiQG.github.io/%E5%8D%97%E9%82%AEcgctf%E5%B9%B3%E5%8F%B0%E9%83%A8%E5%88%86-write-up/" />
+
+  
+    
+    <meta name="description" content="CG-CTF 2018.7
+ Welcome to http://aiqg.vip/
+  web  md5 collision 看源代码  &lt;?php $md51 = md5(&#39;QNKCDZO&#39;); $a = @$_GET[&#39;a&#39;]; $md52 = @md5($a); if(isset($a)){ if ($a != &#39;QNKCDZO&#39; &amp;&amp; $md51 == $md52) { echo &#34;nctf{*****************}&#34;; } else { echo &#34;false!!!&#34;; }} else{echo &#34;please input a&#34;;} ?&gt;  要满足md51==md52 并且 a!=‘QNKCDZO’ 结合php的md5想到0e绕过
+令a=s878926199a （过md5后是0e开头） 构造
+ http://chinalover.sinaapp.com/web19/?a=s878926199a
+ 即可 nctf{md5_collision_is_easy}
+  签到2 从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到) 直接将源代码的10修改成11，输入zhimakaimen nctf{follow_me_to_exploit}   ·这题不是web 打开看到一奇怪的图片 下载下来用文本打开 最后一行 nctf{photo_can_also_hid3_msg}">
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aiQG.github.io/favicon-32x32.png"> 
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aiQG.github.io/favicon-16x16.png"> 
+  <link rel="manifest" href="https://aiQG.github.io/site.webmanifest"> 
+  <link rel="mask-icon" href="https://aiQG.github.io/safari-pinned-tab.svg" color="#000000"> 
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    body {
+      visibility: hidden;
+      opacity: 0;
+    }
+  </style>
+
+  <style id="darkTheme">
+    .intro-and-nav,
+    .main-and-footer {
+      filter: invert(100%);
+    }
+
+    * {
+      background-color: inherit
+    }
+
+    img:not([src*=".svg"]),
+    .colors,
+    iframe,
+    .demo-container {
+      filter: invert(100%);
+    }
+  </style>
+
+  <link rel="stylesheet" href="/css/prism.css" media="none" onload="this.media='all';">
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+  
+    <link rel="stylesheet" href="/css/custom_01.css">
+  
+    <link rel="stylesheet" href="/css/custom_02.css">
+  
+
+  
+  
+  <title>南邮cgctf平台部分 write up | aiQG_&#39;s Blog</title>
+</head>
+
+  <body>
+    <a href="#main"></a>
+    <noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+    <svg style="display: none">
+  <symbol id="bookmark" viewBox="0 0 40 50">
+   <g transform="translate(2266 3206.2)">
+    <path style="stroke:currentColor;stroke-width:3.2637;fill:none" d="m-2262.2-3203.4-.2331 42.195 16.319-16.318 16.318 16.318.2331-42.428z"/>
+   </g>
+  </symbol>
+
+  <symbol id="w3c" viewBox="0 0 127.09899 67.763">
+   <text font-size="83" style="font-size:83px;font-family:Trebuchet;letter-spacing:-12;fill-opacity:0" letter-spacing="-12" y="67.609352" x="-26.782778">W3C</text>
+   <text font-size="83" style="font-size:83px;font-weight:bold;font-family:Trebuchet;fill-opacity:0" y="67.609352" x="153.21722" font-weight="bold">SVG</text>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m33.695.377 12.062 41.016 12.067-41.016h8.731l-19.968 67.386h-.831l-12.48-41.759-12.479 41.759h-.832l-19.965-67.386h8.736l12.061 41.016 8.154-27.618-3.993-13.397h8.737z"/>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m91.355 46.132c0 6.104-1.624 11.234-4.862 15.394-3.248 4.158-7.45 6.237-12.607 6.237-3.882 0-7.263-1.238-10.148-3.702-2.885-2.47-5.02-5.812-6.406-10.022l6.82-2.829c1.001 2.552 2.317 4.562 3.953 6.028 1.636 1.469 3.56 2.207 5.781 2.207 2.329 0 4.3-1.306 5.909-3.911 1.609-2.606 2.411-5.738 2.411-9.401 0-4.049-.861-7.179-2.582-9.399-1.995-2.604-5.129-3.912-9.397-3.912h-3.327v-3.991l11.646-20.133h-14.062l-3.911 6.655h-2.493v-14.976h32.441v4.075l-12.31 21.217c4.324 1.385 7.596 3.911 9.815 7.571 2.22 3.659 3.329 7.953 3.329 12.892z"/>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.21 0 1.414 8.6-5.008 9.583s-1.924-4.064-5.117-6.314c-2.693-1.899-4.447-2.309-7.186-1.746-3.527.73-7.516 4.938-9.258 10.13-2.084 6.21-2.104 9.218-2.178 11.978-.115 4.428.58 7.043.58 7.043s-3.04-5.626-3.011-13.866c.018-5.882.947-11.218 3.666-16.479 2.404-4.627 5.954-7.404 9.114-7.728 3.264-.343 5.848 1.229 7.841 2.938 2.089 1.788 4.213 5.698 4.213 5.698l4.94-9.837z"/>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.82 48.674s-2.208 3.957-3.589 5.48c-1.379 1.524-3.849 4.209-6.896 5.555-3.049 1.343-4.646 1.598-7.661 1.306-3.01-.29-5.807-2.032-6.786-2.764-.979-.722-3.486-2.864-4.897-4.854-1.42-2-3.634-5.995-3.634-5.995s1.233 4.001 2.007 5.699c.442.977 1.81 3.965 3.749 6.572 1.805 2.425 5.315 6.604 10.652 7.545 5.336.945 9.002-1.449 9.907-2.031.907-.578 2.819-2.178 4.032-3.475 1.264-1.351 2.459-3.079 3.116-4.108.487-.758 1.276-2.286 1.276-2.286l-1.276-6.644z"/>
+  </symbol>
+
+  <symbol id="tag" viewBox="0 0 177.16535 177.16535">
+    <g transform="translate(0 -875.2)">
+     <path style="fill-rule:evenodd;stroke-width:0;fill:currentColor" d="m159.9 894.3-68.79 8.5872-75.42 77.336 61.931 60.397 75.429-76.565 6.8495-69.755zm-31.412 31.835a10.813 10.813 0 0 1 1.8443 2.247 10.813 10.813 0 0 1 -3.5174 14.872l-.0445.0275a10.813 10.813 0 0 1 -14.86 -3.5714 10.813 10.813 0 0 1 3.5563 -14.863 10.813 10.813 0 0 1 13.022 1.2884z"/>
+    </g>
+  </symbol>
+
+  <symbol id="balloon" viewBox="0 0 141.73228 177.16535">
+   <g transform="translate(0 -875.2)">
+    <g>
+     <path style="fill:currentColor" d="m68.156 882.83-.88753 1.4269c-4.9564 7.9666-6.3764 17.321-5.6731 37.378.36584 10.437 1.1246 23.51 1.6874 29.062.38895 3.8372 3.8278 32.454 4.6105 38.459 4.6694-.24176 9.2946.2879 14.377 1.481 1.2359-3.2937 5.2496-13.088 8.886-21.623 6.249-14.668 8.4128-21.264 10.253-31.252 1.2464-6.7626 1.6341-12.156 1.4204-19.764-.36325-12.93-2.1234-19.487-6.9377-25.843-2.0833-2.7507-6.9865-7.6112-7.9127-7.8436-.79716-.20019-6.6946-1.0922-6.7755-1.0248-.02213.0182-5.0006-.41858-7.5248-.22808l-2.149-.22808h-3.3738z"/>
+     <path style="fill:currentColor" d="m61.915 883.28-3.2484.4497c-1.7863.24724-3.5182.53481-3.8494.63994-2.4751.33811-4.7267.86957-6.7777 1.5696-.28598 0-1.0254.20146-2.3695.58589-5.0418 1.4418-6.6374 2.2604-8.2567 4.2364-6.281 7.6657-11.457 18.43-12.932 26.891-1.4667 8.4111.71353 22.583 5.0764 32.996 3.8064 9.0852 13.569 25.149 22.801 37.517 1.3741 1.841 2.1708 2.9286 2.4712 3.5792 3.5437-1.1699 6.8496-1.9336 10.082-2.3263-1.3569-5.7831-4.6968-21.86-6.8361-33.002-.92884-4.8368-2.4692-14.322-3.2452-19.991-.68557-5.0083-.77707-6.9534-.74159-15.791.04316-10.803.41822-16.162 1.5026-21.503 1.4593-5.9026 3.3494-11.077 6.3247-15.852z"/>
+     <path style="fill:currentColor" d="m94.499 885.78c-.10214-.0109-.13691 0-.0907.0409.16033.13489 1.329 1.0675 2.5976 2.0723 6.7003 5.307 11.273 14.568 12.658 25.638.52519 4.1949.24765 14.361-.5059 18.523-2.4775 13.684-9.7807 32.345-20.944 53.519l-3.0559 5.7971c2.8082.76579 5.7915 1.727 8.9926 2.8441 11.562-11.691 18.349-19.678 24.129-28.394 7.8992-11.913 11.132-20.234 12.24-31.518.98442-10.02-1.5579-20.876-6.7799-28.959-.2758-.4269-.57803-.86856-.89617-1.3166-3.247-6.13-9.752-12.053-21.264-16.131-2.3687-.86369-6.3657-2.0433-7.0802-2.1166z"/>
+     <path style="fill:currentColor" d="m32.52 892.22c-.20090-.13016-1.4606.81389-3.9132 2.7457-11.486 9.0476-17.632 24.186-16.078 39.61.79699 7.9138 2.4066 13.505 5.9184 20.562 5.8577 11.77 14.749 23.219 30.087 38.74.05838.059.12188.1244.18052.1838 1.3166-.5556 2.5965-1.0618 3.8429-1.5199-.66408-.32448-1.4608-1.3297-3.8116-4.4602-5.0951-6.785-8.7512-11.962-13.051-18.486-5.1379-7.7948-5.0097-7.5894-8.0586-13.054-6.2097-11.13-8.2674-17.725-8.6014-27.563-.21552-6.3494.13041-9.2733 1.775-14.987 2.1832-7.5849 3.9273-10.986 9.2693-18.07 1.7839-2.3656 2.6418-3.57 2.4409-3.7003z"/>
+     <path style="fill:currentColor" d="m69.133 992.37c-6.2405.0309-12.635.76718-19.554 2.5706 4.6956 4.7759 9.935 10.258 12.05 12.625l4.1272 4.6202h11.493l3.964-4.4516c2.0962-2.3541 7.4804-7.9845 12.201-12.768-8.378-1.4975-16.207-2.6353-24.281-2.5955z"/>
+     <rect style="stroke-width:0;fill:currentColor" ry="2.0328" height="27.746" width="22.766" y="1017.7" x="60.201"/>
+    </g>
+   </g>
+  </symbol>
+
+  <symbol id="info" viewBox="0 0 41.667 41.667">
+   <g transform="translate(-37.035 -1004.6)">
+    <path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m76.25 1030.2a18.968 18.968 0 0 1 -23.037 13.709 18.968 18.968 0 0 1 -13.738 -23.019 18.968 18.968 0 0 1 23.001 -13.768 18.968 18.968 0 0 1 13.798 22.984"/>
+    <g transform="matrix(1.1146 0 0 1.1146 -26.276 -124.92)">
+     <path style="stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m75.491 1039.5v-8.7472"/>
+     <path style="stroke-width:0;fill:currentColor" transform="scale(-1)" d="m-73.193-1024.5a2.3719 2.3719 0 0 1 -2.8807 1.7142 2.3719 2.3719 0 0 1 -1.718 -2.8785 2.3719 2.3719 0 0 1 2.8763 -1.7217 2.3719 2.3719 0 0 1 1.7254 2.8741"/>
+    </g>
+   </g>
+  </symbol>
+
+  <symbol id="warning" viewBox="0 0 48.430474 41.646302">
+    <g transform="translate(-1.1273 -1010.2)">
+     <path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:4.151;fill:none" d="m25.343 1012.3-22.14 37.496h44.28z"/>
+     <path style="stroke:currentColor;stroke-linecap:round;stroke-width:4.1512;fill:none" d="m25.54 1027.7v8.7472"/>
+     <path style="stroke-width:0;fill:currentColor" d="m27.839 1042.8a2.3719 2.3719 0 0 1 -2.8807 1.7143 2.3719 2.3719 0 0 1 -1.718 -2.8785 2.3719 2.3719 0 0 1 2.8763 -1.7217 2.3719 2.3719 0 0 1 1.7254 2.8741"/>
+    </g>
+  </symbol>
+
+  <symbol id="menu" viewBox="0 0 50 50">
+     <rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="0" x="0"/>
+     <rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="20" x="0"/>
+     <rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="40" x="0"/>
+   </symbol>
+
+   <symbol id="link" viewBox="0 0 50 50">
+    <g transform="translate(0 -1002.4)">
+     <g transform="matrix(.095670 0 0 .095670 2.3233 1004.9)">
+      <g>
+       <path style="stroke-width:0;fill:currentColor" d="m452.84 192.9-128.65 128.65c-35.535 35.54-93.108 35.54-128.65 0l-42.881-42.886 42.881-42.876 42.884 42.876c11.845 11.822 31.064 11.846 42.886 0l128.64-128.64c11.816-11.831 11.816-31.066 0-42.9l-42.881-42.881c-11.822-11.814-31.064-11.814-42.887 0l-45.928 45.936c-21.292-12.531-45.491-17.905-69.449-16.291l72.501-72.526c35.535-35.521 93.136-35.521 128.64 0l42.886 42.881c35.535 35.523 35.535 93.141-.001 128.66zm-254.28 168.51-45.903 45.9c-11.845 11.846-31.064 11.817-42.881 0l-42.884-42.881c-11.845-11.821-11.845-31.041 0-42.886l128.65-128.65c11.819-11.814 31.069-11.814 42.884 0l42.886 42.886 42.876-42.886-42.876-42.881c-35.54-35.521-93.113-35.521-128.65 0l-128.65 128.64c-35.538 35.545-35.538 93.146 0 128.65l42.883 42.882c35.51 35.54 93.11 35.54 128.65 0l72.496-72.499c-23.956 1.597-48.092-3.784-69.474-16.283z"/>
+      </g>
+     </g>
+    </g>
+  </symbol>
+
+  <symbol id="doc" viewBox="0 0 35 45">
+   <g transform="translate(-147.53 -539.83)">
+    <path style="stroke:currentColor;stroke-width:2.4501;fill:none" d="m149.38 542.67v39.194h31.354v-39.194z"/>
+    <g style="stroke-width:25" transform="matrix(.098003 0 0 .098003 133.69 525.96)">
+     <path d="m220 252.36h200" style="stroke:currentColor;stroke-width:25;fill:none"/>
+     <path style="stroke:currentColor;stroke-width:25;fill:none" d="m220 409.95h200"/>
+     <path d="m220 488.74h200" style="stroke:currentColor;stroke-width:25;fill:none"/>
+     <path d="m220 331.15h200" style="stroke:currentColor;stroke-width:25;fill:none"/>
+    </g>
+   </g>
+ </symbol>
+
+ <symbol id="tick" viewBox="0 0 177.16535 177.16535">
+  <g transform="translate(0 -875.2)">
+   <rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="155" width="40" y="702.99" x="556.82"/>
+   <rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="40" width="90.404" y="817.99" x="506.42"/>
+  </g>
+ </symbol>
+</svg>
+
+    <div class="wrapper">
+      <header class="intro-and-nav" role="banner">
+  <div>
+    <div class="intro">
+      <a
+        class="logo"
+        href="https://aiQG.github.io"
+        aria-label="aiQG_&#39;s Blog home page"
+      >
+        
+          <img 
+            src="/images/logo.svg" 
+            alt="An alternative text description of the logo"
+          >
+        
+      </a>
+      <p class="library-desc">
+         爆裂魔法を操りし者 
+      </p>
+    </div>
+    <nav id="patterns-nav" class="patterns" role="navigation">
+  <h2 class="vh"></h2>
+  <button id="menu-button" aria-expanded="false">
+    <svg viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+      <use xlink:href="#menu"></use>
+    </svg>
+    
+  </button>
+  
+  <ul id="patterns-list">
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">Home</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/post/" aria-current="page">
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">Blog</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/tags/" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">Tags</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/about/" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">About</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/index.xml" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">RSS</span>
+      </a>
+    </li>
+  
+  </ul>
+</nav>
+    
+  </div>
+</header>
+
+      <div class="main-and-footer">
+        <div>
+          
+  <main id="main">
+    <h1>
+      <svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false">
+        <use xlink:href="#bookmark"></use>
+      </svg>
+      南邮cgctf平台部分 write up
+    </h1>
+
+    <div class="date">
+      
+      
+      <strong> </strong>2018-08-02
+      
+        
+      
+    </div>
+
+    
+      <div class="tags">
+        <strong> </strong>
+        <ul aria-label="">
+          
+            <li>
+              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
+                <use xlink:href="#tag"></use>
+              </svg>
+              
+              <a href="/tags/ctf/">ctf</a>
+            </li>
+          
+        </ul>
+      </div>
+    
+
+    
+  <nav class="toc" aria-labelledby="toc-heading">
+    <strong id="toc-heading"></strong>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">web</a></li>
+  </ul>
+</nav>
+  </nav>
+
+
+
+    <p><a href="https://cgctf.x1ct34m.com/">CG-CTF</a>
+2018.7</p>
+<blockquote>
+<p>Welcome to <a href="http://aiqg.vip/">http://aiqg.vip/</a></p>
+</blockquote>
+<hr>
+<h2 id="web">web</h2>
+<ul>
+<li>md5 collision
+看源代码</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+$md51 = md5('QNKCDZO');
+$a = @$_GET['a'];
+$md52 = @md5($a);
+if(isset($a)){
+if ($a != 'QNKCDZO' &amp;&amp; $md51 == $md52) {
+    echo &quot;nctf{*****************}&quot;;
+} else {
+    echo &quot;false!!!&quot;;
+}}
+else{echo &quot;please input a&quot;;}
+?&gt;
+</code></pre>
+<p>要满足md51==md52 并且 a!=&lsquo;QNKCDZO&rsquo;
+结合php的md5想到0e绕过</p>
+<p>令a=s878926199a
+（过md5后是0e开头）
+构造</p>
+<blockquote>
+<p><a href="http://chinalover.sinaapp.com/web19/?a=s878926199a">http://chinalover.sinaapp.com/web19/?a=s878926199a</a></p>
+</blockquote>
+<p>即可
+nctf{md5_collision_is_easy}</p>
+<hr>
+<ul>
+<li>签到2
+从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到)
+直接将源代码的10修改成11，输入zhimakaimen
+nctf{follow_me_to_exploit}</li>
+</ul>
+<hr>
+<p>·这题不是web
+打开看到一奇怪的图片
+<img src="https://i.imgur.com/anihqQY.gif" alt="这里写图片描述">
+下载下来用文本打开
+最后一行
+nctf{photo_can_also_hid3_msg}</p>
+<hr>
+<ul>
+<li>层层递进
+打开似乎看到一大堆广告
+查看Network发现一个奇怪的404.html
+<img src="https://i.imgur.com/hNvovtZ.png" alt="这里写图片描述">
+进去看源码
+<img src="https://i.imgur.com/BfaxFyc.png" alt="这里写图片描述">
+nctf{this_is_a_fl4g}</li>
+</ul>
+<hr>
+<ul>
+<li>AAencode
+js的aa加密 打开时一堆表情+乱码￼
+<img src="https://i.imgur.com/C0B1Z6z.png" alt="这里写图片描述">
+(若都是表情则省去下面一步 具体情况因人而异)
+下载此页￼￼
+<img src="https://i.imgur.com/VceRIBM.png" alt="这里写图片描述">
+<img src="https://i.imgur.com/V828vlE.png" alt="这里写图片描述">
+随便找一个网站解去
+<img src="https://i.imgur.com/LOSwRbW.png" alt="这里写图片描述">
+nctf{javascript_aaencode}</li>
+</ul>
+<hr>
+<ul>
+<li>单身二十年
+点击链接很明显发生了一个跳转
+直接下载链接地址
+<img src="https://i.imgur.com/VGsDDxU.png" alt="这里写图片描述">
+<img src="https://i.imgur.com/YFjCJ9B.png" alt="这里写图片描述">
+搞定
+nctf{yougotit_script_now}</li>
+</ul>
+<hr>
+<ul>
+<li>php decode
+找个在线运行php的网站
+复制代码
+将eval改成echo即可
+nctf{gzip_base64_hhhhhh}</li>
+</ul>
+<hr>
+<ul>
+<li>文件包含
+提示了LFI
+网页输出show.php 也就是输出file变量的文件
+再想办法爆出文件源代码
+Tip :https://www.cnblogs.com/wh4am1/p/6542398.html
+用base64编码index.php后输出
+令file=php://filter/read=convert.base64-encode/resource=index.php
+再拿去解码￼
+<img src="https://i.imgur.com/3oWLbaB.png" alt="这里写图片描述">
+nctf{edulcni_elif_lacol_si_siht}</li>
+</ul>
+<hr>
+<ul>
+<li>单身一百年也没用
+点开链接 发现响应头里藏着flag
+<img src="https://i.imgur.com/w9h7lOf.png" alt="这里写图片描述">
+nctf{this_is_302_redirect}</li>
+</ul>
+<hr>
+<ul>
+<li>cookie
+点开链接发现请求头
+Cookie:Login=0
+根据tip将0改成1￼
+<img src="https://i.imgur.com/R5ytPx8.png" alt="这里写图片描述"></li>
+</ul>
+<p>nctf{cookie_is_different_from_session}</p>
+<hr>
+<ul>
+<li>MYSQL
+科普了robots协议
+进入robots.txt看看(别少了s别少了s别少了s)￼
+<img src="https://i.imgur.com/PcyHbWe.png" alt="这里写图片描述">
+发现源代码
+发现1024为判断关键
+分析
+GET到的id不能为1024
+保留整数后id为1024￼
+<img src="https://i.imgur.com/9qjxufJ.png" alt="这里写图片描述">
+nctf{query_in_mysql}</li>
+</ul>
+<hr>
+<ul>
+<li>sql injection 3
+<img src="https://i.imgur.com/nPcIpKB.png" alt="这里写图片描述">
+看到id=1
+就想试试234&hellip;
+<img src="https://i.imgur.com/soDKbpw.png" alt="id=2">
+<img src="https://i.imgur.com/jwZ5Ree.png" alt="id=3">
+得到提示 gbk
+输入id='
+(&rsquo;=%27; #=%23; 空格=%20)￼
+<img src="https://i.imgur.com/Vwseku9.png" alt="id=&amp;rsquo;">
+被转义掉了
+构造宽字节,用来闭合单引号(低位为%27即可 )
+令id=%ee%27
+出现warning 说明思路正确
+最后加上#（%23）把后面的语句注释掉 运行正常￼
+<img src="https://i.imgur.com/p35FHoF.png" alt="这里写图片描述">
+接下来就是union select了
+先找到返回的是哪个字段 (1,2,3,666什么的多试几次)￼
+<img src="https://i.imgur.com/DmzQ1Nx.png" alt="这里写图片描述">
+将该字段替换成要查找的内容..</li>
+</ul>
+<p><a href="https://www.cnblogs.com/ermei/p/7929501.html">Union select 手工注入</a>
+<a href="https://www.cnblogs.com/lqw4/p/4831463.html">关于information_schema</a></p>
+<p><code>information_schema</code>保存了数据库的信息
+<code>group_concat() </code>用于打印</p>
+<p>查看当前库</p>
+<blockquote>
+<p>id=%ee%27union select 1,database()%23</p>
+</blockquote>
+<p>查看库中所有表</p>
+<blockquote>
+<p>id=%ee%27union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()%23￼</p>
+</blockquote>
+<p><img src="https://i.imgur.com/BvjXKJ0.png" alt="这里写图片描述">
+可以看到一共五个库,之前id=3时返回的&quot;the fourth table&quot;明显提示了flag在ctf4中
+再看看ctf4中有哪些列</p>
+<blockquote>
+<p>id=%ee%27union select 1,group_concat(column_name) from information_schema.columns where table_name=0x63746634%23</p>
+</blockquote>
+<p>(其中0x63746634是ctf4的16进制gbk编码 <a href="http://www.mytju.com/classcode/tools/encode_gb2312.asp">转码网站</a>)
+<img src="https://i.imgur.com/HZQnbIJ.png" alt="这里写图片描述">
+flag！</p>
+<p>在ctf4中搜索flag
+令</p>
+<blockquote>
+<p>id=%ee%27union select 1,flag from ctf4%23</p>
+</blockquote>
+<p><img src="https://i.imgur.com/I4e9unp.png" alt="这里写图片描述">
+总的来说就是 爆库 爆表 爆字段(列)
+nctf{gbk_3sqli}</p>
+<p>说说踩的坑: 之前用</p>
+<blockquote>
+<p>id=%ee%27 union select 1,table_name from information_schema.tables where table_schema=database()%23</p>
+</blockquote>
+<p>只能爆出第一个ctf 然后在里面转得各种头晕 还找到了admin和一串密文(解码后是njupt)</p>
+<hr>
+<ul>
+<li>
+<p>/x00
+分析源码</p>
+<pre><code class="language-php">if (isset ($_GET['nctf'])) {
+	if (@ereg (&quot;^[1-9]+$&quot;, $_GET['nctf']) === FALSE)
+		echo '必须输入数字才行';
+    else if (strpos ($_GET['nctf'], '#biubiubiu') !== FALSE)   
+        die('Flag: '.$flag);
+    else
+        echo '骚年，继续努力吧啊~';
+}
+</code></pre>
+</li>
+</ul>
+<p>必须输入数字  必须包含#biubiubiu
+题目提示了00截断
+令nctf=666%00%23biubiubiu (%23为#)￼
+<img src="https://i.imgur.com/RtoWePN.png" alt="这里写图片描述">
+nctf{use_00_to_jieduan}</p>
+<hr>
+<ul>
+<li>bypass again
+一看到源码有md5 a!b之类的 就想到0e</li>
+</ul>
+<pre><code class="language-php">if (isset($_GET['a']) and isset($_GET['b'])) {
+	if ($_GET['a'] != $_GET['b'])
+		if (md5($_GET['a']) == md5($_GET['b']))
+			die('Flag: '.$flag);
+		else
+			print 'Wrong.';
+}
+</code></pre>
+<p>网上找两段md5后为0e开头的字符串 赋值即可
+nctf{php_is_so_cool}
+也可令ab为数组(md5不处理数组)</p>
+<hr>
+<ul>
+<li>变量覆盖
+有源码
+关键部分</li>
+</ul>
+<pre><code class="language-php">&lt;?php if ($_SERVER[&quot;REQUEST_METHOD&quot;] == &quot;POST&quot;) { ?&gt;
+	&lt;?php
+    extract($_POST);
+    if ($pass == $thepassword_123) { ?&gt;
+	    &lt;div class=&quot;alert alert-success&quot;&gt;
+	        &lt;code&gt;&lt;?php echo $theflag; ?&gt;&lt;/code&gt;
+        &lt;/div&gt;
+    &lt;?php } ?&gt;
+&lt;?php } ?&gt;
+</code></pre>
+<p>POST方式提交
+pass==thepassword_123输出flag
+<img src="https://i.imgur.com/3FUi9Rq.png" alt="这里写图片描述">
+nctf{bian_liang_fu_gai!}</p>
+<hr>
+<ul>
+<li>sql注入1
+源码</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+if($_POST[user] &amp;&amp; $_POST[pass]) {
+    mysql_connect(SAE_MYSQL_HOST_M . ':' . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+  mysql_select_db(SAE_MYSQL_DB);
+  $user = trim($_POST[user]);
+  $pass = md5(trim($_POST[pass]));
+  $sql=&quot;select user from ctf where (user='&quot;.$user.&quot;') and (pw='&quot;.$pass.&quot;')&quot;;
+    echo '&lt;/br&gt;'.$sql;
+  $query = mysql_fetch_array(mysql_query($sql));
+  if($query[user]==&quot;admin&quot;) {
+      echo &quot;&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;&quot;;
+  }
+  if($query[user] != &quot;admin&quot;) {
+    echo(&quot;&lt;p&gt;You are not admin!&lt;/p&gt;&quot;);
+  }
+}
+echo $query[user];
+?&gt;
+</code></pre>
+<p>只需要user==admin
+令user=admin’)#￼
+<img src="https://i.imgur.com/1x5HGk4.png" alt="这里写图片描述">
+nctf{ni_ye_hui_sql?}</p>
+<hr>
+<ul>
+<li>pass check</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+$pass=@$_POST['pass'];
+$pass1=***********;//被隐藏起来的密码
+if(isset($pass))
+{
+if(@!strcmp($pass,$pass1)){
+echo &quot;flag:nctf{*}&quot;;
+}else{
+echo &quot;the pass is wrong!&quot;;
+}
+}else{
+echo &quot;please input pass!&quot;;
+}
+?&gt;
+</code></pre>
+<p>要满足!strcmp($pass,$pass1)
+让strcmp 返回0 即可(比较非字符串时会返回0 )￼
+<img src="https://i.imgur.com/ywUg1Vm.png" alt="这里写图片描述">
+nctf{strcmp_is_n0t_3afe}</p>
+<hr>
+<ul>
+<li>起名字真难</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+ function noother_says_correct($number)
+{
+	$one = ord('1');
+	$nine = ord('9');
+	for ($i = 0; $i &lt; strlen($number); $i++)
+	{   
+		$digit = ord($number{$i});
+		if ( ($digit &gt;= $one) &amp;&amp; ($digit &lt;= $nine) )
+		{
+			return false;
+		}
+	}
+	return $number == '54975581388';
+}
+$flag='*******';
+if(noother_says_correct($_GET['key']))
+    echo $flag;
+else 
+    echo 'access denied';
+?&gt;
+</code></pre>
+<p>number 任意一位都不能是1-9的数字
+number ==&lsquo;54975581388&rsquo;
+那么只能是0和字母
+而且是个整数
+那么就是十六进制数了￼
+<img src="https://i.imgur.com/7lpvDfo.png" alt="这里写图片描述">
+nctf{follow_your_dream}</p>
+<hr>
+<ul>
+<li>综合题
+jother编码
+放到控制台运行返回
+1bc29b36f623ba82aaf6724fd3b16718.php
+访问此文件的响应头有tip:history of bash
+百度一下 是bash的history文件
+进入发现flag 下载即可￼
+<img src="https://i.imgur.com/GmMda6D.png" alt="这里写图片描述">
+nctf{bash_history_means_what}</li>
+</ul>
+<hr>
+<ul>
+<li>sql注入2</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+if($_POST[user] &amp;&amp; $_POST[pass]) {
+   mysql_connect(SAE_MYSQL_HOST_M . ':' . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
+  mysql_select_db(SAE_MYSQL_DB);
+  $user = $_POST[user];
+  $pass = md5($_POST[pass]);
+  $query = @mysql_fetch_array(mysql_query(&quot;select pw from ctf where user='$user'&quot;));
+  if (($query[pw]) &amp;&amp; (!strcasecmp($pass, $query[pw]))) {
+      echo &quot;&lt;p&gt;Logged in! Key: ntcf{**************} &lt;/p&gt;&quot;;
+  }
+  else {
+    echo(&quot;&lt;p&gt;Log in failure!&lt;/p&gt;&quot;);
+  }
+}
+?&gt;
+</code></pre>
+<p>先封闭单引号
+然后搜索md5后的密码
+ntcf{union_select_is_wtf}</p>
+<hr>
+<p>#逆向</p>
+<ul>
+<li>ReadAsm2
+开始有三个mov到了内存
+显然是三个参数
+分别是
+input 28 1
+其中1是计数变量
+读两遍汇编基本就知道函数在干什么了
+<img src="https://i.imgur.com/Mq4MPVh.png" alt="这里写图片描述">
+flag{read_asm_is_the_basic}</li>
+</ul>
+<hr>
+<ul>
+<li>py交易
+.pyc文件
+搜索py在线反编译工具</li>
+</ul>
+<pre><code class="language-python2">import base64
+
+def encode(message):
+    s = ''
+    for i in message:
+        x = ord(i) ^ 32
+        x = x + 16
+        s += chr(x)
+    
+    return base64.b64encode(s)
+
+correct = 'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'
+flag = ''
+print 'Input flag:'
+flag = raw_input()
+if encode(flag) == correct:
+    print 'correct'
+else:
+    print 'wrong'
+</code></pre>
+<p>flag经过encode后是correct
+反过来做一遍就好了
+<img src="https://i.imgur.com/Gu6VCML.png" alt="这里写图片描述"></p>
+<p>nctf{d3c0mpil1n9_PyC}</p>
+<hr>
+<ul>
+<li>WxyVM
+丢到ida里F5()
+<img src="https://i.imgur.com/j34kFXb.png" alt="这里写图片描述">
+加密函数 sub_4005b6
+<img src="https://i.imgur.com/L4lTxb9.png" alt="这里写图片描述"></li>
+</ul>
+<p>输入被一个数组加密
+数组的第n个元素选择运算方式（加减乘异或）
+数组的第n+1个元素指定输入的哪一位被运算
+数组的第n+2个元素是运算数
+数组总长15000 每三个一组</p>
+<p>加密完成后对比结果</p>
+<p>ok分析完毕
+找到0x1060到0x1060+24*4到data（24个4字节的数据）
+手动录入（FF与00的填充不管，小端序）</p>
+<p>然后导出15000字节的数组 (用winhex选择block)(从0x10c0到0x10c0+15000) (少导出十个字节让我头疼了一上午)
+逆向</p>
+<pre><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;fstream&gt;
+using namespace std;
+
+int main()
+{
+	ifstream f15000(&quot;arr&quot;);
+    char s24[]={0xC4,0x34,0x22,0xb1,
+        0xd3,0x11,0x97,0x07,
+        0xdb,0x37,0xc4,0x06,
+        0x1d,0xfc,0x5b,0xed,
+        0x98,0xdf,0x94,0xd8,
+        0xb3,0x84,0xcc,0x08
+    };
+	char s15[15000];
+	char ch;
+    int j=0;
+	while(f15000.get(ch))
+	{
+		s15[j]=ch;
+        j++;
+	}
+	
+	for(int i=14997;i&gt;=0;i=i-3)
+	{
+		char v0=s15[i];
+		char v3=s15[i+2];
+		char r=s15[i+1];
+		switch(v0)
+		{
+			case 1:
+			s24[r]-=v3;
+			break;
+			
+			case 2:
+			s24[r]+=v3;
+			break;
+
+			case 3:
+			s24[r]^=v3;
+			break;
+
+			case 4:
+			s24[r]/=v3;
+			break;
+
+			case 5:
+			s24[r]^=s24[s15[i+2]];
+			break;
+				
+			default:
+			continue;
+		}
+	}
+	cout&lt;&lt;s24&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+<p>nctf{Embr4ce_Vm_j0in_R3}</p>
+<hr>
+<ul>
+<li>Single
+//开始没注意到single啥意思..走了很多弯路&hellip;&hellip;
+丢到IDA里
+<img src="https://i.imgur.com/zRCBF4R.png" alt="在这里插入图片描述"></li>
+</ul>
+<p>发现三个子函数</p>
+<pre><code class="language-C++">void sub_40070E(char* input)
+{
+    int result;
+    int i;
+    if (strlen(input)&gt;0x51) //input 超过0x51(81)个字符GG
+    {
+        exit(1);
+    }
+    
+    for(i=0;;i++)
+    {
+        result = strlen(input);
+        if(i&gt;=result)   break;
+        
+        if(input[i]&lt;=47||input[i]&gt;57)//input[i]不符合GG
+        {
+            exit(1);
+        }
+    }
+    
+    return result;
+}
+</code></pre>
+<pre><code class="language-C++">void sub_40078B(char* input,char* with_input)  
+{
+    int result;
+    int i;
+    
+    for(i=0;;i++)
+    {
+        result=strlen(input);
+        if(i&gt;=result)   break;
+        
+        if(input[i]!=48) 
+        {
+            if( !input[i] || with_input[i] )
+            {
+                exit(1);
+            }
+            with_input[i]=input[i]-48;  //with_input[i]为 0 的地方会被修改
+        }
+    }
+}
+
+</code></pre>
+<p>第三个有三个检查函数</p>
+<pre><code class="language-C++">void sub_400AD4_1(char* with_input)
+{
+    for(int i=0;i&lt;=8;i++)
+    {
+        char s[24]=0;//初始化s
+        for(int j=0;j&lt;=8;j++)
+        {
+            s[ with_input[9*i+j] ]+=1;  //s[ with_input[0~80] ]+=1
+        }
+        for(int k=1;k&lt;=9;k++)  //s[1~9]要为1
+        {
+            if (s[k]!=1)
+            {
+                exit(1);
+            }
+        }
+    }
+}
+
+void sub_400AD4_2(char* with_input)
+{
+    
+    
+    for(int i=0;i&lt;=8;i++)
+    {
+        char s[24]=0;//初始化s
+        for(int j=0;j&lt;=8;j++)
+        {
+            s[ with_input[9*j+i] ]+=1; 
+        }
+        for(int k=1;k&lt;=9;k++)  //s[1~9]要为1
+        {
+            if (s[k]!=1)
+            {
+                exit(1);
+            }
+        }
+    }
+}
+
+void sub_400AD4_3(char* with_input)
+{
+    int v6=3;
+    int v7=3;
+    
+    for(int i=0;i&lt;=8;i++)
+    {
+        char s[24]=0;  //初始化s
+        for(int j=v6-3;j&lt;v6;j++)
+        {
+            for(int k=v7-3;k&lt;v7;k++)
+            {
+                s[ with_input[9*j+k] ]+=1;
+            }
+        }
+        for(int l=1;1&lt;=9;l++)//s[1~9]要为1
+        {
+            if(s[l]!=1)
+            {
+                exit(1);
+            }
+        }
+        if(v7==9)
+        {
+            v7=3;
+            v6+=3;
+        }
+        else
+        {
+            v7+=3;
+        }
+    }
+}
+void sub_400AD4(char* with_input)
+{
+sub_400AD4_1(with_input);
+sub_400AD4_2(with_input);
+sub_400AD4_3(with_input);
+}
+</code></pre>
+<p>看到第三个函数&hellip;甚至让我想无脑爆破&hellip;//然后发现爆破成本太高&hellip;.
+后来学习到single还有数独的意思&hellip;.//当时我的内心是崩溃的
+一个9*9的数独
+sub_40070E//检查输入：不超过81个字符，只能输入1～9
+sub_40078B//将输入填入数独表，如果填到原本有数字的地方就GG
+sub_400AD4//检查有没有数字重复
+sub_400AD4_1//检查每一行
+sub_400AD4_2//检查每一列
+sub_400AD4_3//检查每一宫</p>
+<p>数独表就是那个unk_602080
+<img src="https://i.imgur.com/9CEwzjZ.png" alt="在这里插入图片描述">
+百度在线解数独&hellip;
+<img src="https://i.imgur.com/EAMKeVn.png" alt="在这里插入图片描述">
+灰色的数字是题目中的，在flag中灰色为0
+横着一行行拼接成flag</p>
+<hr>
+<ul>
+<li>480小时精通C++
+//这题学到了很多东西&hellip;
+丢到ida里一脸懵B:<img src="https://i.imgur.com/j6iEq4m.png" alt="在这里插入图片描述">
+<img src="https://i.imgur.com/WjTKbeA.png" alt="在这里插入图片描述"></li>
+</ul>
+<p>//那么多的加密函数主函数里怎么没有调用？(v6 v7 v8 v9 v10的字符串不是flag)
+然后把v6~v10的字符串提出来用各种姿势跑了 StringEncryptFunction()    //然鹅并没有什么X用
+后来发现main里有一大段被nop掉了 (感谢五号机?)
+才知道这是叫Self-Modifying Code(SMC) (感谢人人人)</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/whatday/article/details/7265931">浅析SMC技术</a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/EJwsVtD.png" alt="在这里插入图片描述"></p>
+<p>这样就需要把程序跑起来 让他自己还原自己了
+然鹅在win上跑不了elf 所以在linux上用ida远程调试
+<a href="https://blog.csdn.net/qq_42863361/article/details/82927093">IDA远程调试(elf文件)设置</a>
+<img src="https://i.imgur.com/vyVdZVT.png" alt="在这里插入图片描述">
+ok 加密后的代码出来了
+<img src="https://i.imgur.com/YIVIJR7.png" alt="在这里插入图片描述">
+让它跑完 StringEncryptFunction() flag就出来了
+flag{N0body_c4n_Mast3r_c_p1us_pLus!}</p>
+<hr>
+<ul>
+<li>你大概需要一个优秀的mac</li>
+</ul>
+<p>三个加密函数 很容易整理出流程
+<img src="https://i.imgur.com/tgtHlDm.png" alt="在这里插入图片描述">
+最后和check里的unk_100000ED0比较
+<img src="https://i.imgur.com/JoJfYM3.png" alt="在这里插入图片描述">
+flag{I5_th1s_7he_PR1c3_I&rsquo;M_PAyiNG_f0r_my_pA57_m1stAk35?}</p>
+<hr>
+<ul>
+<li>HomuraVM
+//作为萌新的我表示&hellip;学到了好多&hellip;?</li>
+</ul>
+<p>丢到ida里 程序思路还算清楚.
+获取input(flag)&mdash;-&gt;加密&mdash;-&gt;字符串对比
+//难的就是不知道怎么加密的
+两堆字符被传入了sub_8DC//猜测是加密函数
+//有个sub_8AA函数点进去发现是getpid getsid什么的 基本上可以确定是反调试
+<img src="https://i.imgur.com/uLXMeKN.png" alt="在这里插入图片描述">
+传入进来后按照每位减67的方式 跳转到dword_1048+deword_1048[v1]位置去执行代码(学习到了JUMPOUT居然还有这种用处&hellip;)
+<img src="https://i.imgur.com/8sxW0Eh.png" alt="在这里插入图片描述">
+dword_1048长度是59 可以发现里面存着一堆十六进制数: 0xFFFFF***(能猜测到是相关地址)
+so 代码的位置就是dword_1048首地址 + 0xFFFFF*** = 0x00000*** (1048的‘1’被‘FFFFF’进位丢失了) 所以代码地址在0x048+0x***处
+然后到各个地址处看汇编(又复习了各种test cmp jz jnz) 可以总结出<img src="https://i.imgur.com/t2t1dkF.png" alt="在这里插入图片描述">其中bdb相当于什么也没做</p>
+<p>再回到main里的两大堆字符 可以发现有大量重复的字符
+(与代码联系起来 猜测和循环有关)
+于是可以发现有大量重复的hv{aG}[ur]ov&hellip;&hellip;MCh{mG}结构(中间夹着不同数量的a和r)
+跑个脚本 给hv{aG}[ur]ov  MCh{mG}  a  v  h[ur]ov(仅出现在开头) 这五种结构各位各减67 看看对应了哪些代码
+得到<img src="https://i.imgur.com/9hqD2j0.png" alt="在这里插入图片描述">这里把hv{aG}[ur]ov作为每个结构的开始 MCh{mG}作为结束ind是下标(对应的汇编是将input的偏移地址调整4位//感谢前辈的指点)
+经过整理后发现开始的h[ur]ov不起作用 得到</p>
+<pre><code class="language-C++">void head()
+{
+	Num_1=ch2//ch2是input的下一个字符
+}
+//其中有多少个a就减Num_1多少
+//其中有多少个r就加Num_1多少
+void tail()
+{
+	ch2=ch1+Num_1-2*(ch1&amp;Num_1);//ch1是input的当前字符
+	ind++;
+}
+//最后得到的input每一个字符应该与main中v5向下33个变量相同
+</code></pre>
+<p><em>思考过通过从对比字符串逆运算得到input
+发现加密运算中有直接赋值的语句 所以看来是不可逆的了</em>
+那就爆破</p>
+<pre><code class="language-python">code_v5=[27,114,17,118,8,74,126,5,55,124,31,88,104,7,112,7,49,108,4,47,4,105,54,77,127,8,80,12,109,28,127,80,29,96]
+ch1=ord('}')
+i=1#这里不清楚为什么要从code_v5[1]开始 导致flag从第三位开始
+def anloop(a,r,ch):
+    Num_1=ch-a+r
+    ch=ch1+Num_1-2*(ch1 &amp; Num_1)
+    return ch
+    for ch in range(0,128):#flag的内容一定都在ascii码里 所以上限是128
+    ch2=anloop(3,0,ch); #第一个结构 a有3个 r有0个 ...
+    if code_v5[i]==ch2:
+        i+=1
+        ch1=ch2#准备下一位
+        print(chr(ch),end='')
+        break
+	for ch in range(0,128):
+    ch2=anloop(3,3,ch);
+    if code_v5[i]==ch2:
+        i+=1
+        ch1=ch2
+        print(chr(ch),end='')
+        break
+        ...
+</code></pre>
+<p>由于加密函数是一位一位修改的 每次修改都基于上一位字符
+从main得知 input字符串的第一位与flag的最后一位相同
+所以能猜到input第一位是&rsquo;}'
+之后以</p>
+<pre><code class="language-python">for ch in range(0,128):
+    ch2=anloop(a,r,ch);
+    if code_v5[i]==ch2:
+        i+=1
+        ch1=ch2
+        print(chr(ch),end='')
+        break
+</code></pre>
+<p>为单位 把各个结构的a和r数量填上去&hellip;.//学习使用了py&hellip;虽然还不是很懂&hellip;<img src="https://i.imgur.com/UzqW3Tf.png" alt="在这里插入图片描述">
+这里从code_v5[1]开始 导致flag从第三位开始(不清楚为什么要从1开始)
+flag{D3v1L_H0mur4_f**k_y0uR_bra1N}
+//踩的坑：之前把code_v5填错了 导致浪费半天时间</p>
+<hr>
+<ul>
+<li>丘比龙De女神
+下载文件
+<img src="https://i.imgur.com/l6kJPvL.gif" alt="在这里插入图片描述"></li>
+</ul>
+<p>winhex打开能看到 nvshen.jpg  (由于有文件名所以猜测是压缩文件)
+搜索jpg 能找到几个jpg的位置 其中发现附近有一个 love(应该就是提示了)
+<img src="https://i.imgur.com/EBPebW1.png" alt="在这里插入图片描述">
+love 附近的数据形式与zip(0x504B030414&hellip;)相似</p>
+<blockquote>
+<p>更多文件头 : <a href="https://www.cnblogs.com/WangAoBo/p/6366211.html">https://www.cnblogs.com/WangAoBo/p/6366211.html</a></p>
+</blockquote>
+<p>love正好覆盖了0x504B0304
+更改后用.zip打开 有密码 猜测当然是love了～<img src="https://i.imgur.com/MGom9LQ.png" alt="在这里插入图片描述"></p>
+<p>计算图片md5 得到flag<img src="https://i.imgur.com/xQP0OuR.png" alt="在这里插入图片描述">
+flag{a6caad3aaafa11b6d5ed583bef4d8a54}</p>
+<hr>
+<ul>
+<li>WxyVM 2</li>
+</ul>
+<p>丢到ida发现
+input必须是25个字节
+一大堆的+-^(但是真正影响到input的只有那么几个byte形的东西)
+复制下来py处理一下吧<img src="https://i.imgur.com/WyXyIzT.png" alt="在这里插入图片描述">
+再把它们倒过来 +改成- ，-改成+ ，^不变
+然后找到各个相对input的偏移<img src="https://i.imgur.com/Rnw989o.png" alt="在这里插入图片描述">
+复制到程序里编译运行即可
+nctf{th3_vM_w1th0ut_dAta}</p>
+<hr>
+<ul>
+<li>simple machine
+这道题可以说是标准的逆向题了
+首先丢到ida里 能看到第一个是给变量分配内存的函数 第二个是反调试的(小小分析一下就知道了) 主要是后面两个加密的函数
+<img src="https://i.imgur.com/bvagYMa.png" alt="在这里插入图片描述">
+进去看了看 发现逻辑有点复杂 无意义的语句很多, 决定从output开始 向上分析函数作用 (不静态分析单个函数的作用)</li>
+</ul>
+<p>encode_2(将被异或的input按一定规则放进output):
+先找到函数对output更改的语句，将这句中的变量用上面的语句替换(直到代入的都是常量)
+能够写出此函数对应的解码函数</p>
+<pre><code class="language-cpp">//decode_2:
+unsigned char output[]={0x00,0x03,0x09,0x3A,0x05,0x0E,0x02,0x16,0x0F,0x1F,0x12,0x56,0x3B,0x0B,0x51,0x50,0x39,0x00,0x09,0x1F,0x50,0x04,0x14,0x57,0x3B,0x12,0x07,0x3C,0x1C,0x3A,0x15,0x05,0x0B,0x08,0x06,0x01,0x04,0x12,0x16,0x39,0x05,0x0B,0x50,0x57,0x09,0x12,0x0A,0x27,0x13,0x17,0x0E,0x02,0x55,0x18};//这就是最后拿来对比的字符串
+    for(int i=0;i&lt;=2;i++)
+    {
+        for(int j=0;j&lt;18;j++)
+        {
+            input[j*3+i]=output[j+18*i];
+        }
+    }
+</code></pre>
+<p>encode_1(对input的每一位都按顺序异或str[]):
+与上面同样的操作//这个函数规则更简单一点</p>
+<pre><code class="language-cpp">//decode_1:
+char str[]=&quot;feeddeadbeefcafe&quot;;
+    for(int i=0;i&lt;54;i++)
+    {
+        input[i] ^= str[i%16];
+    }
+</code></pre>
+<p>最后打印出input即可
+flag{wh4t_a_fuck1ng_4ss3mbly_styl3_C_progr4mm1ng_c0de}
+//把str抄反了 足足晕了半天(看到字符串就忘了小端序)</p>
+<hr>
+<ul>
+<li>Baby RSA
+学习RAS</li>
+</ul>
+<blockquote>
+<p>维基百科: <a href="https://zh.wikipedia.org/zh-hans/RSA">https://zh.wikipedia.org/zh-hans/RSA</a>加密演算法</p>
+</blockquote>
+<p>题目中有公钥(e,n)
+以及加密后的信息m (听说是出题者把密文打成了m&hellip;)</p>
+<p>首先将n分解为p,q，通过同余方程 de=1 (mod(p−1)(q−1)) 解出d
+然后代入  m^d^≡ M(mod n)  求得明文M</p>
+<p>上工具
+先将p, q 从n分解出来
+并计算出d
+最后将密文复制进去解密
+<img src="https://i.imgur.com/tpTpJoX.png" alt="在这里插入图片描述">
+flag{Acdxvf5vD_15_W7f}</p>
+<hr>
+<h1 id="misc">misc</h1>
+<ul>
+<li>Remove Boyfriend
+打开流量包可以看见有FTP流量
+追踪流可以看到各种操作<img src="https://i.imgur.com/7IisDFW.png" alt="在这里插入图片描述">
+两个文件 一个py 一个图片
+py用来解密flag
+flag{who_am_1}</li>
+</ul>
+<hr>
+<ul>
+<li>Coding Gay
+可以从这张图片提取出4张图片
+<img src="https://i.imgur.com/UaLoPtp.jpg" alt=""></li>
+</ul>
+<p>文件结构大概是这样：
+A图片在最前面显示，C图片中插着两张B图片（C图片看似png但是改成jpg格式才能打开）
+没思路。。。</p>
+
+  </main>
+  <div id="disqus-container">
+  
+    <button id="disqus-button" onclick="showComments()"></button>
+    <div id="disqus-comments">
+      
+      
+      
+        <p><em></em></p>
+        <script type="application/javascript">
+          function showComments() {
+            // Remove button
+var disqusButton = document.getElementById('disqus-button');
+disqusButton.parentNode.removeChild(disqusButton); 
+// Un-hide comments
+var disqusComments = document.getElementById('disqus-comments');
+disqusComments.style.display = 'block'; 
+          }
+        </script>
+      
+      <noscript></noscript>
+    </div>
+  
+</div>
+
+
+          
+            <footer role="contentinfo">
+  <div
+  
+  >
+    <label for="themer">
+       <input type="checkbox" id="themer" class="vh">
+      
+      <span aria-hidden="true"></span>
+    </label>
+  </div>
+  
+    Link:<a href="https://github.com/aiQG">github.com/aiQG</a>
+  
+</footer>
+
+          
+        </div>
+      </div>
+    </div>
+    
+
+<script src="/js/dom-scripts.js"></script>  
+
+<script src="/js/prism.js"></script>
+
+
+
+<script src="/js/search.7aef046a0cc8b0c532f1d20087b920459bc868c936bb48a6ae221eceefca2d07.js"></script>
+
+<link rel="stylesheet" href="/css/search.fe0cd54a21628574bff49d721c827d1bb165ab56b0f22dd55ae78addbe61c309.css"></link>
+
+
+
+  <script src="/js/custom_01.js"></script>
+
+  <script src="/js/custom_02.js"></script>
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+    
+  
+
+  </body>
+</html>

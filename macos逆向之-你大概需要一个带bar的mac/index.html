@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="generator" content="Hugo 0.95.0" />
+  <link rel="canonical" href="https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B-%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac/" />
+
+  
+    
+    <meta name="description" content="//这是一个macOS下用swift5 &#43; SpriteKit框架写出来的touchbar上的游戏 考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法…
+//动态分析链接
+得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个touchbarGame这个就是游戏本体
+ 关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
+ //关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&#34;shot&#34;,“rock&#34;和&#34;enemy&#34;的图片, 猜测是&#34;打飞机的游戏”(跑不起来只能猜了呗…) //这个游戏打起来是这样的……ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的  OC调用函数的机制是&#34;send message&#34;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl&#43;x查看函数的交叉引用几乎是找不到啥信息的了
+ 因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
+  发现有个&#34;/114514) R(estart)&#34; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&#34;set&#34;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
+  可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&#34;Physics Simulation&#34;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0   //也可以尝试搜索一下包含&#34;print&#34;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里">
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aiQG.github.io/favicon-32x32.png"> 
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aiQG.github.io/favicon-16x16.png"> 
+  <link rel="manifest" href="https://aiQG.github.io/site.webmanifest"> 
+  <link rel="mask-icon" href="https://aiQG.github.io/safari-pinned-tab.svg" color="#000000"> 
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    body {
+      visibility: hidden;
+      opacity: 0;
+    }
+  </style>
+
+  <style id="darkTheme">
+    .intro-and-nav,
+    .main-and-footer {
+      filter: invert(100%);
+    }
+
+    * {
+      background-color: inherit
+    }
+
+    img:not([src*=".svg"]),
+    .colors,
+    iframe,
+    .demo-container {
+      filter: invert(100%);
+    }
+  </style>
+
+  <link rel="stylesheet" href="/css/prism.css" media="none" onload="this.media='all';">
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+  
+    <link rel="stylesheet" href="/css/custom_01.css">
+  
+    <link rel="stylesheet" href="/css/custom_02.css">
+  
+
+  
+  
+  <title>macOS逆向之 “你大概需要一个带bar的mac” | aiQG_&#39;s Blog</title>
+</head>
+
+  <body>
+    <a href="#main"></a>
+    <noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+    <svg style="display: none">
+  <symbol id="bookmark" viewBox="0 0 40 50">
+   <g transform="translate(2266 3206.2)">
+    <path style="stroke:currentColor;stroke-width:3.2637;fill:none" d="m-2262.2-3203.4-.2331 42.195 16.319-16.318 16.318 16.318.2331-42.428z"/>
+   </g>
+  </symbol>
+
+  <symbol id="w3c" viewBox="0 0 127.09899 67.763">
+   <text font-size="83" style="font-size:83px;font-family:Trebuchet;letter-spacing:-12;fill-opacity:0" letter-spacing="-12" y="67.609352" x="-26.782778">W3C</text>
+   <text font-size="83" style="font-size:83px;font-weight:bold;font-family:Trebuchet;fill-opacity:0" y="67.609352" x="153.21722" font-weight="bold">SVG</text>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m33.695.377 12.062 41.016 12.067-41.016h8.731l-19.968 67.386h-.831l-12.48-41.759-12.479 41.759h-.832l-19.965-67.386h8.736l12.061 41.016 8.154-27.618-3.993-13.397h8.737z"/>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m91.355 46.132c0 6.104-1.624 11.234-4.862 15.394-3.248 4.158-7.45 6.237-12.607 6.237-3.882 0-7.263-1.238-10.148-3.702-2.885-2.47-5.02-5.812-6.406-10.022l6.82-2.829c1.001 2.552 2.317 4.562 3.953 6.028 1.636 1.469 3.56 2.207 5.781 2.207 2.329 0 4.3-1.306 5.909-3.911 1.609-2.606 2.411-5.738 2.411-9.401 0-4.049-.861-7.179-2.582-9.399-1.995-2.604-5.129-3.912-9.397-3.912h-3.327v-3.991l11.646-20.133h-14.062l-3.911 6.655h-2.493v-14.976h32.441v4.075l-12.31 21.217c4.324 1.385 7.596 3.911 9.815 7.571 2.22 3.659 3.329 7.953 3.329 12.892z"/>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.21 0 1.414 8.6-5.008 9.583s-1.924-4.064-5.117-6.314c-2.693-1.899-4.447-2.309-7.186-1.746-3.527.73-7.516 4.938-9.258 10.13-2.084 6.21-2.104 9.218-2.178 11.978-.115 4.428.58 7.043.58 7.043s-3.04-5.626-3.011-13.866c.018-5.882.947-11.218 3.666-16.479 2.404-4.627 5.954-7.404 9.114-7.728 3.264-.343 5.848 1.229 7.841 2.938 2.089 1.788 4.213 5.698 4.213 5.698l4.94-9.837z"/>
+   <path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.82 48.674s-2.208 3.957-3.589 5.48c-1.379 1.524-3.849 4.209-6.896 5.555-3.049 1.343-4.646 1.598-7.661 1.306-3.01-.29-5.807-2.032-6.786-2.764-.979-.722-3.486-2.864-4.897-4.854-1.42-2-3.634-5.995-3.634-5.995s1.233 4.001 2.007 5.699c.442.977 1.81 3.965 3.749 6.572 1.805 2.425 5.315 6.604 10.652 7.545 5.336.945 9.002-1.449 9.907-2.031.907-.578 2.819-2.178 4.032-3.475 1.264-1.351 2.459-3.079 3.116-4.108.487-.758 1.276-2.286 1.276-2.286l-1.276-6.644z"/>
+  </symbol>
+
+  <symbol id="tag" viewBox="0 0 177.16535 177.16535">
+    <g transform="translate(0 -875.2)">
+     <path style="fill-rule:evenodd;stroke-width:0;fill:currentColor" d="m159.9 894.3-68.79 8.5872-75.42 77.336 61.931 60.397 75.429-76.565 6.8495-69.755zm-31.412 31.835a10.813 10.813 0 0 1 1.8443 2.247 10.813 10.813 0 0 1 -3.5174 14.872l-.0445.0275a10.813 10.813 0 0 1 -14.86 -3.5714 10.813 10.813 0 0 1 3.5563 -14.863 10.813 10.813 0 0 1 13.022 1.2884z"/>
+    </g>
+  </symbol>
+
+  <symbol id="balloon" viewBox="0 0 141.73228 177.16535">
+   <g transform="translate(0 -875.2)">
+    <g>
+     <path style="fill:currentColor" d="m68.156 882.83-.88753 1.4269c-4.9564 7.9666-6.3764 17.321-5.6731 37.378.36584 10.437 1.1246 23.51 1.6874 29.062.38895 3.8372 3.8278 32.454 4.6105 38.459 4.6694-.24176 9.2946.2879 14.377 1.481 1.2359-3.2937 5.2496-13.088 8.886-21.623 6.249-14.668 8.4128-21.264 10.253-31.252 1.2464-6.7626 1.6341-12.156 1.4204-19.764-.36325-12.93-2.1234-19.487-6.9377-25.843-2.0833-2.7507-6.9865-7.6112-7.9127-7.8436-.79716-.20019-6.6946-1.0922-6.7755-1.0248-.02213.0182-5.0006-.41858-7.5248-.22808l-2.149-.22808h-3.3738z"/>
+     <path style="fill:currentColor" d="m61.915 883.28-3.2484.4497c-1.7863.24724-3.5182.53481-3.8494.63994-2.4751.33811-4.7267.86957-6.7777 1.5696-.28598 0-1.0254.20146-2.3695.58589-5.0418 1.4418-6.6374 2.2604-8.2567 4.2364-6.281 7.6657-11.457 18.43-12.932 26.891-1.4667 8.4111.71353 22.583 5.0764 32.996 3.8064 9.0852 13.569 25.149 22.801 37.517 1.3741 1.841 2.1708 2.9286 2.4712 3.5792 3.5437-1.1699 6.8496-1.9336 10.082-2.3263-1.3569-5.7831-4.6968-21.86-6.8361-33.002-.92884-4.8368-2.4692-14.322-3.2452-19.991-.68557-5.0083-.77707-6.9534-.74159-15.791.04316-10.803.41822-16.162 1.5026-21.503 1.4593-5.9026 3.3494-11.077 6.3247-15.852z"/>
+     <path style="fill:currentColor" d="m94.499 885.78c-.10214-.0109-.13691 0-.0907.0409.16033.13489 1.329 1.0675 2.5976 2.0723 6.7003 5.307 11.273 14.568 12.658 25.638.52519 4.1949.24765 14.361-.5059 18.523-2.4775 13.684-9.7807 32.345-20.944 53.519l-3.0559 5.7971c2.8082.76579 5.7915 1.727 8.9926 2.8441 11.562-11.691 18.349-19.678 24.129-28.394 7.8992-11.913 11.132-20.234 12.24-31.518.98442-10.02-1.5579-20.876-6.7799-28.959-.2758-.4269-.57803-.86856-.89617-1.3166-3.247-6.13-9.752-12.053-21.264-16.131-2.3687-.86369-6.3657-2.0433-7.0802-2.1166z"/>
+     <path style="fill:currentColor" d="m32.52 892.22c-.20090-.13016-1.4606.81389-3.9132 2.7457-11.486 9.0476-17.632 24.186-16.078 39.61.79699 7.9138 2.4066 13.505 5.9184 20.562 5.8577 11.77 14.749 23.219 30.087 38.74.05838.059.12188.1244.18052.1838 1.3166-.5556 2.5965-1.0618 3.8429-1.5199-.66408-.32448-1.4608-1.3297-3.8116-4.4602-5.0951-6.785-8.7512-11.962-13.051-18.486-5.1379-7.7948-5.0097-7.5894-8.0586-13.054-6.2097-11.13-8.2674-17.725-8.6014-27.563-.21552-6.3494.13041-9.2733 1.775-14.987 2.1832-7.5849 3.9273-10.986 9.2693-18.07 1.7839-2.3656 2.6418-3.57 2.4409-3.7003z"/>
+     <path style="fill:currentColor" d="m69.133 992.37c-6.2405.0309-12.635.76718-19.554 2.5706 4.6956 4.7759 9.935 10.258 12.05 12.625l4.1272 4.6202h11.493l3.964-4.4516c2.0962-2.3541 7.4804-7.9845 12.201-12.768-8.378-1.4975-16.207-2.6353-24.281-2.5955z"/>
+     <rect style="stroke-width:0;fill:currentColor" ry="2.0328" height="27.746" width="22.766" y="1017.7" x="60.201"/>
+    </g>
+   </g>
+  </symbol>
+
+  <symbol id="info" viewBox="0 0 41.667 41.667">
+   <g transform="translate(-37.035 -1004.6)">
+    <path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m76.25 1030.2a18.968 18.968 0 0 1 -23.037 13.709 18.968 18.968 0 0 1 -13.738 -23.019 18.968 18.968 0 0 1 23.001 -13.768 18.968 18.968 0 0 1 13.798 22.984"/>
+    <g transform="matrix(1.1146 0 0 1.1146 -26.276 -124.92)">
+     <path style="stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m75.491 1039.5v-8.7472"/>
+     <path style="stroke-width:0;fill:currentColor" transform="scale(-1)" d="m-73.193-1024.5a2.3719 2.3719 0 0 1 -2.8807 1.7142 2.3719 2.3719 0 0 1 -1.718 -2.8785 2.3719 2.3719 0 0 1 2.8763 -1.7217 2.3719 2.3719 0 0 1 1.7254 2.8741"/>
+    </g>
+   </g>
+  </symbol>
+
+  <symbol id="warning" viewBox="0 0 48.430474 41.646302">
+    <g transform="translate(-1.1273 -1010.2)">
+     <path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:4.151;fill:none" d="m25.343 1012.3-22.14 37.496h44.28z"/>
+     <path style="stroke:currentColor;stroke-linecap:round;stroke-width:4.1512;fill:none" d="m25.54 1027.7v8.7472"/>
+     <path style="stroke-width:0;fill:currentColor" d="m27.839 1042.8a2.3719 2.3719 0 0 1 -2.8807 1.7143 2.3719 2.3719 0 0 1 -1.718 -2.8785 2.3719 2.3719 0 0 1 2.8763 -1.7217 2.3719 2.3719 0 0 1 1.7254 2.8741"/>
+    </g>
+  </symbol>
+
+  <symbol id="menu" viewBox="0 0 50 50">
+     <rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="0" x="0"/>
+     <rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="20" x="0"/>
+     <rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="40" x="0"/>
+   </symbol>
+
+   <symbol id="link" viewBox="0 0 50 50">
+    <g transform="translate(0 -1002.4)">
+     <g transform="matrix(.095670 0 0 .095670 2.3233 1004.9)">
+      <g>
+       <path style="stroke-width:0;fill:currentColor" d="m452.84 192.9-128.65 128.65c-35.535 35.54-93.108 35.54-128.65 0l-42.881-42.886 42.881-42.876 42.884 42.876c11.845 11.822 31.064 11.846 42.886 0l128.64-128.64c11.816-11.831 11.816-31.066 0-42.9l-42.881-42.881c-11.822-11.814-31.064-11.814-42.887 0l-45.928 45.936c-21.292-12.531-45.491-17.905-69.449-16.291l72.501-72.526c35.535-35.521 93.136-35.521 128.64 0l42.886 42.881c35.535 35.523 35.535 93.141-.001 128.66zm-254.28 168.51-45.903 45.9c-11.845 11.846-31.064 11.817-42.881 0l-42.884-42.881c-11.845-11.821-11.845-31.041 0-42.886l128.65-128.65c11.819-11.814 31.069-11.814 42.884 0l42.886 42.886 42.876-42.886-42.876-42.881c-35.54-35.521-93.113-35.521-128.65 0l-128.65 128.64c-35.538 35.545-35.538 93.146 0 128.65l42.883 42.882c35.51 35.54 93.11 35.54 128.65 0l72.496-72.499c-23.956 1.597-48.092-3.784-69.474-16.283z"/>
+      </g>
+     </g>
+    </g>
+  </symbol>
+
+  <symbol id="doc" viewBox="0 0 35 45">
+   <g transform="translate(-147.53 -539.83)">
+    <path style="stroke:currentColor;stroke-width:2.4501;fill:none" d="m149.38 542.67v39.194h31.354v-39.194z"/>
+    <g style="stroke-width:25" transform="matrix(.098003 0 0 .098003 133.69 525.96)">
+     <path d="m220 252.36h200" style="stroke:currentColor;stroke-width:25;fill:none"/>
+     <path style="stroke:currentColor;stroke-width:25;fill:none" d="m220 409.95h200"/>
+     <path d="m220 488.74h200" style="stroke:currentColor;stroke-width:25;fill:none"/>
+     <path d="m220 331.15h200" style="stroke:currentColor;stroke-width:25;fill:none"/>
+    </g>
+   </g>
+ </symbol>
+
+ <symbol id="tick" viewBox="0 0 177.16535 177.16535">
+  <g transform="translate(0 -875.2)">
+   <rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="155" width="40" y="702.99" x="556.82"/>
+   <rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="40" width="90.404" y="817.99" x="506.42"/>
+  </g>
+ </symbol>
+</svg>
+
+    <div class="wrapper">
+      <header class="intro-and-nav" role="banner">
+  <div>
+    <div class="intro">
+      <a
+        class="logo"
+        href="https://aiQG.github.io"
+        aria-label="aiQG_&#39;s Blog home page"
+      >
+        
+          <img 
+            src="/images/logo.svg" 
+            alt="An alternative text description of the logo"
+          >
+        
+      </a>
+      <p class="library-desc">
+         爆裂魔法を操りし者 
+      </p>
+    </div>
+    <nav id="patterns-nav" class="patterns" role="navigation">
+  <h2 class="vh"></h2>
+  <button id="menu-button" aria-expanded="false">
+    <svg viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+      <use xlink:href="#menu"></use>
+    </svg>
+    
+  </button>
+  
+  <ul id="patterns-list">
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">Home</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/post/" aria-current="page">
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">Blog</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/tags/" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">Tags</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/about/" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">About</span>
+      </a>
+    </li>
+  
+    <li class="pattern">
+      
+      
+      
+      
+      <a href="/index.xml" >
+        <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
+          <use xlink:href="#bookmark"></use>
+        </svg>
+        <span class="text">RSS</span>
+      </a>
+    </li>
+  
+  </ul>
+</nav>
+    
+  </div>
+</header>
+
+      <div class="main-and-footer">
+        <div>
+          
+  <main id="main">
+    <h1>
+      <svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false">
+        <use xlink:href="#bookmark"></use>
+      </svg>
+      macOS逆向之 “你大概需要一个带bar的mac”
+    </h1>
+
+    <div class="date">
+      
+      
+      <strong> </strong>2019-11-27
+      
+        
+      
+    </div>
+
+    
+      <div class="tags">
+        <strong> </strong>
+        <ul aria-label="">
+          
+            <li>
+              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
+                <use xlink:href="#tag"></use>
+              </svg>
+              
+              <a href="/tags/ctf/">CTF</a>
+            </li>
+          
+            <li>
+              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
+                <use xlink:href="#tag"></use>
+              </svg>
+              
+              <a href="/tags/reverse-engineering/">Reverse Engineering</a>
+            </li>
+          
+        </ul>
+      </div>
+    
+
+    
+
+
+    <p>//这是一个macOS下用swift5 + SpriteKit框架写出来的touchbar上的游戏
+考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法&hellip;</p>
+<p>//<a href="/2020/01/08/macOS%E9%80%86%E5%90%91-%E4%B9%8B-%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac-%E5%8A%A8%E6%80%81.html">动态分析链接</a></p>
+<p>得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个<code>touchbarGame</code>这个就是游戏本体</p>
+<blockquote>
+<p>关于.app里各个文件：
+_CodeSignature文件夹 是各个文件的数字签名防止被篡改
+Resources文件夹 是各种资源文件
+MacOS文件夹 是此App的真正可执行文件
+Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识)
+PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf)
+Assets.car中保存着资源图片</p>
+</blockquote>
+<p><a href="https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/">//关于资源文件Assets.car的分析链接</a>
+Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具)
+<img src="https://i.imgur.com/jWTjHmZ.png" alt="mac3">
+<img src="https://i.imgur.com/RDfIzWQ.png" alt="mac4">
+可以看到有&quot;shot&quot;,&ldquo;rock&quot;和&quot;enemy&quot;的图片, 猜测是&quot;打飞机的游戏&rdquo;(跑不起来只能猜了呗&hellip;)
+//这个游戏打起来是这样的&hellip;&hellip;<img src="https://i.imgur.com/mD1jVkC.gif" alt="gaming"></p>
+<p>ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的
+<img src="https://i.imgur.com/qkAM9mL.png" alt="mac1"></p>
+<blockquote>
+<p>OC调用函数的机制是&quot;send message&quot;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl+x查看函数的交叉引用几乎是找不到啥信息的了</p>
+</blockquote>
+<p>因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息</p>
+<ul>
+<li>
+<p>发现有个&quot;/114514) R(estart)&quot;
+//114514???
+我们交叉引用跟过去到<code>sub_100002190</code>, 发现这个函数里OC发了很多带&quot;set&quot;的消息, 可以推断这里是初始化整个游戏的位置
+那这个字符串应该就是一个(提示重新开始的)Label</p>
+</li>
+<li>
+<p>可以找到头的信息
+<img src="https://i.imgur.com/IV35qBC.png" alt="mac2">
+看到使用了几个框架, google一下发现SpriteKit这个框架有&quot;Physics Simulation&quot;的class, 其中有一个<a href="https://developer.apple.com/documentation/spritekit/skphysicscontact">SKPhysicsContact</a>看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置)
+继续往下看文档, 有两个变量<code>bodyA</code>和<code>bodyB</code>
+由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数<code>sub_1000034C0</code>
+<img src="https://i.imgur.com/0ReT786.png" alt="mac5"></p>
+</li>
+</ul>
+<p>//也可以尝试搜索一下包含&quot;print&quot;的函数, 找到<code>_$ss5print_9separator10terminatoryypd_S2StF</code>, 发现有两处调用了这个函数, 而且也都在<code>sub_1000034C0</code>里</p>
+<p>可以仔细分析一下<code>sub_1000034C0</code>函数
+发现有几个立即数, 很明显是字符串
+<img src="https://i.imgur.com/Ze6WHkE.png" alt="mac6">
+&ldquo;hit player&rdquo;
+显然这是一个swift 调用print 的结构, 再往下看看能找到类似的结构
+<img src="https://i.imgur.com/shDXDtb.png" alt="mac7">
+&ldquo;hit enemy&rdquo;</p>
+<p>显然这个函数判断了触发碰撞的是哪两个物体</p>
+<p>再仔细看一下&quot;hit player&quot;下面的部分, 又发现了一个字符串
+<img src="https://i.imgur.com/bVXCoNn.png" alt="mac8">
+&ldquo;Game Over&rdquo;
+是个Label, 并且这个Label是和&quot;hit player&quot;处于同层(同一个if), 可以推断游戏如果触发了&quot;hit player&quot;必定触发&quot;Game Over&quot;</p>
+<p>//<code>_sSS5write2toyxz_ts16TextOutputStreamRzlF</code>函数其实在给Label初始化字符串</p>
+<p>//其实在&quot;hit player&quot;下面很近的地方就能找到&quot;KilledPlayer&quot;, 在&quot;hit enemy&quot;下面很近的地方能找到&quot;killEnemy&quot;. 这两个位置其实是调用了Resources文件夹里两个.sks的粒子文件
+<img src="https://i.imgur.com/alT47K4.png" alt="mac9"></p>
+<p>接下来主要分析一下&quot;hit enemy&quot;部分的代码
+很容易看见有个if判断了一个变量的数值是否为114514, 之前的分析也发现了这个奇怪的值(而且是在字符串里), 很可疑,  重点关注
+<img src="https://i.imgur.com/45cHEUJ.png" alt="macA">
+v53[v115]这个变量可以往回追溯, 发现
+<img src="https://i.imgur.com/f2E9Hem.png" alt="macB">
+v53 来自 v124,  <code>OBJC_IVAR____TtC12touchbarGame17TouchbarGameScene_score</code>这个常量的值是0x28, v115的值同样也是  <code>OBJC_IVAR____TtC12touchbarGame17TouchbarGameScene_score</code>, 并且这个名称一看就和分数有关, 并且  <code>v28 = v26 + 1</code>这个位置很明显是分数加一
+因此那个if其实是在判断分数是否为114514</p>
+<p>继续分析判断分数为114514后程序执行了什么
+能看到这个if最后有个goto
+<img src="https://i.imgur.com/wghTuLs.png" alt="macC">
+跳过了对一个变量的赋值(赋0), 并且这个变量最后会被放到一个Label里//并且可以看到&quot;setPosition&quot;消息的参数和&quot;Game Over&quot;Label的&quot;setPosition&quot;参数一样, 说明这两个东西出现的位置相同, 但内容必定不同///而且v65是经过了一个while运算(其实是一个数值往字符串转换的操作)
+//这里需要注意一下由于Swift是类型安全的. 所以, 数值并不能直接转成字符(其实程序在判断分数为114514后, 执行的是一个数值转字符串的操作)</p>
+<p>那么我们主要分析一下从得分(&ldquo;hit enemy&rdquo;)到判断分数为114514(打印flag)之间的内容(因为可以推断这里面很可能有对flag数组加解密的操作)</p>
+<p>首先能看到好几个常量字符串
+<img src="https://i.imgur.com/ADmlKLP.png" alt="macD">
+&ldquo;remove&quot;了两个&quot;body&rdquo;, 然后播放了一个动画(去查了查Apple开发者文档, 发现SKAction是一个用来播放动画的class)</p>
+<p>接着能看见<code>OBJC_IVAR____TtC12touchbarGame17TouchbarGameScene_flagArr</code>这个变量, 它和前面的<code>OBJC_IVAR____TtC12touchbarGame17TouchbarGameScene_score</code>有相同的前缀<code>OBJC_IVAR____</code>, 所以我们可知这里也是一个变量(其实是一个数组), 这个变量被传递到后面进行了一个计算
+<img src="https://i.imgur.com/R4yoyno.png" alt="macE">
+我们可以稍微整理一下得到 <code>*(v34 + v116%v31 + 0x20) ^= v32</code>
+其中<code>v32</code>和<code>v116</code>是得到的总分数, <code>v31(=v30+0x10)</code>是数组的长度, <code>v34+0x20</code>处是数组第0个元素的位置
+再整理一下可以得到, <code>(Arr + score%Arr.length) ^= score</code>
+(注意这里有个数据类型的转换, ida下按&rsquo;\&lsquo;键显示)
+//中间的两个if是swift内存安全的检查, 防止数组越界造成内存泄露</p>
+<p>//关于Swift数组的结构:
+<img src="https://i.imgur.com/X2Andab.png" alt="swiftArr"></p>
+<p>按照这个结构可以在<code>__data:</code>段里找到多个像这样相同的数组
+<img src="https://i.imgur.com/xjhToPf.png" alt="flagArr"></p>
+<hr>
+<p>到这里这个函数的功能就整理清楚了
+判断是&quot;player&quot;发生了碰撞, 还是&quot;enemy&quot;发生了碰撞.</p>
+<ul>
+<li>如果是&quot;player&quot;发生碰撞, 则&quot;Game Over&quot;;</li>
+<li>如果&quot;enemy&quot;发生碰撞, 则:</li>
+</ul>
+<ol>
+<li>初始化killEnemy.sks的粒子</li>
+<li>分数+1</li>
+<li><strong>对flagArr数组进行运算</strong></li>
+<li>移除bodyA</li>
+<li>移除bodyB(移除两个发生碰撞的物体)</li>
+<li>按照&quot;killEnemy.sks&quot;文件生成粒子</li>
+<li>检查分数是否为114514, 如果分数为114514, 则生成一个字符串; 否则不生成字符串</li>
+<li>如果生成了字符串, 则生成一个Label</li>
+</ol>
+<hr>
+<p>那我们主要关注对flagArr计算的位置
+由于只在<code>__data:</code>段里找到了一个数组(多个相同的), 那我们可以尝试一下解这个数组</p>
+<pre><code class="language-swift">var flagArr:[UInt8] = [55, 32, 78, 37, 55, 98, 241, 242, 147, 177, 160, 31, 70, 34, 15, 60, 231, 178, 146, 144, 239, 20, 98, 114, 78, 30, 141, 151, 136, 185, 197, 51, 124, 61, 75, 111, 157, 205, 239, 232, 237]
+
+var flag = &quot;&quot;
+
+for i in 1...114514 {
+	flagArr[i%flagArr.count] = flagArr[i%flagArr.count] ^ UInt8(i &amp; 0xFF)	
+}
+
+for j in flagArr {
+	flag += String(UnicodeScalar(j))
+}
+
+print(flag)
+
+</code></pre>
+<p>可解出flag</p>
+<hr>
+<p>//关于指针的问题
+可以看到程序中很多的指针, 这是swift(OC)de Runtime性质, 在分析的时候不必过度地纠结指针到底指向什么东西(除非想要深入了解OC的Runtime机制)</p>
+<p>//ida分析出的函数名给我们提供了很大的帮助</p>
+
+  </main>
+  <div id="disqus-container">
+  
+    <button id="disqus-button" onclick="showComments()"></button>
+    <div id="disqus-comments">
+      
+      
+      
+        <p><em></em></p>
+        <script type="application/javascript">
+          function showComments() {
+            // Remove button
+var disqusButton = document.getElementById('disqus-button');
+disqusButton.parentNode.removeChild(disqusButton); 
+// Un-hide comments
+var disqusComments = document.getElementById('disqus-comments');
+disqusComments.style.display = 'block'; 
+          }
+        </script>
+      
+      <noscript></noscript>
+    </div>
+  
+</div>
+
+
+          
+            <footer role="contentinfo">
+  <div
+  
+  >
+    <label for="themer">
+       <input type="checkbox" id="themer" class="vh">
+      
+      <span aria-hidden="true"></span>
+    </label>
+  </div>
+  
+    Link:<a href="https://github.com/aiQG">github.com/aiQG</a>
+  
+</footer>
+
+          
+        </div>
+      </div>
+    </div>
+    
+
+<script src="/js/dom-scripts.js"></script>  
+
+<script src="/js/prism.js"></script>
+
+
+
+<script src="/js/search.7aef046a0cc8b0c532f1d20087b920459bc868c936bb48a6ae221eceefca2d07.js"></script>
+
+<link rel="stylesheet" href="/css/search.fe0cd54a21628574bff49d721c827d1bb165ab56b0f22dd55ae78addbe61c309.css"></link>
+
+
+
+  <script src="/js/custom_01.js"></script>
+
+  <script src="/js/custom_02.js"></script>
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+    
+  
+
+  </body>
+</html>

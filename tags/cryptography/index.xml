@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cryptography on aiQG_&#39;s Blog</title>
+    <link>https://aiQG.github.io/tags/cryptography/</link>
+    <description>Recent content in Cryptography on aiQG_&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 31 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://aiQG.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RSA Attack</title>
+      <link>https://aiQG.github.io/rsa-attack/</link>
+      <pubDate>Fri, 31 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/rsa-attack/</guid>
+      <description>爆破出n的因数, p/q相差很大或很小 可以分解n
+  低模指数e=3, 已知m高位和n,c 可以求出完整明文
+  # sage n = e = 3 c = m = #完整的m k = #未知的位数 PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = (x + m)^e-c x0 = f.small_roots(X=2^kbits, beta=1)[0] #明文为m+x0  已知p（或q）高位, 已知n,c,e 可求出p,q  #sage n = e = p = #完整的p pk = #原p的位数 k = #p未知的位数 pbar = p_fake &amp;amp; (2^pbits-2^kbits) # PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.</description>
+    </item>
+    
+    <item>
+      <title>密码学(加解密)</title>
+      <link>https://aiQG.github.io/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E8%A7%A3%E5%AF%86/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E8%A7%A3%E5%AF%86/</guid>
+      <description>python pycryptodome 密码库官方文档
+ base64/32   Base64: 一个字符8bit, 将所有字符比特按照每3个字符分成一组(每组3*8=24bit), 再将每组(24bit) 按照6bit一个字符分成4个字符(4*6=24bit) (不满一组用0填充)(全0 为&amp;rsquo;=&amp;rsquo;) 总的来说就是将3个字节编码为4个字符
+ #换表base64/32/58可以用string.maketrans(charset, origin)设置字符映射关系 #换表flag flag = &#39;a(&amp;gt;sb(93b3-s^!;;&#39; #原表 origin = &amp;quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&amp;quot; #变表 charset = &amp;quot;!:#$%&amp;amp;()+-*/`~_[]{}?&amp;lt;&amp;gt;,.@^abcdefghijklmnopqrstuvwxyz0123456789\\&#39;;&amp;quot; #设置映射关系 charset到 origin import string t = string.maketrans(charset, origin) #flag换成原表b64 flag = flag.translate(t) #aGVsbG93b3JsZA== #解base64 import base64 #import base58 flag = base64.b64decode(flag) #helloworld    几种加密模式:
+ ECB (电子密码本模式) 将明文分成64位(8字节)一组, 分别xor相同的一个密码本(一般是密钥) 再==进入加密流程==.每组密文解密后xor相同的一个密码本得到明文. //相当于每组分别加密互不影响(解密反之即可) CBC (密码分组链接模式) 加密: 先将明文分成64位一组(假设分成了n组), 第一组xor初始向量iv. ==进入加密流程==得到密文C1. 将得到的密文C1与第二组明文xor后==进入加密流程==得到密文C2.</description>
+    </item>
+    
+  </channel>
+</rss>

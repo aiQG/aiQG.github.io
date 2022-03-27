@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>unknown on aiQG_s blog</title>
+    <title>unknown on aiQG_&#39;s Blog</title>
     <link>https://aiQG.github.io/tags/unknown/</link>
-    <description>Recent content in unknown on aiQG_s blog</description>
+    <description>Recent content in unknown on aiQG_&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 01 Oct 2019 19:36:02 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/tags/unknown/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jan 2000 00:00:00 +0000</lastBuildDate><atom:link href="https://aiQG.github.io/tags/unknown/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>linux进程</title>
-      <link>https://aiQG.github.io/post/linux%E8%BF%9B%E7%A8%8B/</link>
-      <pubDate>Tue, 01 Oct 2019 19:36:02 +0800</pubDate>
+      <title>other</title>
+      <link>https://aiQG.github.io/other/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/linux%E8%BF%9B%E7%A8%8B/</guid>
-      <description>Linux 中线程就是共享上下文的进程
-  用fork()创建进程  #include&amp;lt;stdio.h&amp;gt;//printf()#include&amp;lt;unistd.h&amp;gt; //fork()... pid_t pid; pid = fork()//创建进程 if(pid == 0) { 	printf(&amp;#34;child PID [%d], getpid = %d, getppid = %d\n&amp;#34;,pid,getpid(),getppid()); } else { 	printf(&amp;#34;parent PID [%d], getpid = %d, getppid = %d\n&amp;#34;,pid,getpid(),getppid()); } printf(&amp;#34;%d finish&amp;#34;,pid); 运行结果:
-child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end 相当于利用父进程创建了一个子进程并从fork()开始向下进行  孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果:  parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end 可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)</description>
+      <guid>https://aiQG.github.io/other/</guid>
+      <description>乘法
+func mul(a:Int, b:Int) -&amp;gt; Int { var big = a &amp;gt; b ? a : b var sma = a &amp;lt; b ? a : b var sum = 0 while sma &amp;gt; 0 { sum += sma &amp;amp; 1 == 0 ? 0 : big sma = sma &amp;gt;&amp;gt; 1 big = big &amp;lt;&amp;lt; 1 } return sum }   加法
+int add(int a, int b) { stack&amp;lt;bool&amp;gt; st; bool x = false; if((a &amp;lt; b &amp;amp;&amp;amp; abs((long)a) &amp;gt; abs((long)b)) || (a &amp;gt; b &amp;amp;&amp;amp; abs((long)a) &amp;lt; abs((long)b))){ x = true; } bool flag = false; for (int i = 0; i &amp;lt; 31; i++) { if((a&amp;amp;1) == 1 &amp;amp;&amp;amp; (b&amp;amp;1) == 1){ st.</description>
     </item>
     
   </channel>

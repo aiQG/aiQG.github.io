@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tool on aiQG_&#39;s Blog</title>
+    <link>https://aiQG.github.io/tags/tool/</link>
+    <description>Recent content in tool on aiQG_&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 22 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://aiQG.github.io/tags/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>lldb</title>
+      <link>https://aiQG.github.io/lldb/</link>
+      <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/lldb/</guid>
+      <description>GDB to LLDB command map
+直接回车 重复上一条命令
+可以设置命令别名
+l/list 源码(编译时带-g)
+ +文件名 看特定文件(多文件编译时) +函数名  b/breakpoint+行号 下断点(可&amp;ndash;file指定文件)
+ +&amp;ndash;method+cpp类名 按类下断点 +set+&amp;ndash;name+函数名 按函数名下断点 +list 查看断点列表 +disabled 禁用断点 +enabled 启用断点 +delete 删除断点  n/next 步过(源码级别)
+ ni (汇编级别) s/step 步入(源码级别) si (汇编级别) f/finish 步出 c/continue 继续执行  bt 查看所有帧(调用堆栈) frame select+序号 跳到指定帧(f +序号) frame variable 查看当前帧的变量(局部变量)
+image list -o -f 各个模块的基址
+register read 读取寄存器的值 register write 修改寄存器的值
+e/expression+表达式 执行表达式(可修改寄存器的值 expression $r8=1)(也可调用某类某方法)(也可利用exp unsigned int $a = 0xFF 初始化变量(似乎不能在开始调试后修改变量))</description>
+    </item>
+    
+    <item>
+      <title>各种奇怪的工具</title>
+      <link>https://aiQG.github.io/%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E7%9A%84%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E7%9A%84%E5%B7%A5%E5%85%B7/</guid>
+      <description>抓包: tshark//mac可用(自带？) wireshark的分析功能 tshark.exe -r usb2.pcap -T fields -e usb.capdata &amp;gt; usbdata.txt 提取数据 从CTF中学USB流量捕获与解析 文件(信息): binwalk（binwalk -e 分离文件） file exiftool
+pdf爆破: pdfcrack pdfcrack -f flag.pdf --wordlist=rockyou.txt//rockyou.txt是一个字典 提取图片信息: identify
+ identify -format &amp;ldquo;%s %T \n&amp;rdquo; &amp;lsquo;/home/ctf/Desktop/100_KHf05OI.gif&amp;rsquo;
+ Linux下的strings命令搜索文件夹中文本里包含的字符串strings * | grep [password]
+ convert 可以转换图片格式，修改大小&amp;hellip;&amp;hellip; 拆分gif
+ convert flag.gif output.png
+ (最好在一个文件夹里分解)
+ montage
+Linux版的小型ps 将多图片紧密平铺
+ montage -mode Concatenate -tile x1 output-*.png ok.png
+  grep 文本搜索工具 可以找到哪些文件包含字符串 也可以查找整个目录
+ python pycryptodome 密码库官方文档</description>
+    </item>
+    
+  </channel>
+</rss>

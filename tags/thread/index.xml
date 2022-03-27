@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>thread on aiQG_s blog</title>
+    <title>thread on aiQG_&#39;s Blog</title>
     <link>https://aiQG.github.io/tags/thread/</link>
-    <description>Recent content in thread on aiQG_s blog</description>
+    <description>Recent content in thread on aiQG_&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 04 Apr 2019 19:06:38 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/tags/thread/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://aiQG.github.io/tags/thread/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43;线程&#43;匿名函数(lambda表达式) 入门</title>
-      <link>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</link>
-      <pubDate>Thu, 04 Apr 2019 19:06:38 +0800</pubDate>
+      <link>https://aiQG.github.io/c-%E7%BA%BF%E7%A8%8B-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Thu, 04 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
+      <guid>https://aiQG.github.io/c-%E7%BA%BF%E7%A8%8B-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
       <description>线程 我们写的程序都是一个main从上到下执行的，main怎么写，程序就怎么运行 那么这时好奇的小朋友一定想问：怎么能让程序同时做两件事呢？ 聪明的五号机回答到：可以用多线程呀 这时好奇的小朋友又要问了：线程和进程有什么区别呢？ 聪明的五号机又回答到：一个进程可以包括多个线程，进程之间不共享资源，线程之间共享同一个进程的资源 嗯&amp;hellip; 也可以结合下面这幅图解释 一只怪力可以可以看成是一个进程，一只怪力有几只手就可以看成是一个进程有几个线程&amp;hellip;（不过这里的线程是虚拟线程，有别于CPU的线程）
-#include &amp;lt;iostream&amp;gt;#include &amp;lt;thread&amp;gt;using namespace std; //这是线程要执行的函数 void hellofun(int i) {  cout&amp;lt;&amp;lt;&amp;#34;Helloworld\t&amp;#34;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl;  return; } //main函数相当于主线程 int main() { 	for(int i=0; i&amp;lt;10;i++) 	{  thread THR1(hellofun, i);  THR1.join();  //THR1.detach(); 	}  return 0; } hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看</description>
+#include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt; using namespace std; //这是线程要执行的函数 void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; return; } //main函数相当于主线程 int main() { for(int i=0; i&amp;lt;10;i++) { thread THR1(hellofun, i); THR1.join(); //THR1.detach(); } return 0; }  hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看
+#include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt;//线程，C++11 using namespace std; void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; while(1);// return; } int main() { for(int i=0; ;i++) { thread THR1(hellofun, i); THR1.</description>
     </item>
     
   </channel>

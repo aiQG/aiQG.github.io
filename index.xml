@@ -1,65 +1,562 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>aiQG_s blog</title>
+    <title>Home on aiQG_&#39;s Blog</title>
     <link>https://aiQG.github.io/</link>
-    <description>Recent content on aiQG_s blog</description>
+    <description>Recent content in Home on aiQG_&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 01 Oct 2019 19:36:02 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jan 2000 00:00:00 +0800</lastBuildDate><atom:link href="https://aiQG.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How To Compile Android Kernel On OSX</title>
+      <link>https://aiQG.github.io/how-to-compile-android-kernel-on-osx/</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/how-to-compile-android-kernel-on-osx/</guid>
+      <description>(在OSX上用clang编译arm64的安卓内核)
+First of All: 一个区分大小写的文件系统 (OSX文件系统不区分大小写, 导致下载/解压时不同文件的覆盖(文件缺少))
+打开磁盘工具, 创建一个区分大小写的APFS宗卷, 所有工作都在这个宗卷里进行.
+通过 repo 下载源码 下载方式(Google官方提供)
+执行 build/build.sh 构建内核 官方链接
+编译好的东西在 ./out/ 里
+配置环境   下载交叉编译器 下载 clang, 不再支持gcc.
+$ pwd /Path/To/prebuilts-master/clang/host $ git clone https://android.googlesource.com/platform/prebuilts/clang/host/darwin-x86    ./build/_setup_env.sh 替换 readlink 为 greadlink. export ROOT_DIR=$PWD 改为 export ROOT_DIR=$(greadlink -f $PWD)
+  ./build/build.sh 替换 readlink 为 greadlink. (可能需要brew install coreutils) 替换 tar 为 gtar.
+  ./private/msm-google/build.config.common 替换 linux-x86 为 darwin-x86.</description>
+    </item>
+    
+    <item>
+      <title>Mach—O文件</title>
+      <link>https://aiQG.github.io/macho%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/macho%E6%96%87%E4%BB%B6/</guid>
+      <description>Header: 指明了 cpu 架构、大小端序、文件类型、Load Commands 个数、大小等一些基本信息. (校验合法性, 并确定运行环境)
+Load Commands: 描述了怎样加载每个 Segment 的信息. 在 Mach-O 文件中可以有多个 Segment, 每个 Segment 可能包含一个或多个 Section.
+Data: Segment 的具体数据, 包含了代码和数据等.
+Mach-O 头部定义(macOS 10.15 sdk):
+/* * The 64-bit mach header appears at the very beginning of object files for * 64-bit architectures. */ struct mach_header_64 { uint32_t	magic;	/* mach magic number identifier */ cpu_type_t	cputype;	/* cpu specifier */ cpu_subtype_t	cpusubtype;	/* machine specifier */ uint32_t	filetype;	/* type of file */ uint32_t	ncmds;	/* number of load commands */ uint32_t	sizeofcmds;	/* the size of all the load commands */ uint32_t	flags;	/* flags */ uint32_t	reserved;	/* reserved */ }; /* Constant for the magic field of the mach_header_64 (64-bit architectures) */ #define MH_MAGIC_64 0xfeedfacf /* the 64-bit mach magic number */ #define MH_CIGAM_64 0xcffaedfe /* NXSwapInt(MH_MAGIC_64) */  cputype 和 cpusubtype 确定 cpu 类型、平台</description>
+    </item>
+    
+    <item>
+      <title>Combine of Swift</title>
+      <link>https://aiQG.github.io/combine-of-swift/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/combine-of-swift/</guid>
+      <description>Using Combine
+操作符类符合Subscriber协议和Publisher协议
+可以拆分/合并数据流
+A simple Combine pipeline written in swift might look like:
+let _ = Just(5) // 输出类型为&amp;lt;Integer&amp;gt;, 失败类型为&amp;lt;Never&amp;gt; .map { value -&amp;gt; String in // do something with the incoming value here // and return a string return &amp;quot;a string&amp;quot; } // 输出类型为&amp;lt;String&amp;gt;, 失败类型为&amp;lt;Never&amp;gt; .sink { receivedValue in // sink is the subscriber and terminates the pipeline print(&amp;quot;The end result was \(receivedValue)&amp;quot;) } // sink用来结束  SwiftUI使用Combine提供的@Published和@ObservedObject属性包装器隐式创建发布者</description>
+    </item>
+    
+    <item>
+      <title>iOS-Hook</title>
+      <link>https://aiQG.github.io/ios-hook/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/ios-hook/</guid>
+      <description>前提:
+  MonkeyAPP(及其依赖)
+  class-dump
+  Reveal
+  砸壳
+  对于非越狱设备, 可以在TargetApp文件夹中放入ipa后编译运行一下(安装到设备上), 然后运行Reveal分析APP的UI结构, 记录下需要hook的控件类名, 在用class-dump导出的头文件中找到这个类的相关方法进行hook.
+可以在hook代码中利用%log(Logos语法)打印出被hook函数的所有参数, 从而找到有用信息(例如对于UIButton类型的控件, 可以找到点击它调用的方法). // 对于Logos语法的代码写在 HookAppDylib.xm
+hook WeChat.app注册和登录页面:
+Reveal找到登录和注册两个按钮是FixTitleColorButton类
+在class-dump导出的头中找到这个类, 发现是继承UIButton的, 所以hook FixTitleColorButton的 -(void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents 方法. (这个函数存在于父类UIButton, 可以从Apple官方文档找到其他有用的函数)
+利用%log找到初始化的信息(查看参数controlEvents)
+%hook FixTitleColorButton - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents{ %log; %orig(target, action, controlEvents); } %end  得到两段输出
+WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&amp;lt;FixTitleColorButton: 0x14fd411e0&amp;gt; addTarget:&amp;lt;WCAccountLoginControlLogic: 0x2805a9c70&amp;gt; action:onFirstViewLogin forControlEvents:0x40] WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.</description>
+    </item>
+    
+    <item>
+      <title>iOS逆向-App修改</title>
+      <link>https://aiQG.github.io/ios%E9%80%86%E5%90%91-app%E4%BF%AE%E6%94%B9/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/ios%E9%80%86%E5%90%91-app%E4%BF%AE%E6%94%B9/</guid>
+      <description>//pacman真好玩
+给panman256加上一个无敌
+首先当然是&amp;quot;砸壳&amp;quot;
+看到是unity做的, 用Il2CppDumper 从Unity il2cpp文件还原DLl, 生成的ida脚本可以恢复很多函数名, dump.cs保存用到的类
+然后拿到binary, 用ida加载, 跑Il2CppDumper生成的脚本, 恢复一下函数名(这两步可能需要很长时间, 这期间可以找找dump.cs里可能有用的方法)
+找到一个player类, 里面有个 KillCharacter 和 KillCharacterNow , 猜测和玩家死亡有关
+lldb远程调试, image list -b pacman256  找到基地址, 通过dump.cs结合ida找到函数位置下断点调试//arm64的寄存器比较特殊, 主要关注PC(下一条执行的指令)和LR(子程序结束后执行的指令(相当于返回地址))
+回溯找到偏移为0x7CEA4的OnTriggerEnter函数(BadGuy类)//一看就知道是碰到👻触发的判断////当然不能直接把这个函数给干掉, 因为游戏中还有各种杀死👻的机制
+这个函数偏移0x6e8处有个 B.NE 的关键跳转, 每当玩家碰到ghost就会触发判断, 若跳转则玩家不死亡, 不跳转则玩家死亡
+改成 0010007D58C 06 00 00 14 B loc_10007D5A4 无条件跳转
+保存, 复制出来重签名
+安装到iPhone上玩玩
+成功!
+//这里我用的是越狱的iPhone5S iOS12.3(16F156) 从App Store下载, 最后安装在未越狱的iPhone7 iOS13.3(17C54)上, 完美运行!</description>
+    </item>
+    
+    <item>
+      <title>iOS逆向-”重签名“</title>
+      <link>https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E9%87%8D%E7%AD%BE%E5%90%8D/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E9%87%8D%E7%AD%BE%E5%90%8D/</guid>
+      <description>iOS逆向最后一步: “重签名”
+第一步, 将Payload文件夹压缩成.zip, 然后将.zip后缀改成.ipa
+找到一个 .mobileprovision 文件(最好是先创建一个iOS项目, 在真机上跑一下, 然后到 ~/Library/MobileDevice/Provisioning\ Profiles/  复制)(这个证书到期很快, 到时候又要重签名)//, 正在探索优秀的重签名方案
+运行 iReSign(或ios-app-signer) 项目, 分别填上要签名的.ipa, .mobileprovision 文件路径, (.plist不用填), 项目的Bundle Identifier(可以在项目的配置文件里找到), 证书(和项目的Bundle Identifier 对应, 同样可以在项目的配置文件里找到)
+// ⚠️: 选择.plist路径的位置应该留空(程序会自动根据.mobileprovision文件导出.plist). 除非有特殊需要
+// ⚠️: 对于没有进行砸壳的插件和app, 签名/安装时可能出错
+重签名好的.ipa安装: 打开Xcode -&amp;gt; Window -&amp;gt; Devices and Simulators -&amp;gt; 在INSTALL APPS添加.ipa -&amp;gt; 安装完成
+如果安装失败, 可能是签名或者.ipa的文件结构不正确(应该直接压缩Payload文件夹)</description>
+    </item>
+    
+    <item>
+      <title>iOS逆向-“砸壳”</title>
+      <link>https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E7%A0%B8%E5%A3%B3/</link>
+      <pubDate>Thu, 16 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E7%A0%B8%E5%A3%B3/</guid>
+      <description>iOS逆向第一步: &amp;ldquo;砸壳&amp;rdquo;
+由于App Store上下载下来的应用是套了层壳的(目测是压缩壳), 所以要dump一下
+工具 macOS端   iproxy 用于把端口代理到ssh上(iproxy是usbmuxd自带的一个小工具) brew install usbmuxd
+  frida 和 frida-ios-dump dump的主角
+  iOS端  越狱 // axi0mX 大神挖到iPhone BootROM级别的漏洞让iPhone5s到iPhoneX, iOS 12.3 及以上系统能够越狱 https://checkra.in/ 🐮🍺  // ⚠️: 用checkra1n越狱需要使用USB连接, 用lightning to type-C数据线会无法进入DFU模式
+ Cydia上安装Frida 添加源 https://build.frida.re/  安装frida注意安装到python2还是python3, 对应frida-ios-dump的不同分支(3.x的分支是python3的)//python2官方都不支持了, 还是安装python3吧
+克隆frida-ios-dump
+git clone -b 3.x https://github.com/AloneMonkey/frida-ios-dump.git
+//可以到dump.py里修改连接的参数 一般默认:
+User = &#39;root&#39; Password = &#39;alpine&#39; Host = &#39;localhost&#39; Port = 2222  进入 frida-ios-dump 目录更新一下依赖</description>
+    </item>
+    
+    <item>
+      <title>从print开始</title>
+      <link>https://aiQG.github.io/%E4%BB%8Eprint%E5%BC%80%E5%A7%8B/</link>
+      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E4%BB%8Eprint%E5%BC%80%E5%A7%8B/</guid>
+      <description>看了几天的metadata感觉没什么收获, 发现对swift的一些特性还不是很清楚, 决定从最常用的print开始分析
+func callFunc() { print(&amp;quot;HelloWorld!&amp;quot;) }  callFunc() @ hackSwift: 0x100000a50: push rbp 0x100000a51: mov rbp, rsp 0x100000a54: sub rsp, 0x30 0x100000a58: mov rax, qword ptr [rip + 0x5b1] ; (void *)0x00007fff90c55908: type metadata for Any 0x100000a5f: add rax, 0x8	; Any的Super point 0x100000a63: mov edi, 0x1 ; print第一个参数的个数 0x100000a68: mov rsi, rax ; 初始化(Any)数组 0x100000a6b: call 0x100000e60 ; symbol stub for: Swift._allocateUninitializedArray&amp;lt;A&amp;gt;(Builtin.Word) -&amp;gt; (Swift.Array&amp;lt;A&amp;gt;, Builtin.RawPointer) 0x100000a70: lea rdi, [rip + 0x4d5] ; &amp;quot;HelloWorld!</description>
+    </item>
+    
+    <item>
+      <title>macOS逆向之“你大概需要一个带bar的mac”——动态</title>
+      <link>https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac%E5%8A%A8%E6%80%81/</link>
+      <pubDate>Wed, 08 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac%E5%8A%A8%E6%80%81/</guid>
+      <description>macOS上对于第三方软件，一般不能直接动态调试(权限)
+//run的时候lldb会报 error: process exited with status -1 (Error 1)
+需要进行一下步骤
+先查看权限
+codesign -d --entitlements :- [yourAPP]
+将当前权限配置导出
+codesign -d --entitlements :- [yourAPP] &amp;gt;&amp;gt; temp.plist
+在temp.plist中添加
+&amp;lt;key&amp;gt;com.apple.security.get-task-allow&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt;  保存
+找到系统上安装的所有签名身份的列表(需要开发者账号)
+security find-identity -v -p codesigning
+重新签名
+codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 
+签名完成，可以调试
+ 静态分析的过程在这里
+这里用动态分析的方法验证一下静态分析
+首先按照上面给出的步骤加上权限
+然后在 sub_1000034C0 开始处下断点, 可以发现每次子弹与敌人接触或者玩家与敌人接触就会触发断点，确定这是一个判断碰撞的函数
+将断点下在 0x100003974 (cmp qword ptr [rbx+rax], 114514)处，可以发现每次击中敌人会被断下，并且rbx+rax处的值比之前增加1
+从而很快速地就能找到保存分数的地方
+将断点下在 0x1000037c8 (xor r12b, r13b)处，运行，当击中一个敌人后被断了下来 之后mov byte ptr [rax + rdx + 0x20], r12b 将结果保存在了一个数组中</description>
+    </item>
+    
+    <item>
+      <title>Smart Swift</title>
+      <link>https://aiQG.github.io/smart-swift/</link>
+      <pubDate>Fri, 03 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/smart-swift/</guid>
+      <description>layout: post tag: Swift author: aiQG_ Swift的特性, 有了它们或许能够更优雅地编写Swift程序
+&amp;hellip;持续更新&amp;hellip;
+ contains 与 allSatisfy 用来判断数组中的元素是否满足某个条件, 返回Bool
+contains 会在遍历到第一个满足条件的元素后停止并返回 true , 若全部元素遍历完都没有满足条件的元素则返回 false
+allSatisfy 会完全遍历数组, 所有元素都满足条件才返回 true , 否则返回 false
+ where 关键字用来作为限定条件
+如:
+let temp:[Int] = Array(0...1000) for i in temp where i % 117 == 0 || i % 347 == 0{ print(i) }  获取第一个满足条件的元素
+let temp:[Int] = [1,2,3,4,5,6,7,8,9,10] print( temp.first(where: { (x) -&amp;gt; Bool in x == 7 })!</description>
+    </item>
+    
+    <item>
+      <title>Swift中的lazy</title>
+      <link>https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84lazy/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84lazy/</guid>
+      <description>lazy 主要是减少初始化所花费的资源和时间
+只能用在 class 或 strutc 里
+lazy 声明对变量会在使用到的时候才对其进行赋值(如果这之间没有重新赋值)
+比较下面两段程序, 可以明显感觉到运行时间的不同
+class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() print(temp.value) //访问了value成员  class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() print(temp) //未访问value成员  主要是避免计算初值引起的资源浪费
+如
+class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() temp.value = Array(1...10).map{$0-1} //不要初始值了, 重新赋值! print(temp.value)  ⚠️lazy成员在重新赋值的时候, 会立即计算出要赋予的值. 如即使没有访问 temp.value 在 temp.</description>
+    </item>
+    
+    <item>
+      <title>swift中的map, filter, reduce</title>
+      <link>https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84map-filter-reduce/</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84map-filter-reduce/</guid>
+      <description>Premature optimisation is the root of all evil.
+  map  map 理解为对数组中每个元素进行一个相同的操作, 然后返回到原来的位置(元素之间不互相影响)
+map 的标准格式:
+var arr: [Int] = [1,2,3,4,5,6,7] arr.map { (&amp;lt;#Int#&amp;gt;) -&amp;gt; T in &amp;lt;#code#&amp;gt; }  如
+arr.map { (aValue: Int) -&amp;gt; Int in aValue + 1 } //返回一个[Int], 元素分别是原[Int]的每一个元素加一 //&amp;gt;&amp;gt;&amp;gt;[2, 3, 4, 5, 6, 7, 8] //优秀写法 arr.map {aValue in aValue + 1} //更优秀写法 arr.map {$0 + 1} //$0 代表map的第0个参数   filter  filter 理解为对数组中每个元素进行一个相同的判断, 判断为真则返回当前元素</description>
+    </item>
+    
+    <item>
+      <title>一图解释SpriteKit每一帧</title>
+      <link>https://aiQG.github.io/%E4%B8%80%E5%9B%BE%E8%A7%A3%E9%87%8Aspritekit%E6%AF%8F%E4%B8%80%E5%B8%A7/</link>
+      <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E4%B8%80%E5%9B%BE%E8%A7%A3%E9%87%8Aspritekit%E6%AF%8F%E4%B8%80%E5%B8%A7/</guid>
+      <description>//Apple某个文档里找到的&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>NCTF2019出题</title>
+      <link>https://aiQG.github.io/nctf2019%E5%87%BA%E9%A2%98/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/nctf2019%E5%87%BA%E9%A2%98/</guid>
+      <description>Easy Ternary exe里就有源码。。。google搜一下知道是AHK写的(其实如果有优秀的PE信息查看工具也能查出来)搜AHK反编译, 搜到反编译工具Exe2Ahk。。。//运行需要安装AHK环境 源码如下
+XOR(a, b) { tempA := a tempB := b ret := 0 Loop, 8 { ret += Mod((((tempA &amp;gt;&amp;gt; ((A_Index - 1)*4)) &amp;amp; 15) + ((tempB &amp;gt;&amp;gt; ((A_Index - 1)*4)) &amp;amp; 15)),3) * (16**(A_Index-1)) } return ret } InputBox, userInput, TTTTCL, Input your flag: if(ErrorLevel) Exit if(!StrLen(userInput)) { MsgBox, GG Exit } inputArr := [] Loop, parse, userInput { temp:=A_Index inputArr.Push(Ord(A_LoopField)) } inputNum := [] Loop % inputArr.</description>
+    </item>
+    
+    <item>
+      <title>macOS逆向之 “你大概需要一个带bar的mac”</title>
+      <link>https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B-%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B-%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac/</guid>
+      <description>//这是一个macOS下用swift5 + SpriteKit框架写出来的touchbar上的游戏 考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法&amp;hellip;
+//动态分析链接
+得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个touchbarGame这个就是游戏本体
+ 关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
+ //关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&amp;quot;shot&amp;quot;,&amp;ldquo;rock&amp;quot;和&amp;quot;enemy&amp;quot;的图片, 猜测是&amp;quot;打飞机的游戏&amp;rdquo;(跑不起来只能猜了呗&amp;hellip;) //这个游戏打起来是这样的&amp;hellip;&amp;hellip;ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的  OC调用函数的机制是&amp;quot;send message&amp;quot;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl+x查看函数的交叉引用几乎是找不到啥信息的了
+ 因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
+  发现有个&amp;quot;/114514) R(estart)&amp;quot; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&amp;quot;set&amp;quot;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
+  可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&amp;quot;Physics Simulation&amp;quot;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0   //也可以尝试搜索一下包含&amp;quot;print&amp;quot;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里</description>
+    </item>
+    
+    <item>
+      <title>SEH异常处理</title>
+      <link>https://aiQG.github.io/seh%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</link>
+      <pubDate>Wed, 02 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/seh%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</guid>
+      <description>跟到main里发现main里的SHE节点已经初始化 重启程序找到初始化main的SHE节点的函数 进入test函数的SHE节点初始化 触发断点后可以看见eip跳到了test函数的SE处理函数(并且在跳过去的过程中又创建了一个节点) 进入vcruntim, 往下找到获取异常处理函数地址的位置 回到strcpy处, 计算buf变量到SEH节点(保存处理函数的地址处)的相对偏移(==0xd8) 覆盖成功  基本流程梳理清楚了 尝试覆盖函数地址 vs2019关闭SAFESEH 程序无法跳到栈上执行(检查了目标地址是否在栈内) 所以采用直接跳到全局变量shellcode(0x403018)处执行 shellcode:
+&amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c&amp;quot; &amp;quot;\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53&amp;quot; &amp;quot;\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b&amp;quot; &amp;quot;\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95&amp;quot; &amp;quot;\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59&amp;quot; &amp;quot;\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a&amp;quot; &amp;quot;\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75&amp;quot; &amp;quot;\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03&amp;quot; &amp;quot;\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb&amp;quot; &amp;quot;\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50&amp;quot; &amp;quot;\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00&amp;quot;  坑:
+ 之前用了DEBUG版本, 发现eip并不能跳到指定位置, 程序在开始处理异常后会卡死, 猜测是进行了检查 程序没有触发异常, 发现是shellcode把变量zero的值给覆盖成了0x90909090, 然后把shellcode对应位置改成\x00后发现strcpy会截断\x00后的内容, 所以在strcpy后重新给zero重新赋0值(环境不同, 编译出的结果不同)   开启safeSEH
+绕过safeSEH的方法还是挺多的
+这里利用堆绕过
+#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;Windows.h&amp;gt; char shellCode[] = &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c&amp;quot; &amp;quot;\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53&amp;quot; &amp;quot;\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b&amp;quot; &amp;quot;\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95&amp;quot; &amp;quot;\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59&amp;quot; &amp;quot;\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a&amp;quot; &amp;quot;\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75&amp;quot; &amp;quot;\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03&amp;quot; &amp;quot;\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb&amp;quot; &amp;quot;\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50&amp;quot; &amp;quot;\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00&amp;quot;; char jumpCode[] = &amp;quot;aaaaaaaaaaaaa\xaa\xbb\xcc\xdd&amp;quot;; DWORD myExceptionHandler() { printf(&amp;quot;Got an exception!</description>
+    </item>
+    
     <item>
       <title>linux进程</title>
-      <link>https://aiQG.github.io/post/linux%E8%BF%9B%E7%A8%8B/</link>
-      <pubDate>Tue, 01 Oct 2019 19:36:02 +0800</pubDate>
+      <link>https://aiQG.github.io/linux%E8%BF%9B%E7%A8%8B/</link>
+      <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/linux%E8%BF%9B%E7%A8%8B/</guid>
+      <guid>https://aiQG.github.io/linux%E8%BF%9B%E7%A8%8B/</guid>
       <description>Linux 中线程就是共享上下文的进程
-  用fork()创建进程  #include&amp;lt;stdio.h&amp;gt;//printf()#include&amp;lt;unistd.h&amp;gt; //fork()... pid_t pid; pid = fork()//创建进程 if(pid == 0) { 	printf(&amp;#34;child PID [%d], getpid = %d, getppid = %d\n&amp;#34;,pid,getpid(),getppid()); } else { 	printf(&amp;#34;parent PID [%d], getpid = %d, getppid = %d\n&amp;#34;,pid,getpid(),getppid()); } printf(&amp;#34;%d finish&amp;#34;,pid); 运行结果:
-child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end 相当于利用父进程创建了一个子进程并从fork()开始向下进行  孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果:  parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end 可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)</description>
+  用fork()创建进程  #include&amp;lt;stdio.h&amp;gt;//printf() #include&amp;lt;unistd.h&amp;gt; //fork() ... pid_t pid; pid = fork()//创建进程 if(pid == 0) { printf(&amp;quot;child PID [%d], getpid = %d, getppid = %d\n&amp;quot;,pid,getpid(),getppid()); } else { printf(&amp;quot;parent PID [%d], getpid = %d, getppid = %d\n&amp;quot;,pid,getpid(),getppid()); } printf(&amp;quot;%d finish&amp;quot;,pid);  运行结果:
+child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end  相当于利用父进程创建了一个子进程并从fork()开始向下进行  孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果:  parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end  可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)</description>
+    </item>
+    
+    <item>
+      <title>Swift &#43; iOS开发</title>
+      <link>https://aiQG.github.io/swift--ios%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift--ios%E5%BC%80%E5%8F%91/</guid>
+      <description>ios开发理念和以往开发有些不同, iOS讲究在使用之前才初始化, 而不是在程序启动时全部完成初始化(例如在按钮执行函数内进行警告窗口的声明+初始化, 而不能在函数外提前初始化)
+//按钮: 点击弹出警告框 @IBAction func bt(_ sender: Any) { let uiAlert: UIAlertController = UIAlertController(title: &amp;quot;这是title&amp;quot;, message: &amp;quot;这是message&amp;quot;, preferredStyle: .actionSheet) let uiAAction: UIAlertAction = UIAlertAction(title: &amp;quot;what?&amp;quot;, style: .cancel, handler: nil) let uiaaction2: UIAlertAction = UIAlertAction(title: &amp;quot;2&amp;quot;, style: .destructive, handler: nil) let uiui: UIAlertAction = UIAlertAction(title: &amp;quot;4&amp;quot;, style: .default, handler: nil) uiAlert.addAction(uiAAction) uiAlert.addAction(uiaaction2) uiAlert.addAction(uiui) self.present(uiAlert, animated: true, completion: nil) }  关于session(AVCaptureSession) session可以有多个input和output 当startRunning()后创建一个Connection session可以在input和output之间处理数据(暂时理解为管理数据的转发)(有点像交换机?) output可以设置setSampleBufferDelegate(一个队列(线程?)) 获得SampleBuffer后会调用captureOutput()
+关于图像识别 使用setSampleBufferDelegate需要继承AVCaptureVideoDataOutputSampleBufferDelegate 才能调用captureOutput()//这里有个重载captureOutput(_:didOutput:from:)(写入视频帧时调用); captureOutput(_:didDrop:from:)(视频帧被丢弃时调用)//()何时丢弃 VNImageRequestHandler()可以初始化图像请求 perform()开始执行 VNDetectTextRectanglesRequest()请求分析图像, 返回分析结果 </description>
+    </item>
+    
+    <item>
+      <title>lldb</title>
+      <link>https://aiQG.github.io/lldb/</link>
+      <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/lldb/</guid>
+      <description>GDB to LLDB command map
+直接回车 重复上一条命令
+可以设置命令别名
+l/list 源码(编译时带-g)
+ +文件名 看特定文件(多文件编译时) +函数名  b/breakpoint+行号 下断点(可&amp;ndash;file指定文件)
+ +&amp;ndash;method+cpp类名 按类下断点 +set+&amp;ndash;name+函数名 按函数名下断点 +list 查看断点列表 +disabled 禁用断点 +enabled 启用断点 +delete 删除断点  n/next 步过(源码级别)
+ ni (汇编级别) s/step 步入(源码级别) si (汇编级别) f/finish 步出 c/continue 继续执行  bt 查看所有帧(调用堆栈) frame select+序号 跳到指定帧(f +序号) frame variable 查看当前帧的变量(局部变量)
+image list -o -f 各个模块的基址
+register read 读取寄存器的值 register write 修改寄存器的值
+e/expression+表达式 执行表达式(可修改寄存器的值 expression $r8=1)(也可调用某类某方法)(也可利用exp unsigned int $a = 0xFF 初始化变量(似乎不能在开始调试后修改变量))</description>
+    </item>
+    
+    <item>
+      <title>UE4初体验</title>
+      <link>https://aiQG.github.io/ue4%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+      <pubDate>Sun, 14 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/ue4%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+      <description>玩了玩UE4，顺便满足了一下做游戏的快感
+先说说体验吧：
+ 素材不难找，商城里到处都是免费高质量资源//EPIC开始进攻国内市场了，支持支付宝和微信，引擎也做了机翻汉化 UE4挺好用的，毕竟C++写的，到处都能体现出C++的特(fan)点(suo) 蓝图也很好写，特别是对于学过C/C++的人来说。都是代码的上层调用。//可视化编程优秀 利用蓝图可以将各种算法体现在视觉上，实现一些纹理材质之类的 开源项目，源码都有 感觉需要的配置有点高，而且经常崩溃//毕竟开源项目，缺少优化。 国内教程少(百度)，基本上问题都在google解决 自带多种模版  引擎也支持用C++写，但是会经常需要编译//C的编译速度&amp;hellip; 所以基本上可以说蓝图是UE4的骨架
+UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码在文件中，但是没找到在哪(该看源码去了。。。) 不过毕竟开源，如果是大公司大概率会魔改这部分加密。 打包完成的项目主要是.pak文件(各种多媒体资源和蓝图)和一个.exe文件，以及其他开源项目的.dll
+虚幻商城里有个免费的Anti-Cheat项目，实现了各种反调试。</description>
     </item>
     
     <item>
       <title>RSA Attack</title>
-      <link>https://aiQG.github.io/post/rsa-attack/</link>
-      <pubDate>Fri, 31 May 2019 19:28:08 +0800</pubDate>
+      <link>https://aiQG.github.io/rsa-attack/</link>
+      <pubDate>Fri, 31 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/rsa-attack/</guid>
+      <guid>https://aiQG.github.io/rsa-attack/</guid>
       <description>爆破出n的因数, p/q相差很大或很小 可以分解n
   低模指数e=3, 已知m高位和n,c 可以求出完整明文
-  # sage n = e = 3 c = m = #完整的m k = #未知的位数 PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = (x + m)^e-c x0 = f.small_roots(X=2^kbits, beta=1)[0] #明文为m+x0 已知p（或q）高位, 已知n,c,e 可求出p,q  #sage n = e = p = #完整的p pk = #原p的位数 k = #p未知的位数 pbar = p_fake &amp;amp; (2^pbits-2^kbits) # PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.</description>
+  # sage n = e = 3 c = m = #完整的m k = #未知的位数 PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = (x + m)^e-c x0 = f.small_roots(X=2^kbits, beta=1)[0] #明文为m+x0  已知p（或q）高位, 已知n,c,e 可求出p,q  #sage n = e = p = #完整的p pk = #原p的位数 k = #p未知的位数 pbar = p_fake &amp;amp; (2^pbits-2^kbits) # PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.</description>
+    </item>
+    
+    <item>
+      <title>Learning UE4 (一)(NetWork)</title>
+      <link>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</guid>
+      <description>本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
+         从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
+一、建立出生点
+ 建立一个BluePrint继承Actor，双击打开  添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。  创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数)  actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作   二、建立GameMode（这个东西只有主机存在）
+ 创建蓝图，继承引擎自动生成的GameMode(项目名+GameMode)，在项目设置里设置默认GameMode（和Map）  创建一个自定义事件，用于设置玩家的方向和位置。在BeginPlay事件里找出所有的出生点保存起来，然后调用刚才创建的自定义事件（传入player 0的Pawn）。  在函数标签里选择重写一个函数：Spawn Default Pawn Transform 右键调用其父类   OK 出生点的基本功能就是这样了</description>
+    </item>
+    
+    <item>
+      <title>Learning UE4 (二)(NetWork)</title>
+      <link>https://aiQG.github.io/learning-ue4-%E4%BA%8Cnetwork/</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/learning-ue4-%E4%BA%8Cnetwork/</guid>
+      <description>接下来做一个“传送点”，用来在两张地图上转移角色。 //这里用流关卡(Stream Level)实现
+创建一个Actor，的蓝图，添加一个Box Collision。 /* 也可以再加上一个Billboard（当然也可以加入一个模型） Billboard 有个属性&amp;quot;Hidden in Game&amp;quot; 对于整个蓝图自身有个属性&amp;quot;Net Load on Client&amp;quot; 适当调整可以控制Billboard在客户端和主机的可见性 */
+创建一个空的关卡，将关卡添加进去 设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。
+首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。 //这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。 Onto是一个接口，用来设置角色的位置： 右键新建一个Blueprints-&amp;gt;蓝图接口 我们只需要一个函数和一个输入值作为关卡名。 在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置&amp;hellip;这很合理） 但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。 在Game Mode里创建一个函数用来：
+ 找到所有的出生点 循环判断 出生点是否被占用&amp;amp;&amp;amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）   ok, 有了位置信息就可以给角色设置了。 先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图） 传送点就完成了
+我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。 在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示 </description>
     </item>
     
     <item>
       <title>About Openssl</title>
-      <link>https://aiQG.github.io/post/about-openssl/</link>
-      <pubDate>Wed, 15 May 2019 19:08:19 +0800</pubDate>
+      <link>https://aiQG.github.io/about-openssl/</link>
+      <pubDate>Wed, 15 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/about-openssl/</guid>
+      <guid>https://aiQG.github.io/about-openssl/</guid>
       <description>openssl实现了大部分的加密
- -out #输出文件  -in #输入文件   - RSA  openssl genrsa -out 1.key 1024 #生成私钥对：RSA PRIVATE KEY  openssl rsa -in k.txt -pubout -out p.txt #取出公钥：PUBLIC KEY（文件中记录算法类型）  openssl rsa -in k.txt -RSAPublicKey_out -out p.txt #取出RSAPublicKey格式公钥：RSA PUBLIC KEY 快速使用:
-echo -n &amp;#34;Y0u_h4v3_4_Sm4rt_Br41n&amp;#34; | openssl sha1 # -n 表示不接收换行符 openssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式） 可以使用在线平台解码 http://lapo.it/asn1js/ 也可以用openssl的asn1parse命令查看
+-out #输出文件 -in #输入文件 - RSA openssl genrsa -out 1.key 1024 #生成私钥对：RSA PRIVATE KEY openssl rsa -in k.txt -pubout -out p.txt #取出公钥：PUBLIC KEY（文件中记录算法类型） openssl rsa -in k.txt -RSAPublicKey_out -out p.txt #取出RSAPublicKey格式公钥：RSA PUBLIC KEY  快速使用:
+echo -n &amp;quot;Y0u_h4v3_4_Sm4rt_Br41n&amp;quot; | openssl sha1 # -n 表示不接收换行符  openssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式） 可以使用在线平台解码 http://lapo.it/asn1js/ 也可以用openssl的asn1parse命令查看
  asn1parse是一个诊断工具，可以解析ASN.1结构的密钥，证书等
   生成RSA:
 私钥：
-openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.</description>
+openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.txt #解码ASN.1  返回：</description>
+    </item>
+    
+    <item>
+      <title>记某次逆向cm.pdf</title>
+      <link>https://aiQG.github.io/%E8%AE%B0%E6%9F%90%E6%AC%A1%E9%80%86%E5%90%91cm.pdf/</link>
+      <pubDate>Wed, 17 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E8%AE%B0%E6%9F%90%E6%AC%A1%E9%80%86%E5%90%91cm.pdf/</guid>
+      <description>记某次逆向cm.pdf</description>
     </item>
     
     <item>
       <title>C&#43;&#43;线程&#43;匿名函数(lambda表达式) 入门</title>
-      <link>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</link>
-      <pubDate>Thu, 04 Apr 2019 19:06:38 +0800</pubDate>
+      <link>https://aiQG.github.io/c-%E7%BA%BF%E7%A8%8B-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Thu, 04 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/c&#43;&#43;%E7%BA%BF%E7%A8%8B&#43;%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
+      <guid>https://aiQG.github.io/c-%E7%BA%BF%E7%A8%8B-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
       <description>线程 我们写的程序都是一个main从上到下执行的，main怎么写，程序就怎么运行 那么这时好奇的小朋友一定想问：怎么能让程序同时做两件事呢？ 聪明的五号机回答到：可以用多线程呀 这时好奇的小朋友又要问了：线程和进程有什么区别呢？ 聪明的五号机又回答到：一个进程可以包括多个线程，进程之间不共享资源，线程之间共享同一个进程的资源 嗯&amp;hellip; 也可以结合下面这幅图解释 一只怪力可以可以看成是一个进程，一只怪力有几只手就可以看成是一个进程有几个线程&amp;hellip;（不过这里的线程是虚拟线程，有别于CPU的线程）
-#include &amp;lt;iostream&amp;gt;#include &amp;lt;thread&amp;gt;using namespace std; //这是线程要执行的函数 void hellofun(int i) {  cout&amp;lt;&amp;lt;&amp;#34;Helloworld\t&amp;#34;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl;  return; } //main函数相当于主线程 int main() { 	for(int i=0; i&amp;lt;10;i++) 	{  thread THR1(hellofun, i);  THR1.join();  //THR1.detach(); 	}  return 0; } hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看</description>
+#include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt; using namespace std; //这是线程要执行的函数 void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; return; } //main函数相当于主线程 int main() { for(int i=0; i&amp;lt;10;i++) { thread THR1(hellofun, i); THR1.join(); //THR1.detach(); } return 0; }  hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看
+#include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt;//线程，C++11 using namespace std; void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; while(1);// return; } int main() { for(int i=0; ;i++) { thread THR1(hellofun, i); THR1.</description>
+    </item>
+    
+    <item>
+      <title>各种奇怪的工具</title>
+      <link>https://aiQG.github.io/%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E7%9A%84%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E7%9A%84%E5%B7%A5%E5%85%B7/</guid>
+      <description>抓包: tshark//mac可用(自带？) wireshark的分析功能 tshark.exe -r usb2.pcap -T fields -e usb.capdata &amp;gt; usbdata.txt 提取数据 从CTF中学USB流量捕获与解析 文件(信息): binwalk（binwalk -e 分离文件） file exiftool
+pdf爆破: pdfcrack pdfcrack -f flag.pdf --wordlist=rockyou.txt//rockyou.txt是一个字典 提取图片信息: identify
+ identify -format &amp;ldquo;%s %T \n&amp;rdquo; &amp;lsquo;/home/ctf/Desktop/100_KHf05OI.gif&amp;rsquo;
+ Linux下的strings命令搜索文件夹中文本里包含的字符串strings * | grep [password]
+ convert 可以转换图片格式，修改大小&amp;hellip;&amp;hellip; 拆分gif
+ convert flag.gif output.png
+ (最好在一个文件夹里分解)
+ montage
+Linux版的小型ps 将多图片紧密平铺
+ montage -mode Concatenate -tile x1 output-*.png ok.png
+  grep 文本搜索工具 可以找到哪些文件包含字符串 也可以查找整个目录
+ python pycryptodome 密码库官方文档</description>
+    </item>
+    
+    <item>
+      <title>crackme_CRC32</title>
+      <link>https://aiQG.github.io/crackme_crc32/</link>
+      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/crackme_crc32/</guid>
+      <description>//前几天才在0CTF做了个CRC128不动点的题(太菜没做出来)。今天正好学习一下 //文末决定玩一玩CRC循环码的特性
+随便输入一点东西 发现只有输入的Name长度大于5才有错误提示框, 有提示框就好办了 ida找到几个MessageBox 交叉引用看看在哪被使用了, 找到有明显判断+跳转的函数 在函数开始的地方下断点, 调试 1.程序先获取Name的长度 判断不小于5继续 2.Name前面加上盐 3.计算加盐后Name的CRC32 4.获取Code长度 判断不小于0继续 5.将Code进行相关计算得到一个数字X 6.X与CRC32点值比对 相同则ok //CRC32作为“优秀的”hash循环码 逆是不会逆出来的 但是可以碰撞 算Code的关键算法: CRC32的算法不能逆运算, 但是可以看出Code的算法是将输入的Code变成一个十进制数
+import binascii name=&#39;&#39; name = raw_input(&#39;input your user name:\t&#39;)#py2 name = &#39;DiKeN&#39;+name crc32code = binascii.crc32(name) #为了保证CRC是正的 if crc32code&amp;lt;0: crc32code = ~binascii.crc32(name)^0xffffffff elif crc32code&amp;gt;0: crc32code = binascii.crc32(name) code=&#39;&#39; while crc32code!=0: code = str(crc32code % 10) + code crc32code = crc32code // 10 print &#39;your code:\t&#39;+code   crc循环校验码的特性导致同一个Code可能对应多个Name 由于程序正向不需要判断Code是否为0～9(合法字符) 所以为了方便这里限制Code只能为0～9的数字//这里有个非预期 由于没有判断Code是否为0～9(合法字符)所以可以构造出多个奇怪而正确的Code 32位的crc只能构造出0x10000000到0xffffffff的hash</description>
+    </item>
+    
+    <item>
+      <title>密码学(加解密)</title>
+      <link>https://aiQG.github.io/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E8%A7%A3%E5%AF%86/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E8%A7%A3%E5%AF%86/</guid>
+      <description>python pycryptodome 密码库官方文档
+ base64/32   Base64: 一个字符8bit, 将所有字符比特按照每3个字符分成一组(每组3*8=24bit), 再将每组(24bit) 按照6bit一个字符分成4个字符(4*6=24bit) (不满一组用0填充)(全0 为&amp;rsquo;=&amp;rsquo;) 总的来说就是将3个字节编码为4个字符
+ #换表base64/32/58可以用string.maketrans(charset, origin)设置字符映射关系 #换表flag flag = &#39;a(&amp;gt;sb(93b3-s^!;;&#39; #原表 origin = &amp;quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&amp;quot; #变表 charset = &amp;quot;!:#$%&amp;amp;()+-*/`~_[]{}?&amp;lt;&amp;gt;,.@^abcdefghijklmnopqrstuvwxyz0123456789\\&#39;;&amp;quot; #设置映射关系 charset到 origin import string t = string.maketrans(charset, origin) #flag换成原表b64 flag = flag.translate(t) #aGVsbG93b3JsZA== #解base64 import base64 #import base58 flag = base64.b64decode(flag) #helloworld    几种加密模式:
+ ECB (电子密码本模式) 将明文分成64位(8字节)一组, 分别xor相同的一个密码本(一般是密钥) 再==进入加密流程==.每组密文解密后xor相同的一个密码本得到明文. //相当于每组分别加密互不影响(解密反之即可) CBC (密码分组链接模式) 加密: 先将明文分成64位一组(假设分成了n组), 第一组xor初始向量iv. ==进入加密流程==得到密文C1. 将得到的密文C1与第二组明文xor后==进入加密流程==得到密文C2.</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(九)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%9D/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%9D/</guid>
+      <description>终于把视频流的图片取出来了
+先构建session设置输入输出
+override func viewDidLoad() { super.viewDidLoad() let session = AVCaptureSession() //创建会话 let device = AVCaptureDevice.default(_:.builtInWideAngleCamera, for: .video, position: .back) //选择设备 //设置输入 do { let videoInput = try AVCaptureDeviceInput(device: device!) session.addInput(videoInput) } catch { print(&amp;quot;error&amp;quot;) return } //设置输出 let videoOutput = AVCaptureVideoDataOutput() //相当于截获输出🔴可以访问帧 //这里设置了回调队列才可以让下面的captureOutput函数能够同时运行 let myQueue = DispatchQueue(label: &amp;quot;myQueue&amp;quot;)//设置队列 videoOutput.setSampleBufferDelegate(self, queue: myQueue)//回调 session.addOutput(videoOutput) //对于UIView控件要设置预览层//相当于图层. 可以多个图层叠加 let ViewLayer = AVCaptureVideoPreviewLayer(session: session) //设置预览层 ViewLayer.frame = myView!.bounds myView?.layer.addSublayer(ViewLayer) self.mySession = session //会话传到外部变量中 } @IBOutlet weak var myView2: UIImageView!</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(八).md</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AB/</link>
+      <pubDate>Sun, 24 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AB/</guid>
+      <description>ios swift 多线程(队列) //这篇笔记是看了这篇文章后的总结
+   用DispatchQueue创建队列
+ DispatchQueue( label: String, qos: DispatchQoS, attributes: DispatchQueue.Attributes, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency, target: DispatchQueue? )
+ 其中参数lable 是必须并独一无二的
+ 你唯一要做的事就是为你的队列提供一个独一无二的标签（label）。使用一个反向的 DNS 符号（”com.appcoda.myqueue”）就很好，因为用它很容易创造一个独一无二的标签，甚至连苹果公司都是这样建议的。尽管如此，这并不是强制性的，你可以使用你喜欢的任何字符串，只要这个字符串是唯一的。除此之外，上面的构造方法并不是创建队列的唯一方式。在初始化队列的时候可以提供更多的参数，我们会在后面的篇幅中谈论到它。
+ 最简单的创建队列的方式就是
+let queue = DispatchQueue(label: &amp;quot;com.appcoda.myqueue&amp;quot;)    启动队列: queue.async {&amp;lt;code&amp;gt;} //异步。主队列与此队列同时运行 queue.sync {&amp;lt;code&amp;gt;} //同步。主队列会等待此队列运行结束再运行
+  队列优先级(QoS)
+ userInteractive userInitiated default utility background unspecified
+ //Apple用户至上的体现 这里是关于各个优先级的官方解释 QoS直接放进创建队列时的qos参数中
+let queue1 = DispatchQueue(label: &amp;quot;com.appcoda.queue1&amp;quot;, qos: .userInitiated) let queue2 = DispatchQueue(label: &amp;quot;com.</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(七)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%83/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%83/</guid>
+      <description>//英语不好真遭罪啊
+调用ios的摄像头 用摄像头取景 放到控件里 主要用到的是AVFoundation模块 //如果要用到的是系统的相机一般使用UIImagePickerController模块 看看官方文档关于获得多媒体数据, 主要是通过会话(session) 来接收数据输入 处理数据 输出数据的
+ The main parts of the capture architecture are sessions, inputs, and outputs: Capture sessions connect one or more inputs to one or more outputs. Inputs are sources of media, including capture devices like the cameras and microphones built into an iOS device or Mac. Outputs acquire media from inputs to produce useful data, such as movie files written to disk or raw pixel buffers available for live processing.</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(六)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD/</link>
+      <pubDate>Tue, 19 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD/</guid>
+      <description>as 用于强制转换类型  //类型一 let a = 123 as CGFloat let b = 1.2 as Int //类型二 派生类转换为基类 class Base{} class Son: Base{} let s = Son() let f = s as Base //类型三 用于switch匹配类型 switch unname{ case let s as Son: //是Son类型进行的操作 case let f as Base: //是Base类型进行的操作 default: break }   as! 转换失败时会报运行错误  //基类转换为派生类 class Base{} class Son: Base{} let base: Base = Son() let son = base as!</description>
+    </item>
+    
+    <item>
+      <title>2019杭电hgame 部分wp</title>
+      <link>https://aiQG.github.io/2019%E6%9D%AD%E7%94%B5hgame-%E9%83%A8%E5%88%86wp/</link>
+      <pubDate>Sun, 27 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/2019%E6%9D%AD%E7%94%B5hgame-%E9%83%A8%E5%88%86wp/</guid>
+      <description>Web  谁吃了我的flag hint: 据当事人回忆，那个夜晚他正在用vim编写题目页面，似乎没有保存就关机睡觉去了,现在就是后悔，十分的后悔。  根据提示可以知道这和vim的缓存文件有关 vim会在编辑文件的时候生成一个.swp的缓存文件, 用于意外退出时恢复未保存的文件 目的很明确 下载这个文件 url后面加上/.index.html.swp下载.swp 用winhex打开即可找到flag
+  can u find me?
+几个web基础知识 f12找到f12.php 需要post密码 可以在头里找到password: woyaoflag 用Hackbarpost一个password=woyaoflag 把得到的链接下载下来得到flag
+  Re  brainfxxker  #include &amp;lt;iostream&amp;gt; #include &amp;lt;cctype&amp;gt; // Orz... I haven&#39;t learnt C++ before. // It seems like my brain was fxxked by these codes... // Notice: // 1. the answer is your input when nothing strange was printed // 2. that is, wrong inputs will encounter with the part &amp;quot;[+.</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(五)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94/</link>
+      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94/</guid>
+      <description>//回来恶补基础知识&amp;hellip;
+  结构体 结构体中的赋值就是默认值 能够修改值的变量用var声明 常量用let声明
+struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321)  `swift ruct A { var var_1: Int = 1000 let let_1: Int = 2000 r my2:A = A() //已有默认值可以不用初始化结构体成员 r my3:A = A(var_1: 123) //可以修改变量(var)的值 var my4:A = A(let_1: 321)//不可修改常量(let)的值      类 Swift 的类由编译器自动生成对外接口</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(四)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%9B%9B/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%9B%9B/</guid>
+      <description>这次尝试了调用摄像头 //原来iOS Simulators 是没有摄像头的啊 //于是用真机调试&amp;hellip;
+文件 ViewController.swift
+import UIKit class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate { override func viewDidLoad() { super.viewDidLoad() // Do any additional setup after loading the view, typically from a nib. } @IBAction func buttonOne(_ sender: Any) { print(&amp;quot;touch button&amp;quot;) let imagePickerController: UIImagePickerController = UIImagePickerController() //print(UIImagePickerController.isSourceTypeAvailable(.camera))//可以用if判断有没有摄像头 imagePickerController.modalTransitionStyle = .flipHorizontal imagePickerController.allowsEditing = true//允许编辑 imagePickerController.sourceType = .camera//数据来源为摄像头 imagePickerController.videoMaximumDuration = 15 //录制视频长度/秒 imagePickerController.mediaTypes = [&amp;quot;public.image&amp;quot;,&amp;quot;public.movie&amp;quot;] //允许的相机类型 imagePickerController.videoQuality = .typeHigh//视频质量 imagePickerController.cameraCaptureMode = .</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(三)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%89/</link>
+      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%89/</guid>
+      <description>在iOS上构建了两个基本按钮
+ViewController.swift&amp;lt;\code&amp;gt;
+import UIKit class ViewController: UIViewController { @IBOutlet weak var txtName: UITextField!//文本框 @IBOutlet weak var tryBt: UIButton!//try 按钮 @IBAction func touchBt(_ sender: Any) { /*UIAlertView 在iOS9之后不推荐使用 let alertView = UIAlertView() alertView.title = &amp;quot;提示标题&amp;quot; alertView.message = &amp;quot;提示信息 输入框: \(txtName.text!)&amp;quot; alertView.addButton(withTitle: &amp;quot;好的&amp;quot;) alertView.show() */ let alertView = UIAlertController.init(title: &amp;quot;提示标题&amp;quot;, message: &amp;quot;提示信息 输入框: \(txtName.text!)&amp;quot;, preferredStyle: .alert) let okButton = UIAlertAction(title: &amp;quot;好的&amp;quot;, style: .default, handler: { ACTION in print(&amp;quot;点击了 好的 按钮&amp;quot;) }) let cancelButton = UIAlertAction(title: &amp;quot;取消&amp;quot;, style: .</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(二)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
+      <description>iOSApp(基于SpriteKit) 用代码实现了基本场景 //删除两个sks文件///GameScene.sks Actions.sks  GameScene.swift
+import SpriteKit class gameScene: SKScene { let label = SKLabelNode(text: &amp;quot;Hello World!!!&amp;quot;)//一个字符串 override func didMove(to view: SKView) { label.fontName = &amp;quot;Avenir&amp;quot; label.position = CGPoint(x: view.frame.width / 2, y: view.frame.height - label.fontSize )//设置lable的位置 addChild(label)//将标签作为子节点 添加 到场景的节点树 }//在场景的相应视图呈现后立即运行的方法 }//继承了标准SpriteKit场景的子类  GameViewController.swift
+import SpriteKit class GameViewController: UIViewController { override func viewDidLoad(){ let scene = gameScene(size: view.frame.size)//初始化一个场景 let skView = view as! SKView //将控制器的视图转换为SpriteKit视图 skView.presentScene(scene)//呈现游戏场景 }//这个方法会在视图控制器加载到内存后立即运行 }//控制器的视图加载后 呈现游戏场景   参考资料 : https://www.</description>
+    </item>
+    
+    <item>
+      <title>Swift 学习笔记(一)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
+      <description>import Cocoa //目前没用到
+  数组
+//用于生成重复元素的数组 var a = [Int](repeating: 0xdeadbeef, count:3) //[0xdeadbeef, 0xdeadbeef, 0xdeadbeef]  一般同一个数组只能放入一个类型的数据 但 swift 中有一个 Any 类型 表示任何类型(什么类型都能放进去)
+var a:[Any] = [1,&amp;quot;1&amp;quot;,1.1]    几种for循环
+for x in a { print(x) } //just like python  for c in 0...0x7f { print(Unicode.Scalar(c)!)//把数字转换成Unicode字符 } //打印出所有ASCII字符(0到0x7f的Unicode)    可选类型
+var num:Int?=123 //值为123的Int的可选类型 //Optional(123)  可选类型与普通类型不同 ( Int 不能当作 Int? 使用)
+var num1:Int?=123 var num2:Int=num1 //出错  可选类型的变量可以用来处理“值缺失”的情况。 即,当赋值出错时,可选类型的变量被赋为 nil ,程序正常运行 //nil 在swift中表示值缺失 只有可选类型的变量或者常量才能接受nil。其他类型的变量或常量不能接受nil。</description>
     </item>
     
     <item>
       <title>IDA远程调试(elf文件)设置</title>
-      <link>https://aiQG.github.io/post/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</link>
-      <pubDate>Tue, 02 Oct 2018 19:05:08 +0800</pubDate>
+      <link>https://aiQG.github.io/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Tue, 02 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</guid>
+      <guid>https://aiQG.github.io/ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95elf%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE/</guid>
       <description>  把文件丢到IDA里
   把文件丢到Linux里 (这里是Ubuntu16.04)
   在IDA的安装路径里找到这两个文件(一般在dbgsrv文件夹里) 把它们丢到Linux里
@@ -73,13 +570,38 @@ openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.</
     </item>
     
     <item>
-      <title>other</title>
-      <link>https://aiQG.github.io/post/other/</link>
-      <pubDate>Sat, 01 Jan 2000 17:45:38 +0800</pubDate>
+      <title>南邮cgctf平台部分 write up</title>
+      <link>https://aiQG.github.io/%E5%8D%97%E9%82%AEcgctf%E5%B9%B3%E5%8F%B0%E9%83%A8%E5%88%86-write-up/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/post/other/</guid>
+      <guid>https://aiQG.github.io/%E5%8D%97%E9%82%AEcgctf%E5%B9%B3%E5%8F%B0%E9%83%A8%E5%88%86-write-up/</guid>
+      <description>CG-CTF 2018.7
+ Welcome to http://aiqg.vip/
+  web  md5 collision 看源代码  &amp;lt;?php $md51 = md5(&#39;QNKCDZO&#39;); $a = @$_GET[&#39;a&#39;]; $md52 = @md5($a); if(isset($a)){ if ($a != &#39;QNKCDZO&#39; &amp;amp;&amp;amp; $md51 == $md52) { echo &amp;quot;nctf{*****************}&amp;quot;; } else { echo &amp;quot;false!!!&amp;quot;; }} else{echo &amp;quot;please input a&amp;quot;;} ?&amp;gt;  要满足md51==md52 并且 a!=&amp;lsquo;QNKCDZO&amp;rsquo; 结合php的md5想到0e绕过
+令a=s878926199a （过md5后是0e开头） 构造
+ http://chinalover.sinaapp.com/web19/?a=s878926199a
+ 即可 nctf{md5_collision_is_easy}
+  签到2 从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到) 直接将源代码的10修改成11，输入zhimakaimen nctf{follow_me_to_exploit}   ·这题不是web 打开看到一奇怪的图片 下载下来用文本打开 最后一行 nctf{photo_can_also_hid3_msg}</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://aiQG.github.io/about/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/about/</guid>
+      <description>NOTHING ABOUT ME</description>
+    </item>
+    
+    <item>
+      <title>other</title>
+      <link>https://aiQG.github.io/other/</link>
+      <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/other/</guid>
       <description>乘法
-func mul(a:Int, b:Int) -&amp;gt; Int { 	var big = a &amp;gt; b ? a : b 	var sma = a &amp;lt; b ? a : b 	var sum = 0 	while sma &amp;gt; 0 { 	sum += sma &amp;amp; 1 == 0 ? 0 : big 	sma = sma &amp;gt;&amp;gt; 1 	big = big &amp;lt;&amp;lt; 1 	} 	return sum }  加法</description>
+func mul(a:Int, b:Int) -&amp;gt; Int { var big = a &amp;gt; b ? a : b var sma = a &amp;lt; b ? a : b var sum = 0 while sma &amp;gt; 0 { sum += sma &amp;amp; 1 == 0 ? 0 : big sma = sma &amp;gt;&amp;gt; 1 big = big &amp;lt;&amp;lt; 1 } return sum }   加法
+int add(int a, int b) { stack&amp;lt;bool&amp;gt; st; bool x = false; if((a &amp;lt; b &amp;amp;&amp;amp; abs((long)a) &amp;gt; abs((long)b)) || (a &amp;gt; b &amp;amp;&amp;amp; abs((long)a) &amp;lt; abs((long)b))){ x = true; } bool flag = false; for (int i = 0; i &amp;lt; 31; i++) { if((a&amp;amp;1) == 1 &amp;amp;&amp;amp; (b&amp;amp;1) == 1){ st.</description>
     </item>
     
   </channel>

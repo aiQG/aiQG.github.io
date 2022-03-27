@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>UE4 on aiQG_&#39;s Blog</title>
+    <link>https://aiQG.github.io/tags/ue4/</link>
+    <description>Recent content in UE4 on aiQG_&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 14 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://aiQG.github.io/tags/ue4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UE4初体验</title>
+      <link>https://aiQG.github.io/ue4%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+      <pubDate>Sun, 14 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/ue4%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+      <description>玩了玩UE4，顺便满足了一下做游戏的快感
+先说说体验吧：
+ 素材不难找，商城里到处都是免费高质量资源//EPIC开始进攻国内市场了，支持支付宝和微信，引擎也做了机翻汉化 UE4挺好用的，毕竟C++写的，到处都能体现出C++的特(fan)点(suo) 蓝图也很好写，特别是对于学过C/C++的人来说。都是代码的上层调用。//可视化编程优秀 利用蓝图可以将各种算法体现在视觉上，实现一些纹理材质之类的 开源项目，源码都有 感觉需要的配置有点高，而且经常崩溃//毕竟开源项目，缺少优化。 国内教程少(百度)，基本上问题都在google解决 自带多种模版  引擎也支持用C++写，但是会经常需要编译//C的编译速度&amp;hellip; 所以基本上可以说蓝图是UE4的骨架
+UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码在文件中，但是没找到在哪(该看源码去了。。。) 不过毕竟开源，如果是大公司大概率会魔改这部分加密。 打包完成的项目主要是.pak文件(各种多媒体资源和蓝图)和一个.exe文件，以及其他开源项目的.dll
+虚幻商城里有个免费的Anti-Cheat项目，实现了各种反调试。</description>
+    </item>
+    
+    <item>
+      <title>Learning UE4 (一)(NetWork)</title>
+      <link>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</guid>
+      <description>本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
+         从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
+一、建立出生点
+ 建立一个BluePrint继承Actor，双击打开  添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。  创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数)  actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作   二、建立GameMode（这个东西只有主机存在）
+ 创建蓝图，继承引擎自动生成的GameMode(项目名+GameMode)，在项目设置里设置默认GameMode（和Map）  创建一个自定义事件，用于设置玩家的方向和位置。在BeginPlay事件里找出所有的出生点保存起来，然后调用刚才创建的自定义事件（传入player 0的Pawn）。  在函数标签里选择重写一个函数：Spawn Default Pawn Transform 右键调用其父类   OK 出生点的基本功能就是这样了</description>
+    </item>
+    
+    <item>
+      <title>Learning UE4 (二)(NetWork)</title>
+      <link>https://aiQG.github.io/learning-ue4-%E4%BA%8Cnetwork/</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/learning-ue4-%E4%BA%8Cnetwork/</guid>
+      <description>接下来做一个“传送点”，用来在两张地图上转移角色。 //这里用流关卡(Stream Level)实现
+创建一个Actor，的蓝图，添加一个Box Collision。 /* 也可以再加上一个Billboard（当然也可以加入一个模型） Billboard 有个属性&amp;quot;Hidden in Game&amp;quot; 对于整个蓝图自身有个属性&amp;quot;Net Load on Client&amp;quot; 适当调整可以控制Billboard在客户端和主机的可见性 */
+创建一个空的关卡，将关卡添加进去 设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。
+首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。 //这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。 Onto是一个接口，用来设置角色的位置： 右键新建一个Blueprints-&amp;gt;蓝图接口 我们只需要一个函数和一个输入值作为关卡名。 在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置&amp;hellip;这很合理） 但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。 在Game Mode里创建一个函数用来：
+ 找到所有的出生点 循环判断 出生点是否被占用&amp;amp;&amp;amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）   ok, 有了位置信息就可以给角色设置了。 先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图） 传送点就完成了
+我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。 在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示 </description>
+    </item>
+    
+  </channel>
+</rss>
