@@ -5,8 +5,7 @@
     <link>https://aiQG.github.io/post/</link>
     <description>Recent content in Blog on aiQG_&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://aiQG.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language><atom:link href="https://aiQG.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How To Compile Android Kernel On OSX</title>
       <link>https://aiQG.github.io/how-to-compile-android-kernel-on-osx/</link>
@@ -369,10 +368,10 @@ openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.tx
     
     <item>
       <title>记某次逆向cm.pdf</title>
-      <link>https://aiQG.github.io/%E8%AE%B0%E6%9F%90%E6%AC%A1%E9%80%86%E5%90%91cm.pdf/</link>
+      <link>https://aiQG.github.io/%E8%AE%B0%E6%9F%90%E6%AC%A1%E9%80%86%E5%90%91cm/</link>
       <pubDate>Wed, 17 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://aiQG.github.io/%E8%AE%B0%E6%9F%90%E6%AC%A1%E9%80%86%E5%90%91cm.pdf/</guid>
+      <guid>https://aiQG.github.io/%E8%AE%B0%E6%9F%90%E6%AC%A1%E9%80%86%E5%90%91cm/</guid>
       <description>记某次逆向cm.pdf</description>
     </item>
     
