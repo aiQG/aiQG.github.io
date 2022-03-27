@@ -6,16 +6,30 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta name="generator" content="Hugo 0.95.0" />
-  <link rel="canonical" href="https://aiQG.github.io/learning-ue4-%E4%BA%8Cnetwork/" />
+  <link rel="canonical" href="https://aiQG.github.io/hide/who-am-i/" />
 
   
     
-    <meta name="description" content="接下来做一个“传送点”，用来在两张地图上转移角色。 //这里用流关卡(Stream Level)实现
-创建一个Actor，的蓝图，添加一个Box Collision。 /* 也可以再加上一个Billboard（当然也可以加入一个模型） Billboard 有个属性&#34;Hidden in Game&#34; 对于整个蓝图自身有个属性&#34;Net Load on Client&#34; 适当调整可以控制Billboard在客户端和主机的可见性 */
-创建一个空的关卡，将关卡添加进去 设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。
-首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。 //这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。 Onto是一个接口，用来设置角色的位置： 右键新建一个Blueprints-&gt;蓝图接口 我们只需要一个函数和一个输入值作为关卡名。 在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置…这很合理） 但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。 在Game Mode里创建一个函数用来：
- 找到所有的出生点 循环判断 出生点是否被占用&amp;&amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）   ok, 有了位置信息就可以给角色设置了。 先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图） 传送点就完成了
-我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。 在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示 ">
+    <meta name="description" content="我出生在皮米星城，和大多数无家可归者一样，靠着在空间站过道里乞讨来的小麦和冷藏食品过活。如果能在垃圾里找到一些飞船的金属碎片的话，就能卖给回收商人，用换来的isk，买一些蛋白食物，改善一下伙食。 贫民窟里，女孩会在十三、十四岁把自己卖给VVV富商当佣人，或者成为舞者。 我不想亵渎自己的身体，也不喜欢为克隆人服务，因此直到十六岁，仍然在空间站过道里乞讨。
+YC124年，我的家————皮米星城被击毁了，似乎是因为管理星城的联盟搬到了宇宙南方。而我，被击毁星城的VVV抓住，成了俘虏。 或许是因为稍有姿色，我没有被“处理”掉，而是被带上了一艘巨大的飞船。 随着巨大的轰鸣声和突如其来的巨大眩晕感，我眼前一黑，昏了过去……
+再次醒来，我正躺在床上，双手戴上了沉重的镣铐，脖子上也被系上了项圈。 我坐起身，发现身上一丝不挂，仅披着一块洁白的布料，丝绸一般的材质，不过要更为轻盈。
+这时房门被打开了，一个丑陋的男人探头进来看了看我，挥手说到： “过来。”
+我低着头走向他，刚一出门就被他用黑色的眼罩蒙住了眼睛。
+“走。”
+我感觉到脖子上的项圈被扯了扯，就朝着被拉扯的方向走了过去。
+一路上很安静，只能听到脚步声和锁链碰撞的声音……
+过了一会儿，牵着我的男人似乎打开了一扇门，紧接着“嗡嗡”的嘈杂声传来，我不禁皱了皱眉，似乎有很多的人聚集在那边。
+在被牵着走向人群的过程中，我似乎听到了几声惊叹。
+我面向人群，紧接着眼罩被拿了下来，明亮的光线直射我的眼睛，几乎睁不开眼，下意识地用戴着镣铐的手遮挡了一下。
+几秒后终于看清楚了，我在一个巨大的舞台上，台下的“观众”正在兴奋地举起号码牌…
+“200亿！”
+“250亿！”
+“300亿！”
+…
+我被拍卖了。
+===
+我低着头，听着一阵阵的喊价声，心情无比宁静。
+也不知道过了多久，我被带到后台，等待买下我的客人“取货”。">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">
@@ -65,7 +79,7 @@
 
   
   
-  <title>Learning UE4 (二)(NetWork) | aiQG_&#39;s Blog</title>
+  <title>Who am I | aiQG_&#39;s Blog</title>
 </head>
 
   <body>
@@ -217,7 +231,7 @@
       
       
       
-      <a href="/post/" aria-current="page">
+      <a href="/post/" >
         <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
           <use xlink:href="#bookmark"></use>
         </svg>
@@ -274,110 +288,35 @@
         <div>
           
   <main id="main">
-    <h1>
-      <svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false">
-        <use xlink:href="#bookmark"></use>
-      </svg>
-      Learning UE4 (二)(NetWork)
-    </h1>
-
-    <div class="date">
-      
-      
-      <strong> </strong>2019-05-26
-      
-        
-      
-    </div>
-
-    
-      <div class="tags">
-        <strong> </strong>
-        <ul aria-label="">
-          
-            <li>
-              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
-                <use xlink:href="#tag"></use>
-              </svg>
-              
-              <a href="/tags/ue4/">UE4</a>
-            </li>
-          
-            <li>
-              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
-                <use xlink:href="#tag"></use>
-              </svg>
-              
-              <a href="/tags/developing/">Developing</a>
-            </li>
-          
-        </ul>
-      </div>
-    
-
-    
-
-
-    <p>接下来做一个“传送点”，用来在两张地图上转移角色。
-//这里用流关卡(Stream Level)实现</p>
-<p>创建一个Actor，的蓝图，添加一个Box Collision。
-/*
-也可以再加上一个Billboard（当然也可以加入一个模型）
-Billboard 有个属性&quot;Hidden in Game&quot;
-对于整个蓝图自身有个属性&quot;Net Load on Client&quot;
-适当调整可以控制Billboard在客户端和主机的可见性
-*/</p>
-<p>创建一个空的关卡，将关卡添加进去
-<img src="https://i.imgur.com/4rgOOeh.png" alt="1"></p>
-<p>设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。</p>
-<p>首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。
-<img src="https://i.imgur.com/oDNcG5M.png" alt="2">
-//这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。
-Onto是一个接口，用来设置角色的位置：
-右键新建一个Blueprints-&gt;蓝图接口
-我们只需要一个函数和一个输入值作为关卡名。
-<img src="https://i.imgur.com/dNS4pQk.png" alt="3">
-在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置&hellip;这很合理）
-但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。
-在Game Mode里创建一个函数用来：</p>
-<ol>
-<li>找到所有的出生点</li>
-<li>循环判断 出生点是否被占用&amp;&amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）
-<img src="https://i.imgur.com/lcTif7O.png" alt="4"></li>
-</ol>
-<p>ok, 有了位置信息就可以给角色设置了。
-先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图）
-<img src="https://i.imgur.com/XSdkcKi.png" alt="5">
-传送点就完成了</p>
-<p>我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。
-在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示
-<img src="https://i.imgur.com/mSefxH5.png" alt="6"></p>
+    <h1>Who am I</h1>
+    <p>我出生在<em>皮米星城</em>，和大多数<em>无家可归者</em>一样，靠着在空间站过道里乞讨来的<em>小麦</em>和<em>冷藏食品</em>过活。如果能在<em>垃圾</em>里找到一些飞船的<em>金属碎片</em>的话，就能卖给回收商人，用换来的isk，买一些<em>蛋白食物</em>，改善一下伙食。
+贫民窟里，女孩会在十三、十四岁把自己卖给<em>VVV</em>富商当佣人，或者成为<em>舞者</em>。
+我不想亵渎自己的身体，也不喜欢为克隆人服务，因此直到十六岁，仍然在空间站过道里乞讨。</p>
+<p>YC124年，我的家————<em>皮米星城</em>被击毁了，似乎是因为管理星城的联盟搬到了宇宙南方。而我，被击毁星城的<em>VVV</em>抓住，成了俘虏。
+或许是因为稍有姿色，我没有被“处理”掉，而是被带上了一艘巨大的飞船。
+随着巨大的轰鸣声和突如其来的巨大眩晕感，我眼前一黑，昏了过去&hellip;&hellip;</p>
+<p>再次醒来，我正躺在床上，双手戴上了沉重的镣铐，脖子上也被系上了项圈。
+我坐起身，发现身上一丝不挂，仅披着一块洁白的布料，丝绸一般的材质，不过要更为轻盈。</p>
+<p>这时房门被打开了，一个丑陋的男人探头进来看了看我，挥手说到：
+“过来。”</p>
+<p>我低着头走向他，刚一出门就被他用黑色的眼罩蒙住了眼睛。</p>
+<p>“走。”</p>
+<p>我感觉到脖子上的项圈被扯了扯，就朝着被拉扯的方向走了过去。</p>
+<p>一路上很安静，只能听到脚步声和锁链碰撞的声音&hellip;&hellip;</p>
+<p>过了一会儿，牵着我的男人似乎打开了一扇门，紧接着“嗡嗡”的嘈杂声传来，我不禁皱了皱眉，似乎有很多的人聚集在那边。</p>
+<p>在被牵着走向人群的过程中，我似乎听到了几声惊叹。</p>
+<p>我面向人群，紧接着眼罩被拿了下来，明亮的光线直射我的眼睛，几乎睁不开眼，下意识地用戴着镣铐的手遮挡了一下。</p>
+<p>几秒后终于看清楚了，我在一个巨大的舞台上，台下的“观众”正在兴奋地举起号码牌&hellip;</p>
+<p>“200亿！”</p>
+<p>“250亿！”</p>
+<p>“300亿！”</p>
+<p>&hellip;</p>
+<p>我被拍卖了。</p>
+<p>===</p>
+<p>我低着头，听着一阵阵的喊价声，心情无比宁静。</p>
+<p>也不知道过了多久，我被带到后台，等待买下我的客人“取货”。</p>
 
   </main>
-  <div id="disqus-container">
-  
-    <button id="disqus-button" onclick="showComments()"></button>
-    <div id="disqus-comments">
-      
-      
-      
-        <p><em></em></p>
-        <script type="application/javascript">
-          function showComments() {
-            // Remove button
-var disqusButton = document.getElementById('disqus-button');
-disqusButton.parentNode.removeChild(disqusButton); 
-// Un-hide comments
-var disqusComments = document.getElementById('disqus-comments');
-disqusComments.style.display = 'block'; 
-          }
-        </script>
-      
-      <noscript></noscript>
-    </div>
-  
-</div>
-
 
           
             <footer role="contentinfo">

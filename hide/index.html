@@ -6,16 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <meta name="generator" content="Hugo 0.95.0" />
-  <link rel="canonical" href="https://aiQG.github.io/learning-ue4-%E4%BA%8Cnetwork/" />
+  <link rel="canonical" href="https://aiQG.github.io/hide/" />
 
   
     
-    <meta name="description" content="接下来做一个“传送点”，用来在两张地图上转移角色。 //这里用流关卡(Stream Level)实现
-创建一个Actor，的蓝图，添加一个Box Collision。 /* 也可以再加上一个Billboard（当然也可以加入一个模型） Billboard 有个属性&#34;Hidden in Game&#34; 对于整个蓝图自身有个属性&#34;Net Load on Client&#34; 适当调整可以控制Billboard在客户端和主机的可见性 */
-创建一个空的关卡，将关卡添加进去 设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。
-首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。 //这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。 Onto是一个接口，用来设置角色的位置： 右键新建一个Blueprints-&gt;蓝图接口 我们只需要一个函数和一个输入值作为关卡名。 在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置…这很合理） 但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。 在Game Mode里创建一个函数用来：
- 找到所有的出生点 循环判断 出生点是否被占用&amp;&amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）   ok, 有了位置信息就可以给角色设置了。 先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图） 传送点就完成了
-我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。 在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示 ">
+    <meta name="description" content="HIDE">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">
@@ -65,7 +60,7 @@
 
   
   
-  <title>Learning UE4 (二)(NetWork) | aiQG_&#39;s Blog</title>
+  <title>HIDE | aiQG_&#39;s Blog</title>
 </head>
 
   <body>
@@ -217,7 +212,7 @@
       
       
       
-      <a href="/post/" aria-current="page">
+      <a href="/post/" >
         <svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50">
           <use xlink:href="#bookmark"></use>
         </svg>
@@ -273,111 +268,36 @@
       <div class="main-and-footer">
         <div>
           
-  <main id="main">
-    <h1>
-      <svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false">
-        <use xlink:href="#bookmark"></use>
-      </svg>
-      Learning UE4 (二)(NetWork)
-    </h1>
-
-    <div class="date">
-      
-      
-      <strong> </strong>2019-05-26
-      
-        
-      
-    </div>
-
-    
-      <div class="tags">
-        <strong> </strong>
-        <ul aria-label="">
-          
-            <li>
-              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
-                <use xlink:href="#tag"></use>
-              </svg>
-              
-              <a href="/tags/ue4/">UE4</a>
-            </li>
-          
-            <li>
-              <svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false">
-                <use xlink:href="#tag"></use>
-              </svg>
-              
-              <a href="/tags/developing/">Developing</a>
-            </li>
-          
-        </ul>
-      </div>
-    
-
-    
-
-
-    <p>接下来做一个“传送点”，用来在两张地图上转移角色。
-//这里用流关卡(Stream Level)实现</p>
-<p>创建一个Actor，的蓝图，添加一个Box Collision。
-/*
-也可以再加上一个Billboard（当然也可以加入一个模型）
-Billboard 有个属性&quot;Hidden in Game&quot;
-对于整个蓝图自身有个属性&quot;Net Load on Client&quot;
-适当调整可以控制Billboard在客户端和主机的可见性
-*/</p>
-<p>创建一个空的关卡，将关卡添加进去
-<img src="https://i.imgur.com/4rgOOeh.png" alt="1"></p>
-<p>设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。</p>
-<p>首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。
-<img src="https://i.imgur.com/oDNcG5M.png" alt="2">
-//这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。
-Onto是一个接口，用来设置角色的位置：
-右键新建一个Blueprints-&gt;蓝图接口
-我们只需要一个函数和一个输入值作为关卡名。
-<img src="https://i.imgur.com/dNS4pQk.png" alt="3">
-在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置&hellip;这很合理）
-但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。
-在Game Mode里创建一个函数用来：</p>
-<ol>
-<li>找到所有的出生点</li>
-<li>循环判断 出生点是否被占用&amp;&amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）
-<img src="https://i.imgur.com/lcTif7O.png" alt="4"></li>
-</ol>
-<p>ok, 有了位置信息就可以给角色设置了。
-先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图）
-<img src="https://i.imgur.com/XSdkcKi.png" alt="5">
-传送点就完成了</p>
-<p>我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。
-在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示
-<img src="https://i.imgur.com/mSefxH5.png" alt="6"></p>
-
-  </main>
-  <div id="disqus-container">
+<main id="main">
+  <h1>HIDE</h1>
   
-    <button id="disqus-button" onclick="showComments()"></button>
-    <div id="disqus-comments">
-      
-      
-      
-        <p><em></em></p>
-        <script type="application/javascript">
-          function showComments() {
-            // Remove button
-var disqusButton = document.getElementById('disqus-button');
-disqusButton.parentNode.removeChild(disqusButton); 
-// Un-hide comments
-var disqusComments = document.getElementById('disqus-comments');
-disqusComments.style.display = 'block'; 
-          }
-        </script>
-      
-      <noscript></noscript>
-    </div>
+  <input
+    id="search"
+    type="text"
+    placeholder=""
+    aria-label=""
+  />
   
-</div>
-
+  <ul class="patterns-list" id="list">
+    
+    <li>
+      <h2>
+        <a href="/hide/who-am-i/">
+          <svg
+            class="bookmark"
+            aria-hidden="true"
+            viewBox="0 0 40 50"
+            focusable="false"
+          >
+            <use xlink:href="#bookmark"></use>
+          </svg>
+          Who am I
+        </a>
+      </h2>
+    </li>
+    
+  </ul>
+</main>
 
           
             <footer role="contentinfo">
