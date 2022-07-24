@@ -19,10 +19,13 @@ First of All: 一个区分大小写的文件系统 (OSX文件系统不区分大�
 通过 repo 下载源码 下载方式(Google官方提供)
 执行 build/build.sh 构建内核 官方链接
 编译好的东西在 ./out/ 里
-配置环境   下载交叉编译器 下载 clang, 不再支持gcc.
-$ pwd /Path/To/prebuilts-master/clang/host $ git clone https://android.googlesource.com/platform/prebuilts/clang/host/darwin-x86    ./build/_setup_env.sh 替换 readlink 为 greadlink. export ROOT_DIR=$PWD 改为 export ROOT_DIR=$(greadlink -f $PWD)
-  ./build/build.sh 替换 readlink 为 greadlink. (可能需要brew install coreutils) 替换 tar 为 gtar.
-  ./private/msm-google/build.config.common 替换 linux-x86 为 darwin-x86.</description>
+配置环境 下载交叉编译器 下载 clang, 不再支持gcc.
+$ pwd /Path/To/prebuilts-master/clang/host $ git clone https://android.googlesource.com/platform/prebuilts/clang/host/darwin-x86 ./build/_setup_env.sh 替换 readlink 为 greadlink. export ROOT_DIR=$PWD 改为 export ROOT_DIR=$(greadlink -f $PWD)
+./build/build.sh 替换 readlink 为 greadlink. (可能需要brew install coreutils) 替换 tar 为 gtar.
+./private/msm-google/build.config.common 替换 linux-x86 为 darwin-x86. (同时确认所指向的几个路径正确)
+private/msm-google-modules/wlan/qcacld-3.0/Makefile ``readlink替换为greadlink`.
+./private/msm-google/Makefile
+给 HOSTCFLAGS 变量增加一个路径: HOSTCFLAGS := -isysroot /Applications/Xcode.</description>
     </item>
     
     <item>
@@ -35,7 +38,8 @@ $ pwd /Path/To/prebuilts-master/clang/host $ git clone https://android.googlesou
 操作符类符合Subscriber协议和Publisher协议
 可以拆分/合并数据流
 A simple Combine pipeline written in swift might look like:
-let _ = Just(5) // 输出类型为&amp;lt;Integer&amp;gt;, 失败类型为&amp;lt;Never&amp;gt; .map { value -&amp;gt; String in // do something with the incoming value here // and return a string return &amp;quot;a string&amp;quot; } // 输出类型为&amp;lt;String&amp;gt;, 失败类型为&amp;lt;Never&amp;gt; .sink { receivedValue in // sink is the subscriber and terminates the pipeline print(&amp;quot;The end result was \(receivedValue)&amp;quot;) } // sink用来结束  SwiftUI使用Combine提供的@Published和@ObservedObject属性包装器隐式创建发布者</description>
+let _ = Just(5) // 输出类型为&amp;lt;Integer&amp;gt;, 失败类型为&amp;lt;Never&amp;gt; .map { value -&amp;gt; String in // do something with the incoming value here // and return a string return &amp;quot;a string&amp;quot; } // 输出类型为&amp;lt;String&amp;gt;, 失败类型为&amp;lt;Never&amp;gt; .sink { receivedValue in // sink is the subscriber and terminates the pipeline print(&amp;quot;The end result was \(receivedValue)&amp;quot;) } // sink用来结束 SwiftUI使用Combine提供的@Published和@ObservedObject属性包装器隐式创建发布者
+一个简单的例子</description>
     </item>
     
     <item>
@@ -46,13 +50,13 @@ let _ = Just(5) // 输出类型为&amp;lt;Integer&amp;gt;, 失败类型为&amp;l
       <guid>https://aiQG.github.io/smart-swift/</guid>
       <description>layout: post tag: Swift author: aiQG_ Swift的特性, 有了它们或许能够更优雅地编写Swift程序
 &amp;hellip;持续更新&amp;hellip;
- contains 与 allSatisfy 用来判断数组中的元素是否满足某个条件, 返回Bool
+contains 与 allSatisfy 用来判断数组中的元素是否满足某个条件, 返回Bool
 contains 会在遍历到第一个满足条件的元素后停止并返回 true , 若全部元素遍历完都没有满足条件的元素则返回 false
 allSatisfy 会完全遍历数组, 所有元素都满足条件才返回 true , 否则返回 false
- where 关键字用来作为限定条件
+where 关键字用来作为限定条件
 如:
-let temp:[Int] = Array(0...1000) for i in temp where i % 117 == 0 || i % 347 == 0{ print(i) }  获取第一个满足条件的元素
-let temp:[Int] = [1,2,3,4,5,6,7,8,9,10] print( temp.first(where: { (x) -&amp;gt; Bool in x == 7 })!</description>
+let temp:[Int] = Array(0...1000) for i in temp where i % 117 == 0 || i % 347 == 0{ print(i) } 获取第一个满足条件的元素
+let temp:[Int] = [1,2,3,4,5,6,7,8,9,10] print( temp.first(where: { (x) -&amp;gt; Bool in x == 7 })! ) //好像也能简写成</description>
     </item>
     
     <item>
@@ -65,9 +69,9 @@ let temp:[Int] = [1,2,3,4,5,6,7,8,9,10] print( temp.first(where: { (x) -&amp;gt;
 只能用在 class 或 strutc 里
 lazy 声明对变量会在使用到的时候才对其进行赋值(如果这之间没有重新赋值)
 比较下面两段程序, 可以明显感觉到运行时间的不同
-class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() print(temp.value) //访问了value成员  class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() print(temp) //未访问value成员  主要是避免计算初值引起的资源浪费
+class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() print(temp.value) //访问了value成员 class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() print(temp) //未访问value成员 主要是避免计算初值引起的资源浪费
 如
-class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() temp.value = Array(1...10).map{$0-1} //不要初始值了, 重新赋值! print(temp.value)  ⚠️lazy成员在重新赋值的时候, 会立即计算出要赋予的值. 如即使没有访问 temp.value 在 temp.</description>
+class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = ClasA() temp.value = Array(1...10).map{$0-1} //不要初始值了, 重新赋值! print(temp.value) ⚠️lazy成员在重新赋值的时候, 会立即计算出要赋予的值. 如即使没有访问 temp.value 在 temp.value = Array(1...10).map{$0-1} 处仍会计算 Array(1.</description>
     </item>
     
     <item>
@@ -77,10 +81,12 @@ class ClasA { lazy var value = Array(1...1000000000).map{$0+1} } var temp = Clas
       
       <guid>https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84map-filter-reduce/</guid>
       <description>Premature optimisation is the root of all evil.
-  map  map 理解为对数组中每个元素进行一个相同的操作, 然后返回到原来的位置(元素之间不互相影响)
+map map 理解为对数组中每个元素进行一个相同的操作, 然后返回到原来的位置(元素之间不互相影响)
 map 的标准格式:
-var arr: [Int] = [1,2,3,4,5,6,7] arr.map { (&amp;lt;#Int#&amp;gt;) -&amp;gt; T in &amp;lt;#code#&amp;gt; }  如
-arr.map { (aValue: Int) -&amp;gt; Int in aValue + 1 } //返回一个[Int], 元素分别是原[Int]的每一个元素加一 //&amp;gt;&amp;gt;&amp;gt;[2, 3, 4, 5, 6, 7, 8] //优秀写法 arr.map {aValue in aValue + 1} //更优秀写法 arr.map {$0 + 1} //$0 代表map的第0个参数   filter  filter 理解为对数组中每个元素进行一个相同的判断, 判断为真则返回当前元素</description>
+var arr: [Int] = [1,2,3,4,5,6,7] arr.map { (&amp;lt;#Int#&amp;gt;) -&amp;gt; T in &amp;lt;#code#&amp;gt; } 如
+arr.map { (aValue: Int) -&amp;gt; Int in aValue + 1 } //返回一个[Int], 元素分别是原[Int]的每一个元素加一 //&amp;gt;&amp;gt;&amp;gt;[2, 3, 4, 5, 6, 7, 8] //优秀写法 arr.map {aValue in aValue + 1} //更优秀写法 arr.map {$0 + 1} //$0 代表map的第0个参数 filter filter 理解为对数组中每个元素进行一个相同的判断, 判断为真则返回当前元素
+==(filter的返回值必须为Bool)==
+filter 的标准格式:</description>
     </item>
     
     <item>
@@ -99,8 +105,8 @@ arr.map { (aValue: Int) -&amp;gt; Int in aValue + 1 } //返回一个[Int], 元�
       
       <guid>https://aiQG.github.io/linux%E8%BF%9B%E7%A8%8B/</guid>
       <description>Linux 中线程就是共享上下文的进程
-  用fork()创建进程  #include&amp;lt;stdio.h&amp;gt;//printf() #include&amp;lt;unistd.h&amp;gt; //fork() ... pid_t pid; pid = fork()//创建进程 if(pid == 0) { printf(&amp;quot;child PID [%d], getpid = %d, getppid = %d\n&amp;quot;,pid,getpid(),getppid()); } else { printf(&amp;quot;parent PID [%d], getpid = %d, getppid = %d\n&amp;quot;,pid,getpid(),getppid()); } printf(&amp;quot;%d finish&amp;quot;,pid);  运行结果:
-child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end  相当于利用父进程创建了一个子进程并从fork()开始向下进行  孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果:  parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end  可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)</description>
+用fork()创建进程 #include&amp;lt;stdio.h&amp;gt;//printf() #include&amp;lt;unistd.h&amp;gt; //fork() ... pid_t pid; pid = fork()//创建进程 if(pid == 0) { printf(&amp;quot;child PID [%d], getpid = %d, getppid = %d\n&amp;quot;,pid,getpid(),getppid()); } else { printf(&amp;quot;parent PID [%d], getpid = %d, getppid = %d\n&amp;quot;,pid,getpid(),getppid()); } printf(&amp;quot;%d finish&amp;quot;,pid); 运行结果:
+child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end 相当于利用父进程创建了一个子进程并从fork()开始向下进行 孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果: parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end 可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)</description>
     </item>
     
     <item>
@@ -110,7 +116,7 @@ child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid 
       
       <guid>https://aiQG.github.io/swift--ios%E5%BC%80%E5%8F%91/</guid>
       <description>ios开发理念和以往开发有些不同, iOS讲究在使用之前才初始化, 而不是在程序启动时全部完成初始化(例如在按钮执行函数内进行警告窗口的声明+初始化, 而不能在函数外提前初始化)
-//按钮: 点击弹出警告框 @IBAction func bt(_ sender: Any) { let uiAlert: UIAlertController = UIAlertController(title: &amp;quot;这是title&amp;quot;, message: &amp;quot;这是message&amp;quot;, preferredStyle: .actionSheet) let uiAAction: UIAlertAction = UIAlertAction(title: &amp;quot;what?&amp;quot;, style: .cancel, handler: nil) let uiaaction2: UIAlertAction = UIAlertAction(title: &amp;quot;2&amp;quot;, style: .destructive, handler: nil) let uiui: UIAlertAction = UIAlertAction(title: &amp;quot;4&amp;quot;, style: .default, handler: nil) uiAlert.addAction(uiAAction) uiAlert.addAction(uiaaction2) uiAlert.addAction(uiui) self.present(uiAlert, animated: true, completion: nil) }  关于session(AVCaptureSession) session可以有多个input和output 当startRunning()后创建一个Connection session可以在input和output之间处理数据(暂时理解为管理数据的转发)(有点像交换机?) output可以设置setSampleBufferDelegate(一个队列(线程?)) 获得SampleBuffer后会调用captureOutput()
+//按钮: 点击弹出警告框 @IBAction func bt(_ sender: Any) { let uiAlert: UIAlertController = UIAlertController(title: &amp;quot;这是title&amp;quot;, message: &amp;quot;这是message&amp;quot;, preferredStyle: .actionSheet) let uiAAction: UIAlertAction = UIAlertAction(title: &amp;quot;what?&amp;quot;, style: .cancel, handler: nil) let uiaaction2: UIAlertAction = UIAlertAction(title: &amp;quot;2&amp;quot;, style: .destructive, handler: nil) let uiui: UIAlertAction = UIAlertAction(title: &amp;quot;4&amp;quot;, style: .default, handler: nil) uiAlert.addAction(uiAAction) uiAlert.addAction(uiaaction2) uiAlert.addAction(uiui) self.present(uiAlert, animated: true, completion: nil) } 关于session(AVCaptureSession) session可以有多个input和output 当startRunning()后创建一个Connection session可以在input和output之间处理数据(暂时理解为管理数据的转发)(有点像交换机?) output可以设置setSampleBufferDelegate(一个队列(线程?)) 获得SampleBuffer后会调用captureOutput()
 关于图像识别 使用setSampleBufferDelegate需要继承AVCaptureVideoDataOutputSampleBufferDelegate 才能调用captureOutput()//这里有个重载captureOutput(_:didOutput:from:)(写入视频帧时调用); captureOutput(_:didDrop:from:)(视频帧被丢弃时调用)//()何时丢弃 VNImageRequestHandler()可以初始化图像请求 perform()开始执行 VNDetectTextRectanglesRequest()请求分析图像, 返回分析结果 </description>
     </item>
     
@@ -122,22 +128,9 @@ child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid 
       <guid>https://aiQG.github.io/ue4%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
       <description>玩了玩UE4，顺便满足了一下做游戏的快感
 先说说体验吧：
- 素材不难找，商城里到处都是免费高质量资源//EPIC开始进攻国内市场了，支持支付宝和微信，引擎也做了机翻汉化 UE4挺好用的，毕竟C++写的，到处都能体现出C++的特(fan)点(suo) 蓝图也很好写，特别是对于学过C/C++的人来说。都是代码的上层调用。//可视化编程优秀 利用蓝图可以将各种算法体现在视觉上，实现一些纹理材质之类的 开源项目，源码都有 感觉需要的配置有点高，而且经常崩溃//毕竟开源项目，缺少优化。 国内教程少(百度)，基本上问题都在google解决 自带多种模版  引擎也支持用C++写，但是会经常需要编译//C的编译速度&amp;hellip; 所以基本上可以说蓝图是UE4的骨架
+素材不难找，商城里到处都是免费高质量资源//EPIC开始进攻国内市场了，支持支付宝和微信，引擎也做了机翻汉化 UE4挺好用的，毕竟C++写的，到处都能体现出C++的特(fan)点(suo) 蓝图也很好写，特别是对于学过C/C++的人来说。都是代码的上层调用。//可视化编程优秀 利用蓝图可以将各种算法体现在视觉上，实现一些纹理材质之类的 开源项目，源码都有 感觉需要的配置有点高，而且经常崩溃//毕竟开源项目，缺少优化。 国内教程少(百度)，基本上问题都在google解决 自带多种模版 引擎也支持用C++写，但是会经常需要编译//C的编译速度&amp;hellip; 所以基本上可以说蓝图是UE4的骨架
 UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码在文件中，但是没找到在哪(该看源码去了。。。) 不过毕竟开源，如果是大公司大概率会魔改这部分加密。 打包完成的项目主要是.pak文件(各种多媒体资源和蓝图)和一个.exe文件，以及其他开源项目的.dll
 虚幻商城里有个免费的Anti-Cheat项目，实现了各种反调试。</description>
-    </item>
-    
-    <item>
-      <title>Learning UE4 (一)(NetWork)</title>
-      <link>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</link>
-      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</guid>
-      <description>本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
-         从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
-一、建立出生点
- 建立一个BluePrint继承Actor，双击打开  添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。  创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数)  actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作   二、建立GameMode（这个东西只有主机存在）
- 创建蓝图，继承引擎自动生成的GameMode(项目名+GameMode)，在项目设置里设置默认GameMode（和Map）  创建一个自定义事件，用于设置玩家的方向和位置。在BeginPlay事件里找出所有的出生点保存起来，然后调用刚才创建的自定义事件（传入player 0的Pawn）。  在函数标签里选择重写一个函数：Spawn Default Pawn Transform 右键调用其父类   OK 出生点的基本功能就是这样了</description>
     </item>
     
     <item>
@@ -150,8 +143,21 @@ UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码
 创建一个Actor，的蓝图，添加一个Box Collision。 /* 也可以再加上一个Billboard（当然也可以加入一个模型） Billboard 有个属性&amp;quot;Hidden in Game&amp;quot; 对于整个蓝图自身有个属性&amp;quot;Net Load on Client&amp;quot; 适当调整可以控制Billboard在客户端和主机的可见性 */
 创建一个空的关卡，将关卡添加进去 设置起始关卡载入方式为“总是加载”（这里影响的是地图的可见性，一般之后转移的地图设置会为“蓝图”）。然后把我们的“传送点”放置好，然后开始写逻辑。
 首先我们要获取目的地关卡的关卡名称（才知道要传送到哪），所以需要一个变量来保存一个Name，然后从Name找到关卡，加载它，如果被加载了就转移角色。 //这里Load Stream Level函数主要就是把相关的关卡设置为可见，接着经过Timer一秒的延迟后触发检查关卡是否被加载的自定义事件。 Onto是一个接口，用来设置角色的位置： 右键新建一个Blueprints-&amp;gt;蓝图接口 我们只需要一个函数和一个输入值作为关卡名。 在人物角色的蓝图里实现这个接口（相当于直接给单个人物设置位置&amp;hellip;这很合理） 但是要知道位置的值，所以先在我们自己的Game Mode（服务器单独拥有）里取得出生点的位置。 在Game Mode里创建一个函数用来：
- 找到所有的出生点 循环判断 出生点是否被占用&amp;amp;&amp;amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称）   ok, 有了位置信息就可以给角色设置了。 先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图） 传送点就完成了
+找到所有的出生点 循环判断 出生点是否被占用&amp;amp;&amp;amp;这个出生点的标签是否是关卡的名称。如果都满足，就取得这个出生点的位置和角度，保存到一个临时变量，然后退出循环。（这一步之前我将每个关卡中出生点的标签改成了和关卡同样的名称） ok, 有了位置信息就可以给角色设置了。 先取得我们的Game Mode。最后用Teleport来改变角色位置（这里要实现接口，需要在“类设置里”选择这个接口的蓝图） 传送点就完成了
 我们可以加一个人数判断的功能。超过人数，新的客户端无法加入。 在Game Mode里重写SpawnDefaultPawnAtTransForm，可以加一个HUD进行提示 </description>
+    </item>
+    
+    <item>
+      <title>Learning UE4 (一)(NetWork)</title>
+      <link>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</link>
+      <pubDate>Sun, 26 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</guid>
+      <description>本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
+从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
+一、建立出生点
+建立一个BluePrint继承Actor，双击打开 添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。 创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数) actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作 二、建立GameMode（这个东西只有主机存在）
+创建蓝图，继承引擎自动生成的GameMode(项目名+GameMode)，在项目设置里设置默认GameMode（和Map） 创建一个自定义事件，用于设置玩家的方向和位置。在BeginPlay事件里找出所有的出生点保存起来，然后调用刚才创建的自定义事件（传入player 0的Pawn）。 在函数标签里选择重写一个函数：Spawn Default Pawn Transform 右键调用其父类 OK 出生点的基本功能就是这样了</description>
     </item>
     
     <item>
@@ -161,7 +167,7 @@ UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码
       
       <guid>https://aiQG.github.io/c-%E7%BA%BF%E7%A8%8B-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%85%A5%E9%97%A8/</guid>
       <description>线程 我们写的程序都是一个main从上到下执行的，main怎么写，程序就怎么运行 那么这时好奇的小朋友一定想问：怎么能让程序同时做两件事呢？ 聪明的五号机回答到：可以用多线程呀 这时好奇的小朋友又要问了：线程和进程有什么区别呢？ 聪明的五号机又回答到：一个进程可以包括多个线程，进程之间不共享资源，线程之间共享同一个进程的资源 嗯&amp;hellip; 也可以结合下面这幅图解释 一只怪力可以可以看成是一个进程，一只怪力有几只手就可以看成是一个进程有几个线程&amp;hellip;（不过这里的线程是虚拟线程，有别于CPU的线程）
-#include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt; using namespace std; //这是线程要执行的函数 void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; return; } //main函数相当于主线程 int main() { for(int i=0; i&amp;lt;10;i++) { thread THR1(hellofun, i); THR1.join(); //THR1.detach(); } return 0; }  hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看
+#include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt; using namespace std; //这是线程要执行的函数 void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; return; } //main函数相当于主线程 int main() { for(int i=0; i&amp;lt;10;i++) { thread THR1(hellofun, i); THR1.join(); //THR1.detach(); } return 0; } hellofun(int i) 将会被线程执行//相当于线程的main函数 thread THR1(hellofun, i) 是声明了一个叫做THR1的线程，线程将会在被声明后立即执行，hellofun 是要执行的函数名(没想到吧函数名还能这么用)，函数名后面的参数就是函数的参数(hellofun的参数) thread thrName(Fun, a, b, c, ...); 那么问题来了有时候我们想让线程一起跑(并行)，有时想让它们排排队，一个一个跑(串行)又要怎么实现呢 这就涉及到线程的两个方法： detach() 方法让线程并行，不会阻塞主线程的运行 join() 方法让线程串行，主线程会等待线程的结束 调皮的小朋友又要问了：如果两个方法都用会发生什么？ 五号机：当然是报错了 调皮的小朋友又要问了：那我最多可以创建多少线程呢？ 那我们把程序改一改，再跑跑看
 #include &amp;lt;iostream&amp;gt; #include &amp;lt;thread&amp;gt;//线程，C++11 using namespace std; void hellofun(int i) { cout&amp;lt;&amp;lt;&amp;quot;Helloworld\t&amp;quot;&amp;lt;&amp;lt;i&amp;lt;&amp;lt;endl; while(1);// return; } int main() { for(int i=0; ;i++) { thread THR1(hellofun, i); THR1.</description>
     </item>
     
@@ -183,16 +189,18 @@ override func viewDidLoad() { super.viewDidLoad() let session = AVCaptureSession
       
       <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AB/</guid>
       <description>ios swift 多线程(队列) //这篇笔记是看了这篇文章后的总结
-   用DispatchQueue创建队列
- DispatchQueue( label: String, qos: DispatchQoS, attributes: DispatchQueue.Attributes, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency, target: DispatchQueue? )
- 其中参数lable 是必须并独一无二的
- 你唯一要做的事就是为你的队列提供一个独一无二的标签（label）。使用一个反向的 DNS 符号（”com.appcoda.myqueue”）就很好，因为用它很容易创造一个独一无二的标签，甚至连苹果公司都是这样建议的。尽管如此，这并不是强制性的，你可以使用你喜欢的任何字符串，只要这个字符串是唯一的。除此之外，上面的构造方法并不是创建队列的唯一方式。在初始化队列的时候可以提供更多的参数，我们会在后面的篇幅中谈论到它。
- 最简单的创建队列的方式就是
-let queue = DispatchQueue(label: &amp;quot;com.appcoda.myqueue&amp;quot;)    启动队列: queue.async {&amp;lt;code&amp;gt;} //异步。主队列与此队列同时运行 queue.sync {&amp;lt;code&amp;gt;} //同步。主队列会等待此队列运行结束再运行
-  队列优先级(QoS)
- userInteractive userInitiated default utility background unspecified
- //Apple用户至上的体现 这里是关于各个优先级的官方解释 QoS直接放进创建队列时的qos参数中
-let queue1 = DispatchQueue(label: &amp;quot;com.appcoda.queue1&amp;quot;, qos: .userInitiated) let queue2 = DispatchQueue(label: &amp;quot;com.</description>
+用DispatchQueue创建队列
+DispatchQueue( label: String, qos: DispatchQoS, attributes: DispatchQueue.Attributes, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency, target: DispatchQueue? )
+其中参数lable 是必须并独一无二的
+你唯一要做的事就是为你的队列提供一个独一无二的标签（label）。使用一个反向的 DNS 符号（”com.appcoda.myqueue”）就很好，因为用它很容易创造一个独一无二的标签，甚至连苹果公司都是这样建议的。尽管如此，这并不是强制性的，你可以使用你喜欢的任何字符串，只要这个字符串是唯一的。除此之外，上面的构造方法并不是创建队列的唯一方式。在初始化队列的时候可以提供更多的参数，我们会在后面的篇幅中谈论到它。
+最简单的创建队列的方式就是
+let queue = DispatchQueue(label: &amp;quot;com.appcoda.myqueue&amp;quot;) 启动队列: queue.async {&amp;lt;code&amp;gt;} //异步。主队列与此队列同时运行 queue.sync {&amp;lt;code&amp;gt;} //同步。主队列会等待此队列运行结束再运行
+队列优先级(QoS)
+userInteractive userInitiated default utility background unspecified
+//Apple用户至上的体现 这里是关于各个优先级的官方解释 QoS直接放进创建队列时的qos参数中
+let queue1 = DispatchQueue(label: &amp;quot;com.appcoda.queue1&amp;quot;, qos: .userInitiated) let queue2 = DispatchQueue(label: &amp;quot;com.appcoda.queue2&amp;quot;, qos: .background) 优先级的高低主要影响系统资源的分配//并不意味着低优先级必须等待高优先级运行结束才执行 主队列拥有最高的优先级
+并行队列 attributes参数 创建并行队列
+let anotherQueue = DispatchQueue(label: &amp;quot;com.appcoda.anotherQueue&amp;quot;, qos: .</description>
     </item>
     
     <item>
@@ -203,7 +211,7 @@ let queue1 = DispatchQueue(label: &amp;quot;com.appcoda.queue1&amp;quot;, qos: .
       <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%83/</guid>
       <description>//英语不好真遭罪啊
 调用ios的摄像头 用摄像头取景 放到控件里 主要用到的是AVFoundation模块 //如果要用到的是系统的相机一般使用UIImagePickerController模块 看看官方文档关于获得多媒体数据, 主要是通过会话(session) 来接收数据输入 处理数据 输出数据的
- The main parts of the capture architecture are sessions, inputs, and outputs: Capture sessions connect one or more inputs to one or more outputs. Inputs are sources of media, including capture devices like the cameras and microphones built into an iOS device or Mac. Outputs acquire media from inputs to produce useful data, such as movie files written to disk or raw pixel buffers available for live processing.</description>
+The main parts of the capture architecture are sessions, inputs, and outputs: Capture sessions connect one or more inputs to one or more outputs. Inputs are sources of media, including capture devices like the cameras and microphones built into an iOS device or Mac. Outputs acquire media from inputs to produce useful data, such as movie files written to disk or raw pixel buffers available for live processing.</description>
     </item>
     
     <item>
@@ -212,7 +220,7 @@ let queue1 = DispatchQueue(label: &amp;quot;com.appcoda.queue1&amp;quot;, qos: .
       <pubDate>Tue, 19 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD/</guid>
-      <description>as 用于强制转换类型  //类型一 let a = 123 as CGFloat let b = 1.2 as Int //类型二 派生类转换为基类 class Base{} class Son: Base{} let s = Son() let f = s as Base //类型三 用于switch匹配类型 switch unname{ case let s as Son: //是Son类型进行的操作 case let f as Base: //是Base类型进行的操作 default: break }   as! 转换失败时会报运行错误  //基类转换为派生类 class Base{} class Son: Base{} let base: Base = Son() let son = base as!</description>
+      <description>as 用于强制转换类型 //类型一 let a = 123 as CGFloat let b = 1.2 as Int //类型二 派生类转换为基类 class Base{} class Son: Base{} let s = Son() let f = s as Base //类型三 用于switch匹配类型 switch unname{ case let s as Son: //是Son类型进行的操作 case let f as Base: //是Base类型进行的操作 default: break } as! 转换失败时会报运行错误 //基类转换为派生类 class Base{} class Son: Base{} let base: Base = Son() let son = base as! Son as?</description>
     </item>
     
     <item>
@@ -222,8 +230,9 @@ let queue1 = DispatchQueue(label: &amp;quot;com.appcoda.queue1&amp;quot;, qos: .
       
       <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94/</guid>
       <description>//回来恶补基础知识&amp;hellip;
-  结构体 结构体中的赋值就是默认值 能够修改值的变量用var声明 常量用let声明
-struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321)  `swift ruct A { var var_1: Int = 1000 let let_1: Int = 2000 r my2:A = A() //已有默认值可以不用初始化结构体成员 r my3:A = A(var_1: 123) //可以修改变量(var)的值 var my4:A = A(let_1: 321)//不可修改常量(let)的值      类 Swift 的类由编译器自动生成对外接口</description>
+结构体 结构体中的赋值就是默认值 能够修改值的变量用var声明 常量用let声明
+struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321) `swift ruct A { var var_1: Int = 1000 let let_1: Int = 2000 r my2:A = A() //已有默认值可以不用初始化结构体成员 r my3:A = A(var_1: 123) //可以修改变量(var)的值 var my4:A = A(let_1: 321)//不可修改常量(let)的值 类 Swift 的类由编译器自动生成对外接口
+class A { var var_1:Int let let_1:Int init(var_1: Int, let_1: Int) { self.</description>
     </item>
     
     <item>
@@ -238,6 +247,17 @@ import UIKit class ViewController: UIViewController, UIImagePickerControllerDele
     </item>
     
     <item>
+      <title>Swift 学习笔记(二)</title>
+      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
+      <description>iOSApp(基于SpriteKit) 用代码实现了基本场景 //删除两个sks文件///GameScene.sks Actions.sks GameScene.swift
+import SpriteKit class gameScene: SKScene { let label = SKLabelNode(text: &amp;quot;Hello World!!!&amp;quot;)//一个字符串 override func didMove(to view: SKView) { label.fontName = &amp;quot;Avenir&amp;quot; label.position = CGPoint(x: view.frame.width / 2, y: view.frame.height - label.fontSize )//设置lable的位置 addChild(label)//将标签作为子节点 添加 到场景的节点树 }//在场景的相应视图呈现后立即运行的方法 }//继承了标准SpriteKit场景的子类 GameViewController.swift
+import SpriteKit class GameViewController: UIViewController { override func viewDidLoad(){ let scene = gameScene(size: view.frame.size)//初始化一个场景 let skView = view as! SKView //将控制器的视图转换为SpriteKit视图 skView.presentScene(scene)//呈现游戏场景 }//这个方法会在视图控制器加载到内存后立即运行 }//控制器的视图加载后 呈现游戏场景 参考资料 : https://www.</description>
+    </item>
+    
+    <item>
       <title>Swift 学习笔记(三)</title>
       <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%89/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
@@ -249,29 +269,19 @@ import UIKit class ViewController: UIViewController { @IBOutlet weak var txtName
     </item>
     
     <item>
-      <title>Swift 学习笔记(二)</title>
-      <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</link>
-      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/</guid>
-      <description>iOSApp(基于SpriteKit) 用代码实现了基本场景 //删除两个sks文件///GameScene.sks Actions.sks  GameScene.swift
-import SpriteKit class gameScene: SKScene { let label = SKLabelNode(text: &amp;quot;Hello World!!!&amp;quot;)//一个字符串 override func didMove(to view: SKView) { label.fontName = &amp;quot;Avenir&amp;quot; label.position = CGPoint(x: view.frame.width / 2, y: view.frame.height - label.fontSize )//设置lable的位置 addChild(label)//将标签作为子节点 添加 到场景的节点树 }//在场景的相应视图呈现后立即运行的方法 }//继承了标准SpriteKit场景的子类  GameViewController.swift
-import SpriteKit class GameViewController: UIViewController { override func viewDidLoad(){ let scene = gameScene(size: view.frame.size)//初始化一个场景 let skView = view as! SKView //将控制器的视图转换为SpriteKit视图 skView.presentScene(scene)//呈现游戏场景 }//这个方法会在视图控制器加载到内存后立即运行 }//控制器的视图加载后 呈现游戏场景   参考资料 : https://www.</description>
-    </item>
-    
-    <item>
       <title>Swift 学习笔记(一)</title>
       <link>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
       <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
       <description>import Cocoa //目前没用到
-  数组
-//用于生成重复元素的数组 var a = [Int](repeating: 0xdeadbeef, count:3) //[0xdeadbeef, 0xdeadbeef, 0xdeadbeef]  一般同一个数组只能放入一个类型的数据 但 swift 中有一个 Any 类型 表示任何类型(什么类型都能放进去)
-var a:[Any] = [1,&amp;quot;1&amp;quot;,1.1]    几种for循环
-for x in a { print(x) } //just like python  for c in 0...0x7f { print(Unicode.Scalar(c)!)//把数字转换成Unicode字符 } //打印出所有ASCII字符(0到0x7f的Unicode)    可选类型
-var num:Int?=123 //值为123的Int的可选类型 //Optional(123)  可选类型与普通类型不同 ( Int 不能当作 Int? 使用)
-var num1:Int?=123 var num2:Int=num1 //出错  可选类型的变量可以用来处理“值缺失”的情况。 即,当赋值出错时,可选类型的变量被赋为 nil ,程序正常运行 //nil 在swift中表示值缺失 只有可选类型的变量或者常量才能接受nil。其他类型的变量或常量不能接受nil。</description>
+数组
+//用于生成重复元素的数组 var a = [Int](repeating: 0xdeadbeef, count:3) //[0xdeadbeef, 0xdeadbeef, 0xdeadbeef] 一般同一个数组只能放入一个类型的数据 但 swift 中有一个 Any 类型 表示任何类型(什么类型都能放进去)
+var a:[Any] = [1,&amp;quot;1&amp;quot;,1.1] 几种for循环
+for x in a { print(x) } //just like python for c in 0...0x7f { print(Unicode.Scalar(c)!)//把数字转换成Unicode字符 } //打印出所有ASCII字符(0到0x7f的Unicode) 可选类型
+var num:Int?=123 //值为123的Int的可选类型 //Optional(123) 可选类型与普通类型不同 ( Int 不能当作 Int? 使用)
+var num1:Int?=123 var num2:Int=num1 //出错 可选类型的变量可以用来处理“值缺失”的情况。 即,当赋值出错时,可选类型的变量被赋为 nil ,程序正常运行 //nil 在swift中表示值缺失 只有可选类型的变量或者常量才能接受nil。其他类型的变量或常量不能接受nil。
+使用可选类型打印出来的变量带有Optional() , 若要转换成普通类型 就要强制解析 !</description>
     </item>
     
   </channel>

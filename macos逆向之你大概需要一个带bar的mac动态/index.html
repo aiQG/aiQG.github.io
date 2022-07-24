@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac%E5%8A%A8%E6%80%81/" />
 
   
@@ -18,13 +18,12 @@ codesign -d --entitlements :- [yourAPP]
 将当前权限配置导出
 codesign -d --entitlements :- [yourAPP] &gt;&gt; temp.plist
 在temp.plist中添加
-&lt;key&gt;com.apple.security.get-task-allow&lt;/key&gt; &lt;true/&gt;  保存
+&lt;key&gt;com.apple.security.get-task-allow&lt;/key&gt; &lt;true/&gt; 保存
 找到系统上安装的所有签名身份的列表(需要开发者账号)
 security find-identity -v -p codesigning
 重新签名
-codesign --sign &#34;Apple Development: ***@***.com (***)&#34; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 
-签名完成，可以调试
- 静态分析的过程在这里
+codesign --sign &#34;Apple Development: ***@***.com (***)&#34; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 签名完成，可以调试
+静态分析的过程在这里
 这里用动态分析的方法验证一下静态分析
 首先按照上面给出的步骤加上权限
 然后在 sub_1000034C0 开始处下断点, 可以发现每次子弹与敌人接触或者玩家与敌人接触就会触发断点，确定这是一个判断碰撞的函数

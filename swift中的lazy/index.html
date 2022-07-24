@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84lazy/" />
 
   
@@ -14,9 +14,9 @@
 只能用在 class 或 strutc 里
 lazy 声明对变量会在使用到的时候才对其进行赋值(如果这之间没有重新赋值)
 比较下面两段程序, 可以明显感觉到运行时间的不同
-class ClasA { lazy var value = Array(1...1000000000).map{$0&#43;1} } var temp = ClasA() print(temp.value) //访问了value成员  class ClasA { lazy var value = Array(1...1000000000).map{$0&#43;1} } var temp = ClasA() print(temp) //未访问value成员  主要是避免计算初值引起的资源浪费
+class ClasA { lazy var value = Array(1...1000000000).map{$0&#43;1} } var temp = ClasA() print(temp.value) //访问了value成员 class ClasA { lazy var value = Array(1...1000000000).map{$0&#43;1} } var temp = ClasA() print(temp) //未访问value成员 主要是避免计算初值引起的资源浪费
 如
-class ClasA { lazy var value = Array(1...1000000000).map{$0&#43;1} } var temp = ClasA() temp.value = Array(1...10).map{$0-1} //不要初始值了, 重新赋值! print(temp.value)  ⚠️lazy成员在重新赋值的时候, 会立即计算出要赋予的值. 如即使没有访问 temp.value 在 temp.">
+class ClasA { lazy var value = Array(1...1000000000).map{$0&#43;1} } var temp = ClasA() temp.value = Array(1...10).map{$0-1} //不要初始值了, 重新赋值! print(temp.value) ⚠️lazy成员在重新赋值的时候, 会立即计算出要赋予的值. 如即使没有访问 temp.value 在 temp.value = Array(1...10).map{$0-1} 处仍会计算 Array(1.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/combine-of-swift/" />
 
   
@@ -14,7 +14,8 @@
 操作符类符合Subscriber协议和Publisher协议
 可以拆分/合并数据流
 A simple Combine pipeline written in swift might look like:
-let _ = Just(5) // 输出类型为&lt;Integer&gt;, 失败类型为&lt;Never&gt; .map { value -&gt; String in // do something with the incoming value here // and return a string return &#34;a string&#34; } // 输出类型为&lt;String&gt;, 失败类型为&lt;Never&gt; .sink { receivedValue in // sink is the subscriber and terminates the pipeline print(&#34;The end result was \(receivedValue)&#34;) } // sink用来结束  SwiftUI使用Combine提供的@Published和@ObservedObject属性包装器隐式创建发布者">
+let _ = Just(5) // 输出类型为&lt;Integer&gt;, 失败类型为&lt;Never&gt; .map { value -&gt; String in // do something with the incoming value here // and return a string return &#34;a string&#34; } // 输出类型为&lt;String&gt;, 失败类型为&lt;Never&gt; .sink { receivedValue in // sink is the subscriber and terminates the pipeline print(&#34;The end result was \(receivedValue)&#34;) } // sink用来结束 SwiftUI使用Combine提供的@Published和@ObservedObject属性包装器隐式创建发布者
+一个简单的例子">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

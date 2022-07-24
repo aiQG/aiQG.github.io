@@ -14,7 +14,7 @@
       
       <guid>https://aiQG.github.io/other/</guid>
       <description>乘法
-func mul(a:Int, b:Int) -&amp;gt; Int { var big = a &amp;gt; b ? a : b var sma = a &amp;lt; b ? a : b var sum = 0 while sma &amp;gt; 0 { sum += sma &amp;amp; 1 == 0 ? 0 : big sma = sma &amp;gt;&amp;gt; 1 big = big &amp;lt;&amp;lt; 1 } return sum }   加法
+func mul(a:Int, b:Int) -&amp;gt; Int { var big = a &amp;gt; b ? a : b var sma = a &amp;lt; b ? a : b var sum = 0 while sma &amp;gt; 0 { sum += sma &amp;amp; 1 == 0 ? 0 : big sma = sma &amp;gt;&amp;gt; 1 big = big &amp;lt;&amp;lt; 1 } return sum } 加法
 int add(int a, int b) { stack&amp;lt;bool&amp;gt; st; bool x = false; if((a &amp;lt; b &amp;amp;&amp;amp; abs((long)a) &amp;gt; abs((long)b)) || (a &amp;gt; b &amp;amp;&amp;amp; abs((long)a) &amp;lt; abs((long)b))){ x = true; } bool flag = false; for (int i = 0; i &amp;lt; 31; i++) { if((a&amp;amp;1) == 1 &amp;amp;&amp;amp; (b&amp;amp;1) == 1){ st.</description>
     </item>
     

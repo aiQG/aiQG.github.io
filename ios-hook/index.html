@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/ios-hook/" />
 
   
     
     <meta name="description" content="前提:
-  MonkeyAPP(及其依赖)
-  class-dump
-  Reveal
-  砸壳
-  对于非越狱设备, 可以在TargetApp文件夹中放入ipa后编译运行一下(安装到设备上), 然后运行Reveal分析APP的UI结构, 记录下需要hook的控件类名, 在用class-dump导出的头文件中找到这个类的相关方法进行hook.
+MonkeyAPP(及其依赖)
+class-dump
+Reveal
+砸壳
+对于非越狱设备, 可以在TargetApp文件夹中放入ipa后编译运行一下(安装到设备上), 然后运行Reveal分析APP的UI结构, 记录下需要hook的控件类名, 在用class-dump导出的头文件中找到这个类的相关方法进行hook.
 可以在hook代码中利用%log(Logos语法)打印出被hook函数的所有参数, 从而找到有用信息(例如对于UIButton类型的控件, 可以找到点击它调用的方法). // 对于Logos语法的代码写在 HookAppDylib.xm
 hook WeChat.app注册和登录页面:
 Reveal找到登录和注册两个按钮是FixTitleColorButton类
 在class-dump导出的头中找到这个类, 发现是继承UIButton的, 所以hook FixTitleColorButton的 -(void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents 方法. (这个函数存在于父类UIButton, 可以从Apple官方文档找到其他有用的函数)
 利用%log找到初始化的信息(查看参数controlEvents)
-%hook FixTitleColorButton - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents{ %log; %orig(target, action, controlEvents); } %end  得到两段输出
-WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&lt;FixTitleColorButton: 0x14fd411e0&gt; addTarget:&lt;WCAccountLoginControlLogic: 0x2805a9c70&gt; action:onFirstViewLogin forControlEvents:0x40] WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.">
+%hook FixTitleColorButton - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents{ %log; %orig(target, action, controlEvents); } %end 得到两段输出
+WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&lt;FixTitleColorButton: 0x14fd411e0&gt; addTarget:&lt;WCAccountLoginControlLogic: 0x2805a9c70&gt; action:onFirstViewLogin forControlEvents:0x40] WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&lt;FixTitleColorButton: 0x14fd67980&gt; addTarget:&lt;WCAccountLoginControlLogic: 0x2805a9c70&gt; action:onFirstViewRegister forControlEvents:0x40] target分别是 onFirstViewLogin 和 onFirstViewRegister , 类是 WCAccountLoginControlLogic .">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E8%A7%A3%E5%AF%86/" />
 
   
     
     <meta name="description" content="python pycryptodome 密码库官方文档
- base64/32   Base64: 一个字符8bit, 将所有字符比特按照每3个字符分成一组(每组3*8=24bit), 再将每组(24bit) 按照6bit一个字符分成4个字符(4*6=24bit) (不满一组用0填充)(全0 为’=’) 总的来说就是将3个字节编码为4个字符
- #换表base64/32/58可以用string.maketrans(charset, origin)设置字符映射关系 #换表flag flag = &#39;a(&gt;sb(93b3-s^!;;&#39; #原表 origin = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&#43;/=&#34; #变表 charset = &#34;!:#$%&amp;()&#43;-*/`~_[]{}?&lt;&gt;,.@^abcdefghijklmnopqrstuvwxyz0123456789\\&#39;;&#34; #设置映射关系 charset到 origin import string t = string.maketrans(charset, origin) #flag换成原表b64 flag = flag.translate(t) #aGVsbG93b3JsZA== #解base64 import base64 #import base58 flag = base64.b64decode(flag) #helloworld    几种加密模式:
- ECB (电子密码本模式) 将明文分成64位(8字节)一组, 分别xor相同的一个密码本(一般是密钥) 再==进入加密流程==.每组密文解密后xor相同的一个密码本得到明文. //相当于每组分别加密互不影响(解密反之即可) CBC (密码分组链接模式) 加密: 先将明文分成64位一组(假设分成了n组), 第一组xor初始向量iv. ==进入加密流程==得到密文C1. 将得到的密文C1与第二组明文xor后==进入加密流程==得到密文C2.">
+base64/32 Base64: 一个字符8bit, 将所有字符比特按照每3个字符分成一组(每组3*8=24bit), 再将每组(24bit) 按照6bit一个字符分成4个字符(4*6=24bit) (不满一组用0填充)(全0 为’=’) 总的来说就是将3个字节编码为4个字符
+#换表base64/32/58可以用string.maketrans(charset, origin)设置字符映射关系 #换表flag flag = &#39;a(&gt;sb(93b3-s^!;;&#39; #原表 origin = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&#43;/=&#34; #变表 charset = &#34;!:#$%&amp;()&#43;-*/`~_[]{}?&lt;&gt;,.@^abcdefghijklmnopqrstuvwxyz0123456789\\&#39;;&#34; #设置映射关系 charset到 origin import string t = string.maketrans(charset, origin) #flag换成原表b64 flag = flag.translate(t) #aGVsbG93b3JsZA== #解base64 import base64 #import base58 flag = base64.b64decode(flag) #helloworld 几种加密模式:
+ECB (电子密码本模式) 将明文分成64位(8字节)一组, 分别xor相同的一个密码本(一般是密钥) 再==进入加密流程==.每组密文解密后xor相同的一个密码本得到明文. //相当于每组分别加密互不影响(解密反之即可) CBC (密码分组链接模式) 加密: 先将明文分成64位一组(假设分成了n组), 第一组xor初始向量iv. ==进入加密流程==得到密文C1. 将得到的密文C1与第二组明文xor后==进入加密流程==得到密文C2. 将得到的密文C2与第三组…… ……明文xor后==进入加密流程==得到密文Cn C1C2…Cn即为最终得到的密文 解密: 第一块密文==进入解密流程==后xor初始向量iv得到P1 第二块密文==进入解密流程==后xor第一块密文得到P2 第三块密文==进入解密流程==后xor第二块密文得到P3 …… 第n块密文==进入解密流程==后xor第n-1块密文得到Pn P1P2P3…Pn为最终明文 CFB (密码反馈模式)(无须解密函数) 加密: 先用初始化向量iv初始化移位寄存器然后寄存器==进入加密流程== 选出寄存器的前s位(s一般是8的倍数) 与明文的第一块xor(这里可以猜测s与明文的分块有关) 得到C1 寄存器左移s位, 空出的位用C1的高s位填充, 然后==进入加密流程== 选出寄存器的前s位 与明文的第二块xor, 得到C2 寄存器左移s位, 空出的位用C2的高s位填充,然后 ==进入加密流程== 选出寄存器的前s位 与明文的第三块xor…… ……空出的位用Cn的高s位填充,然后 ==进入加密流程== C1C2…Cn为最终密文 解密: 先用初始化向量iv初始化移位寄存器然后寄存器==进入加密流程== 选出寄存器的前s位 与密文第一块xor 得到P1 寄存器左移s位, 空出的位用第一块密文的高s位填充, 然后==进入加密流程== 选出寄存器的前s位 与密文的第二块xor, 得到P2 寄存器左移s位, 空出的位用第二块密文的高s位填充, 然后==进入加密流程== 选出寄存器的前s位 与密文的第三块xor…… ……空出的位用第n块密文的高s位填充, 然后==进入加密流程== P1P2…Pn为最终明文 OFB (输出反馈模式) (与CFB相比, 用来填充的东西由密文变成了加密后的移位寄存器) 加密: 先用初始化向量iv初始化移位寄存器然后寄存器==进入加密流程== 选出寄存器的前s位与明文的第一块xor得到C1 寄存器左移s位, 空出的位用原寄存器的前s位填充, 然后==进入加密流程== 选出寄存器的前s位 与明文的第二块xor, 得到C2 寄存器左移s位, 空出的位用原寄存器的前s位填充, 然后 ==进入加密流程== 选出寄存器的前s位 与明文的第三块xor…… ……空出的位用原寄存器的前s位填充, 然后 ==进入加密流程== C1C2…Cn为最终密文 解密: 先用初始化向量iv初始化移位寄存器然后寄存器==进入加密流程== 选出寄存器的前s位 与密文第一块xor 得到P1 寄存器左移s位, 空出的位用原寄存器的前s位填充, 然后==进入加密流程== 选出寄存器的前s位 与密文的第二块xor, 得到P2 寄存器左移s位, 空出的位用原寄存器的前s位填充, 然后==进入加密流程== 选出寄存器的前s位 与密文的第三块xor…… ……空出的位用原寄存器的前s位填充, 然后==进入加密流程== P1P2…Pn为最终明文 CTR (计数器模式) (计数器可用伪随机数实现) 加密: 计数器1==进入加密流程==, 与P1 xor 得到 C1 计数器2==进入加密流程==, 与P2 xor 得到 C2 计数器3==进入加密流程==, 与P3 xor 得到 C3 …… 计数器n==进入加密流程==, 与Pn xor 得到 Cn C1C2…Cn为最终密文 解密: 计数器1==进入加密流程==, 与C1 xor 得到 P1 计数器2==进入加密流程==, 与C2 xor 得到 P2 … 计数器n==进入加密流程==, 与Cn xor 得到 Pn P1P2…Pn为最终明文 S盒用于代换(狸猫换太子) P盒用于置换(换位置搓麻将)">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

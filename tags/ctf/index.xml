@@ -21,13 +21,12 @@ codesign -d --entitlements :- [yourAPP]
 将当前权限配置导出
 codesign -d --entitlements :- [yourAPP] &amp;gt;&amp;gt; temp.plist
 在temp.plist中添加
-&amp;lt;key&amp;gt;com.apple.security.get-task-allow&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt;  保存
+&amp;lt;key&amp;gt;com.apple.security.get-task-allow&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt; 保存
 找到系统上安装的所有签名身份的列表(需要开发者账号)
 security find-identity -v -p codesigning
 重新签名
-codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 
-签名完成，可以调试
- 静态分析的过程在这里
+codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 签名完成，可以调试
+静态分析的过程在这里
 这里用动态分析的方法验证一下静态分析
 首先按照上面给出的步骤加上权限
 然后在 sub_1000034C0 开始处下断点, 可以发现每次子弹与敌人接触或者玩家与敌人接触就会触发断点，确定这是一个判断碰撞的函数
@@ -42,7 +41,7 @@ codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --ti
       <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>https://aiQG.github.io/nctf2019%E5%87%BA%E9%A2%98/</guid>
-      <description>Easy Ternary exe里就有源码。。。google搜一下知道是AHK写的(其实如果有优秀的PE信息查看工具也能查出来)搜AHK反编译, 搜到反编译工具Exe2Ahk。。。//运行需要安装AHK环境 源码如下
+      <description>Easy Ternary exe里就有源码。。。 google搜一下知道是AHK写的(其实如果有优秀的PE信息查看工具也能查出来) 搜AHK反编译, 搜到反编译工具Exe2Ahk。。。//运行需要安装AHK环境 源码如下
 XOR(a, b) { tempA := a tempB := b ret := 0 Loop, 8 { ret += Mod((((tempA &amp;gt;&amp;gt; ((A_Index - 1)*4)) &amp;amp; 15) + ((tempB &amp;gt;&amp;gt; ((A_Index - 1)*4)) &amp;amp; 15)),3) * (16**(A_Index-1)) } return ret } InputBox, userInput, TTTTCL, Input your flag: if(ErrorLevel) Exit if(!StrLen(userInput)) { MsgBox, GG Exit } inputArr := [] Loop, parse, userInput { temp:=A_Index inputArr.Push(Ord(A_LoopField)) } inputNum := [] Loop % inputArr.</description>
     </item>
     
@@ -55,11 +54,12 @@ XOR(a, b) { tempA := a tempB := b ret := 0 Loop, 8 { ret += Mod((((tempA &amp;gt
       <description>//这是一个macOS下用swift5 + SpriteKit框架写出来的touchbar上的游戏 考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法&amp;hellip;
 //动态分析链接
 得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个touchbarGame这个就是游戏本体
- 关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
- //关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&amp;quot;shot&amp;quot;,&amp;ldquo;rock&amp;quot;和&amp;quot;enemy&amp;quot;的图片, 猜测是&amp;quot;打飞机的游戏&amp;rdquo;(跑不起来只能猜了呗&amp;hellip;) //这个游戏打起来是这样的&amp;hellip;&amp;hellip;ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的  OC调用函数的机制是&amp;quot;send message&amp;quot;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl+x查看函数的交叉引用几乎是找不到啥信息的了
- 因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
-  发现有个&amp;quot;/114514) R(estart)&amp;quot; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&amp;quot;set&amp;quot;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
-  可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&amp;quot;Physics Simulation&amp;quot;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0   //也可以尝试搜索一下包含&amp;quot;print&amp;quot;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里</description>
+关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
+//关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&amp;quot;shot&amp;quot;,&amp;ldquo;rock&amp;quot;和&amp;quot;enemy&amp;quot;的图片, 猜测是&amp;quot;打飞机的游戏&amp;rdquo;(跑不起来只能猜了呗&amp;hellip;) //这个游戏打起来是这样的&amp;hellip;&amp;hellip;
+ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的 OC调用函数的机制是&amp;quot;send message&amp;quot;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl+x查看函数的交叉引用几乎是找不到啥信息的了
+因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
+发现有个&amp;quot;/114514) R(estart)&amp;quot; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&amp;quot;set&amp;quot;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
+可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&amp;quot;Physics Simulation&amp;quot;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0 //也可以尝试搜索一下包含&amp;quot;print&amp;quot;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里</description>
     </item>
     
     <item>
@@ -68,10 +68,10 @@ XOR(a, b) { tempA := a tempB := b ret := 0 Loop, 8 { ret += Mod((((tempA &amp;gt
       <pubDate>Sun, 27 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://aiQG.github.io/2019%E6%9D%AD%E7%94%B5hgame-%E9%83%A8%E5%88%86wp/</guid>
-      <description>Web  谁吃了我的flag hint: 据当事人回忆，那个夜晚他正在用vim编写题目页面，似乎没有保存就关机睡觉去了,现在就是后悔，十分的后悔。  根据提示可以知道这和vim的缓存文件有关 vim会在编辑文件的时候生成一个.swp的缓存文件, 用于意外退出时恢复未保存的文件 目的很明确 下载这个文件 url后面加上/.index.html.swp下载.swp 用winhex打开即可找到flag
-  can u find me?
+      <description>Web 谁吃了我的flag hint: 据当事人回忆，那个夜晚他正在用vim编写题目页面，似乎没有保存就关机睡觉去了,现在就是后悔，十分的后悔。 根据提示可以知道这和vim的缓存文件有关 vim会在编辑文件的时候生成一个.swp的缓存文件, 用于意外退出时恢复未保存的文件 目的很明确 下载这个文件 url后面加上/.index.html.swp下载.swp 用winhex打开即可找到flag
+can u find me?
 几个web基础知识 f12找到f12.php 需要post密码 可以在头里找到password: woyaoflag 用Hackbarpost一个password=woyaoflag 把得到的链接下载下来得到flag
-  Re  brainfxxker  #include &amp;lt;iostream&amp;gt; #include &amp;lt;cctype&amp;gt; // Orz... I haven&#39;t learnt C++ before. // It seems like my brain was fxxked by these codes... // Notice: // 1. the answer is your input when nothing strange was printed // 2. that is, wrong inputs will encounter with the part &amp;quot;[+.</description>
+Re brainfxxker #include &amp;lt;iostream&amp;gt; #include &amp;lt;cctype&amp;gt; // Orz... I haven&#39;t learnt C++ before. // It seems like my brain was fxxked by these codes... // Notice: // 1. the answer is your input when nothing strange was printed // 2. that is, wrong inputs will encounter with the part &amp;quot;[+.</description>
     </item>
     
     <item>
@@ -81,12 +81,13 @@ XOR(a, b) { tempA := a tempB := b ret := 0 Loop, 8 { ret += Mod((((tempA &amp;gt
       
       <guid>https://aiQG.github.io/%E5%8D%97%E9%82%AEcgctf%E5%B9%B3%E5%8F%B0%E9%83%A8%E5%88%86-write-up/</guid>
       <description>CG-CTF 2018.7
- Welcome to http://aiqg.vip/
-  web  md5 collision 看源代码  &amp;lt;?php $md51 = md5(&#39;QNKCDZO&#39;); $a = @$_GET[&#39;a&#39;]; $md52 = @md5($a); if(isset($a)){ if ($a != &#39;QNKCDZO&#39; &amp;amp;&amp;amp; $md51 == $md52) { echo &amp;quot;nctf{*****************}&amp;quot;; } else { echo &amp;quot;false!!!&amp;quot;; }} else{echo &amp;quot;please input a&amp;quot;;} ?&amp;gt;  要满足md51==md52 并且 a!=&amp;lsquo;QNKCDZO&amp;rsquo; 结合php的md5想到0e绕过
+Welcome to http://aiqg.vip/
+web md5 collision 看源代码 &amp;lt;?php $md51 = md5(&#39;QNKCDZO&#39;); $a = @$_GET[&#39;a&#39;]; $md52 = @md5($a); if(isset($a)){ if ($a != &#39;QNKCDZO&#39; &amp;amp;&amp;amp; $md51 == $md52) { echo &amp;quot;nctf{*****************}&amp;quot;; } else { echo &amp;quot;false!!!&amp;quot;; }} else{echo &amp;quot;please input a&amp;quot;;} ?&amp;gt; 要满足md51==md52 并且 a!=&amp;lsquo;QNKCDZO&amp;rsquo; 结合php的md5想到0e绕过
 令a=s878926199a （过md5后是0e开头） 构造
- http://chinalover.sinaapp.com/web19/?a=s878926199a
- 即可 nctf{md5_collision_is_easy}
-  签到2 从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到) 直接将源代码的10修改成11，输入zhimakaimen nctf{follow_me_to_exploit}   ·这题不是web 打开看到一奇怪的图片 下载下来用文本打开 最后一行 nctf{photo_can_also_hid3_msg}</description>
+http://chinalover.sinaapp.com/web19/?a=s878926199a
+即可 nctf{md5_collision_is_easy}
+签到2 从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到) 直接将源代码的10修改成11，输入zhimakaimen nctf{follow_me_to_exploit} ·这题不是web 打开看到一奇怪的图片 下载下来用文本打开 最后一行 nctf{photo_can_also_hid3_msg}
+层层递进 打开似乎看到一大堆广告 查看Network发现一个奇怪的404.html 进去看源码 nctf{this_is_a_fl4g} AAencode js的aa加密 打开时一堆表情+乱码￼ (若都是表情则省去下面一步 具体情况因人而异) 下载此页￼￼ 随便找一个网站解去 nctf{javascript_aaencode} 单身二十年 点击链接很明显发生了一个跳转 直接下载链接地址 搞定 nctf{yougotit_script_now} php decode 找个在线运行php的网站 复制代码 将eval改成echo即可 nctf{gzip_base64_hhhhhh} 文件包含 提示了LFI 网页输出show.</description>
     </item>
     
   </channel>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/lldb/" />
 
   
@@ -14,12 +14,13 @@
 直接回车 重复上一条命令
 可以设置命令别名
 l/list 源码(编译时带-g)
- &#43;文件名 看特定文件(多文件编译时) &#43;函数名  b/breakpoint&#43;行号 下断点(可–file指定文件)
- &#43;–method&#43;cpp类名 按类下断点 &#43;set&#43;–name&#43;函数名 按函数名下断点 &#43;list 查看断点列表 &#43;disabled 禁用断点 &#43;enabled 启用断点 &#43;delete 删除断点  n/next 步过(源码级别)
- ni (汇编级别) s/step 步入(源码级别) si (汇编级别) f/finish 步出 c/continue 继续执行  bt 查看所有帧(调用堆栈) frame select&#43;序号 跳到指定帧(f &#43;序号) frame variable 查看当前帧的变量(局部变量)
+&#43;文件名 看特定文件(多文件编译时) &#43;函数名 b/breakpoint&#43;行号 下断点(可–file指定文件)
+&#43;–method&#43;cpp类名 按类下断点 &#43;set&#43;–name&#43;函数名 按函数名下断点 &#43;list 查看断点列表 &#43;disabled 禁用断点 &#43;enabled 启用断点 &#43;delete 删除断点 n/next 步过(源码级别)
+ni (汇编级别) s/step 步入(源码级别) si (汇编级别) f/finish 步出 c/continue 继续执行 bt 查看所有帧(调用堆栈) frame select&#43;序号 跳到指定帧(f &#43;序号) frame variable 查看当前帧的变量(局部变量)
 image list -o -f 各个模块的基址
 register read 读取寄存器的值 register write 修改寄存器的值
-e/expression&#43;表达式 执行表达式(可修改寄存器的值 expression $r8=1)(也可调用某类某方法)(也可利用exp unsigned int $a = 0xFF 初始化变量(似乎不能在开始调试后修改变量))">
+e/expression&#43;表达式 执行表达式(可修改寄存器的值 expression $r8=1)(也可调用某类某方法)(也可利用exp unsigned int $a = 0xFF 初始化变量(似乎不能在开始调试后修改变量))
+thread list 打印线程">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

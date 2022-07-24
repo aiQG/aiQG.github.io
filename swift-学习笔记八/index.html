@@ -5,22 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AB/" />
 
   
     
     <meta name="description" content="ios swift 多线程(队列) //这篇笔记是看了这篇文章后的总结
-   用DispatchQueue创建队列
- DispatchQueue( label: String, qos: DispatchQoS, attributes: DispatchQueue.Attributes, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency, target: DispatchQueue? )
- 其中参数lable 是必须并独一无二的
- 你唯一要做的事就是为你的队列提供一个独一无二的标签（label）。使用一个反向的 DNS 符号（”com.appcoda.myqueue”）就很好，因为用它很容易创造一个独一无二的标签，甚至连苹果公司都是这样建议的。尽管如此，这并不是强制性的，你可以使用你喜欢的任何字符串，只要这个字符串是唯一的。除此之外，上面的构造方法并不是创建队列的唯一方式。在初始化队列的时候可以提供更多的参数，我们会在后面的篇幅中谈论到它。
- 最简单的创建队列的方式就是
-let queue = DispatchQueue(label: &#34;com.appcoda.myqueue&#34;)    启动队列: queue.async {&lt;code&gt;} //异步。主队列与此队列同时运行 queue.sync {&lt;code&gt;} //同步。主队列会等待此队列运行结束再运行
-  队列优先级(QoS)
- userInteractive userInitiated default utility background unspecified
- //Apple用户至上的体现 这里是关于各个优先级的官方解释 QoS直接放进创建队列时的qos参数中
-let queue1 = DispatchQueue(label: &#34;com.appcoda.queue1&#34;, qos: .userInitiated) let queue2 = DispatchQueue(label: &#34;com.">
+用DispatchQueue创建队列
+DispatchQueue( label: String, qos: DispatchQoS, attributes: DispatchQueue.Attributes, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency, target: DispatchQueue? )
+其中参数lable 是必须并独一无二的
+你唯一要做的事就是为你的队列提供一个独一无二的标签（label）。使用一个反向的 DNS 符号（”com.appcoda.myqueue”）就很好，因为用它很容易创造一个独一无二的标签，甚至连苹果公司都是这样建议的。尽管如此，这并不是强制性的，你可以使用你喜欢的任何字符串，只要这个字符串是唯一的。除此之外，上面的构造方法并不是创建队列的唯一方式。在初始化队列的时候可以提供更多的参数，我们会在后面的篇幅中谈论到它。
+最简单的创建队列的方式就是
+let queue = DispatchQueue(label: &#34;com.appcoda.myqueue&#34;) 启动队列: queue.async {&lt;code&gt;} //异步。主队列与此队列同时运行 queue.sync {&lt;code&gt;} //同步。主队列会等待此队列运行结束再运行
+队列优先级(QoS)
+userInteractive userInitiated default utility background unspecified
+//Apple用户至上的体现 这里是关于各个优先级的官方解释 QoS直接放进创建队列时的qos参数中
+let queue1 = DispatchQueue(label: &#34;com.appcoda.queue1&#34;, qos: .userInitiated) let queue2 = DispatchQueue(label: &#34;com.appcoda.queue2&#34;, qos: .background) 优先级的高低主要影响系统资源的分配//并不意味着低优先级必须等待高优先级运行结束才执行 主队列拥有最高的优先级
+并行队列 attributes参数 创建并行队列
+let anotherQueue = DispatchQueue(label: &#34;com.appcoda.anotherQueue&#34;, qos: .">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/nctf2019%E5%87%BA%E9%A2%98/" />
 
   
     
-    <meta name="description" content="Easy Ternary exe里就有源码。。。google搜一下知道是AHK写的(其实如果有优秀的PE信息查看工具也能查出来)搜AHK反编译, 搜到反编译工具Exe2Ahk。。。//运行需要安装AHK环境 源码如下
+    <meta name="description" content="Easy Ternary exe里就有源码。。。 google搜一下知道是AHK写的(其实如果有优秀的PE信息查看工具也能查出来) 搜AHK反编译, 搜到反编译工具Exe2Ahk。。。//运行需要安装AHK环境 源码如下
 XOR(a, b) { tempA := a tempB := b ret := 0 Loop, 8 { ret &#43;= Mod((((tempA &gt;&gt; ((A_Index - 1)*4)) &amp; 15) &#43; ((tempB &gt;&gt; ((A_Index - 1)*4)) &amp; 15)),3) * (16**(A_Index-1)) } return ret } InputBox, userInput, TTTTCL, Input your flag: if(ErrorLevel) Exit if(!StrLen(userInput)) { MsgBox, GG Exit } inputArr := [] Loop, parse, userInput { temp:=A_Index inputArr.Push(Ord(A_LoopField)) } inputNum := [] Loop % inputArr.">
   
 

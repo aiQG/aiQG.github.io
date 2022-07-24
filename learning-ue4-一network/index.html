@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/learning-ue4-%E4%B8%80network/" />
 
   
     
     <meta name="description" content="本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
-         从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
+从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
 一、建立出生点
- 建立一个BluePrint继承Actor，双击打开  添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。  创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数)  actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作   二、建立GameMode（这个东西只有主机存在）
- 创建蓝图，继承引擎自动生成的GameMode(项目名&#43;GameMode)，在项目设置里设置默认GameMode（和Map）  创建一个自定义事件，用于设置玩家的方向和位置。在BeginPlay事件里找出所有的出生点保存起来，然后调用刚才创建的自定义事件（传入player 0的Pawn）。  在函数标签里选择重写一个函数：Spawn Default Pawn Transform 右键调用其父类   OK 出生点的基本功能就是这样了">
+建立一个BluePrint继承Actor，双击打开 添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。 创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数) actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作 二、建立GameMode（这个东西只有主机存在）
+创建蓝图，继承引擎自动生成的GameMode(项目名&#43;GameMode)，在项目设置里设置默认GameMode（和Map） 创建一个自定义事件，用于设置玩家的方向和位置。在BeginPlay事件里找出所有的出生点保存起来，然后调用刚才创建的自定义事件（传入player 0的Pawn）。 在函数标签里选择重写一个函数：Spawn Default Pawn Transform 右键调用其父类 OK 出生点的基本功能就是这样了">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

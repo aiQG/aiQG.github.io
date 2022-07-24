@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E9%87%8D%E7%AD%BE%E5%90%8D/" />
 
   
     
     <meta name="description" content="iOS逆向最后一步: “重签名”
 第一步, 将Payload文件夹压缩成.zip, 然后将.zip后缀改成.ipa
-找到一个 .mobileprovision 文件(最好是先创建一个iOS项目, 在真机上跑一下, 然后到 ~/Library/MobileDevice/Provisioning\ Profiles/  复制)(这个证书到期很快, 到时候又要重签名)//, 正在探索优秀的重签名方案
+找到一个 .mobileprovision 文件(最好是先创建一个iOS项目, 在真机上跑一下, 然后到 ~/Library/MobileDevice/Provisioning\ Profiles/ 复制)(这个证书到期很快, 到时候又要重签名)//, 正在探索优秀的重签名方案
 运行 iReSign(或ios-app-signer) 项目, 分别填上要签名的.ipa, .mobileprovision 文件路径, (.plist不用填), 项目的Bundle Identifier(可以在项目的配置文件里找到), 证书(和项目的Bundle Identifier 对应, 同样可以在项目的配置文件里找到)
 // ⚠️: 选择.plist路径的位置应该留空(程序会自动根据.mobileprovision文件导出.plist). 除非有特殊需要
 // ⚠️: 对于没有进行砸壳的插件和app, 签名/安装时可能出错

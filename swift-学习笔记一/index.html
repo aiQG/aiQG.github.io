@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" />
 
   
     
     <meta name="description" content="import Cocoa //目前没用到
-  数组
-//用于生成重复元素的数组 var a = [Int](repeating: 0xdeadbeef, count:3) //[0xdeadbeef, 0xdeadbeef, 0xdeadbeef]  一般同一个数组只能放入一个类型的数据 但 swift 中有一个 Any 类型 表示任何类型(什么类型都能放进去)
-var a:[Any] = [1,&#34;1&#34;,1.1]    几种for循环
-for x in a { print(x) } //just like python  for c in 0...0x7f { print(Unicode.Scalar(c)!)//把数字转换成Unicode字符 } //打印出所有ASCII字符(0到0x7f的Unicode)    可选类型
-var num:Int?=123 //值为123的Int的可选类型 //Optional(123)  可选类型与普通类型不同 ( Int 不能当作 Int? 使用)
-var num1:Int?=123 var num2:Int=num1 //出错  可选类型的变量可以用来处理“值缺失”的情况。 即,当赋值出错时,可选类型的变量被赋为 nil ,程序正常运行 //nil 在swift中表示值缺失 只有可选类型的变量或者常量才能接受nil。其他类型的变量或常量不能接受nil。">
+数组
+//用于生成重复元素的数组 var a = [Int](repeating: 0xdeadbeef, count:3) //[0xdeadbeef, 0xdeadbeef, 0xdeadbeef] 一般同一个数组只能放入一个类型的数据 但 swift 中有一个 Any 类型 表示任何类型(什么类型都能放进去)
+var a:[Any] = [1,&#34;1&#34;,1.1] 几种for循环
+for x in a { print(x) } //just like python for c in 0...0x7f { print(Unicode.Scalar(c)!)//把数字转换成Unicode字符 } //打印出所有ASCII字符(0到0x7f的Unicode) 可选类型
+var num:Int?=123 //值为123的Int的可选类型 //Optional(123) 可选类型与普通类型不同 ( Int 不能当作 Int? 使用)
+var num1:Int?=123 var num2:Int=num1 //出错 可选类型的变量可以用来处理“值缺失”的情况。 即,当赋值出错时,可选类型的变量被赋为 nil ,程序正常运行 //nil 在swift中表示值缺失 只有可选类型的变量或者常量才能接受nil。其他类型的变量或常量不能接受nil。
+使用可选类型打印出来的变量带有Optional() , 若要转换成普通类型 就要强制解析 !">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

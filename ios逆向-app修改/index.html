@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/ios%E9%80%86%E5%90%91-app%E4%BF%AE%E6%94%B9/" />
 
   
@@ -16,7 +16,7 @@
 看到是unity做的, 用Il2CppDumper 从Unity il2cpp文件还原DLl, 生成的ida脚本可以恢复很多函数名, dump.cs保存用到的类
 然后拿到binary, 用ida加载, 跑Il2CppDumper生成的脚本, 恢复一下函数名(这两步可能需要很长时间, 这期间可以找找dump.cs里可能有用的方法)
 找到一个player类, 里面有个 KillCharacter 和 KillCharacterNow , 猜测和玩家死亡有关
-lldb远程调试, image list -b pacman256  找到基地址, 通过dump.cs结合ida找到函数位置下断点调试//arm64的寄存器比较特殊, 主要关注PC(下一条执行的指令)和LR(子程序结束后执行的指令(相当于返回地址))
+lldb远程调试, image list -b pacman256 找到基地址, 通过dump.cs结合ida找到函数位置下断点调试//arm64的寄存器比较特殊, 主要关注PC(下一条执行的指令)和LR(子程序结束后执行的指令(相当于返回地址))
 回溯找到偏移为0x7CEA4的OnTriggerEnter函数(BadGuy类)//一看就知道是碰到👻触发的判断////当然不能直接把这个函数给干掉, 因为游戏中还有各种杀死👻的机制
 这个函数偏移0x6e8处有个 B.NE 的关键跳转, 每当玩家碰到ghost就会触发判断, 若跳转则玩家不死亡, 不跳转则玩家死亡
 改成 0010007D58C 06 00 00 14 B loc_10007D5A4 无条件跳转

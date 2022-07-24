@@ -5,23 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/%E5%90%84%E7%A7%8D%E5%A5%87%E6%80%AA%E7%9A%84%E5%B7%A5%E5%85%B7/" />
 
   
     
     <meta name="description" content="抓包: tshark//mac可用(自带？) wireshark的分析功能 tshark.exe -r usb2.pcap -T fields -e usb.capdata &gt; usbdata.txt 提取数据 从CTF中学USB流量捕获与解析 文件(信息): binwalk（binwalk -e 分离文件） file exiftool
 pdf爆破: pdfcrack pdfcrack -f flag.pdf --wordlist=rockyou.txt//rockyou.txt是一个字典 提取图片信息: identify
- identify -format “%s %T \n” ‘/home/ctf/Desktop/100_KHf05OI.gif’
- Linux下的strings命令搜索文件夹中文本里包含的字符串strings * | grep [password]
- convert 可以转换图片格式，修改大小…… 拆分gif
- convert flag.gif output.png
- (最好在一个文件夹里分解)
- montage
+identify -format “%s %T \n” ‘/home/ctf/Desktop/100_KHf05OI.gif’
+Linux下的strings命令搜索文件夹中文本里包含的字符串strings * | grep [password]
+convert 可以转换图片格式，修改大小…… 拆分gif
+convert flag.gif output.png
+(最好在一个文件夹里分解)
+montage
 Linux版的小型ps 将多图片紧密平铺
- montage -mode Concatenate -tile x1 output-*.png ok.png
-  grep 文本搜索工具 可以找到哪些文件包含字符串 也可以查找整个目录
- python pycryptodome 密码库官方文档">
+montage -mode Concatenate -tile x1 output-*.png ok.png
+grep 文本搜索工具 可以找到哪些文件包含字符串 也可以查找整个目录
+python pycryptodome 密码库官方文档
+python: 字符串.index(‘字符串’) 返回下标
+import string intab = &#34;aeiou&#34; outtab = &#34;12345&#34; trantab = maketrans(intab, outtab) str = &#34;this is string example.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/linux%E8%BF%9B%E7%A8%8B/" />
 
   
     
     <meta name="description" content="Linux 中线程就是共享上下文的进程
-  用fork()创建进程  #include&lt;stdio.h&gt;//printf() #include&lt;unistd.h&gt; //fork() ... pid_t pid; pid = fork()//创建进程 if(pid == 0) { printf(&#34;child PID [%d], getpid = %d, getppid = %d\n&#34;,pid,getpid(),getppid()); } else { printf(&#34;parent PID [%d], getpid = %d, getppid = %d\n&#34;,pid,getpid(),getppid()); } printf(&#34;%d finish&#34;,pid);  运行结果:
-child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end  相当于利用父进程创建了一个子进程并从fork()开始向下进行  孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果:  parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end  可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)">
+用fork()创建进程 #include&lt;stdio.h&gt;//printf() #include&lt;unistd.h&gt; //fork() ... pid_t pid; pid = fork()//创建进程 if(pid == 0) { printf(&#34;child PID [%d], getpid = %d, getppid = %d\n&#34;,pid,getpid(),getppid()); } else { printf(&#34;parent PID [%d], getpid = %d, getppid = %d\n&#34;,pid,getpid(),getppid()); } printf(&#34;%d finish&#34;,pid); 运行结果:
+child PID [0], getpid = 12420, getppid = 12419 0 end parent PID [12420], getpid = 12419, getppid = 21696 12420 end 相当于利用父进程创建了一个子进程并从fork()开始向下进行 孤儿进程 父进程结束子进程并不会强制结束 利用sleep使父进程先运行结束 运行结果: parent PID [13469], getpid = 13468, getppid = 21696 13469 end child PID [0], getpid = 13469, getppid = 2031 0 end 可以看到子进程的父进程改变了(孤儿进程托孤给init进程, 每个进程都必须有父进程)">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

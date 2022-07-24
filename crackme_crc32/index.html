@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/crackme_crc32/" />
 
   
     
     <meta name="description" content="//前几天才在0CTF做了个CRC128不动点的题(太菜没做出来)。今天正好学习一下 //文末决定玩一玩CRC循环码的特性
 随便输入一点东西 发现只有输入的Name长度大于5才有错误提示框, 有提示框就好办了 ida找到几个MessageBox 交叉引用看看在哪被使用了, 找到有明显判断&#43;跳转的函数 在函数开始的地方下断点, 调试 1.程序先获取Name的长度 判断不小于5继续 2.Name前面加上盐 3.计算加盐后Name的CRC32 4.获取Code长度 判断不小于0继续 5.将Code进行相关计算得到一个数字X 6.X与CRC32点值比对 相同则ok //CRC32作为“优秀的”hash循环码 逆是不会逆出来的 但是可以碰撞 算Code的关键算法: CRC32的算法不能逆运算, 但是可以看出Code的算法是将输入的Code变成一个十进制数
-import binascii name=&#39;&#39; name = raw_input(&#39;input your user name:\t&#39;)#py2 name = &#39;DiKeN&#39;&#43;name crc32code = binascii.crc32(name) #为了保证CRC是正的 if crc32code&lt;0: crc32code = ~binascii.crc32(name)^0xffffffff elif crc32code&gt;0: crc32code = binascii.crc32(name) code=&#39;&#39; while crc32code!=0: code = str(crc32code % 10) &#43; code crc32code = crc32code // 10 print &#39;your code:\t&#39;&#43;code   crc循环校验码的特性导致同一个Code可能对应多个Name 由于程序正向不需要判断Code是否为0～9(合法字符) 所以为了方便这里限制Code只能为0～9的数字//这里有个非预期 由于没有判断Code是否为0～9(合法字符)所以可以构造出多个奇怪而正确的Code 32位的crc只能构造出0x10000000到0xffffffff的hash">
+import binascii name=&#39;&#39; name = raw_input(&#39;input your user name:\t&#39;)#py2 name = &#39;DiKeN&#39;&#43;name crc32code = binascii.crc32(name) #为了保证CRC是正的 if crc32code&lt;0: crc32code = ~binascii.crc32(name)^0xffffffff elif crc32code&gt;0: crc32code = binascii.crc32(name) code=&#39;&#39; while crc32code!=0: code = str(crc32code % 10) &#43; code crc32code = crc32code // 10 print &#39;your code:\t&#39;&#43;code crc循环校验码的特性导致同一个Code可能对应多个Name 由于程序正向不需要判断Code是否为0～9(合法字符) 所以为了方便这里限制Code只能为0～9的数字//这里有个非预期 由于没有判断Code是否为0～9(合法字符)所以可以构造出多个奇怪而正确的Code 32位的crc只能构造出0x10000000到0xffffffff的hash">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

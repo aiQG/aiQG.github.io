@@ -5,21 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E7%A0%B8%E5%A3%B3/" />
 
   
     
     <meta name="description" content="iOS逆向第一步: “砸壳”
 由于App Store上下载下来的应用是套了层壳的(目测是压缩壳), 所以要dump一下
-工具 macOS端   iproxy 用于把端口代理到ssh上(iproxy是usbmuxd自带的一个小工具) brew install usbmuxd
-  frida 和 frida-ios-dump dump的主角
-  iOS端  越狱 // axi0mX 大神挖到iPhone BootROM级别的漏洞让iPhone5s到iPhoneX, iOS 12.3 及以上系统能够越狱 https://checkra.in/ 🐮🍺  // ⚠️: 用checkra1n越狱需要使用USB连接, 用lightning to type-C数据线会无法进入DFU模式
- Cydia上安装Frida 添加源 https://build.frida.re/  安装frida注意安装到python2还是python3, 对应frida-ios-dump的不同分支(3.x的分支是python3的)//python2官方都不支持了, 还是安装python3吧
+工具 macOS端 iproxy 用于把端口代理到ssh上(iproxy是usbmuxd自带的一个小工具) brew install usbmuxd
+frida 和 frida-ios-dump dump的主角
+iOS端 越狱 // axi0mX 大神挖到iPhone BootROM级别的漏洞让iPhone5s到iPhoneX, iOS 12.3 及以上系统能够越狱 https://checkra.in/ 🐮🍺 // ⚠️: 用checkra1n越狱需要使用USB连接, 用lightning to type-C数据线会无法进入DFU模式
+Cydia上安装Frida 添加源 https://build.frida.re/ 安装frida注意安装到python2还是python3, 对应frida-ios-dump的不同分支(3.x的分支是python3的)//python2官方都不支持了, 还是安装python3吧
 克隆frida-ios-dump
 git clone -b 3.x https://github.com/AloneMonkey/frida-ios-dump.git
 //可以到dump.py里修改连接的参数 一般默认:
-User = &#39;root&#39; Password = &#39;alpine&#39; Host = &#39;localhost&#39; Port = 2222  进入 frida-ios-dump 目录更新一下依赖">
+User = &#39;root&#39; Password = &#39;alpine&#39; Host = &#39;localhost&#39; Port = 2222 进入 frida-ios-dump 目录更新一下依赖
+sudo pip3 install -r requirements.txt --upgrade
+//遇到一个prompt-toolkit版本不符合的信息, 卸载重装一下就好了">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift%E4%B8%AD%E7%9A%84map-filter-reduce/" />
 
   
     
     <meta name="description" content="Premature optimisation is the root of all evil.
-  map  map 理解为对数组中每个元素进行一个相同的操作, 然后返回到原来的位置(元素之间不互相影响)
+map map 理解为对数组中每个元素进行一个相同的操作, 然后返回到原来的位置(元素之间不互相影响)
 map 的标准格式:
-var arr: [Int] = [1,2,3,4,5,6,7] arr.map { (&lt;#Int#&gt;) -&gt; T in &lt;#code#&gt; }  如
-arr.map { (aValue: Int) -&gt; Int in aValue &#43; 1 } //返回一个[Int], 元素分别是原[Int]的每一个元素加一 //&gt;&gt;&gt;[2, 3, 4, 5, 6, 7, 8] //优秀写法 arr.map {aValue in aValue &#43; 1} //更优秀写法 arr.map {$0 &#43; 1} //$0 代表map的第0个参数   filter  filter 理解为对数组中每个元素进行一个相同的判断, 判断为真则返回当前元素">
+var arr: [Int] = [1,2,3,4,5,6,7] arr.map { (&lt;#Int#&gt;) -&gt; T in &lt;#code#&gt; } 如
+arr.map { (aValue: Int) -&gt; Int in aValue &#43; 1 } //返回一个[Int], 元素分别是原[Int]的每一个元素加一 //&gt;&gt;&gt;[2, 3, 4, 5, 6, 7, 8] //优秀写法 arr.map {aValue in aValue &#43; 1} //更优秀写法 arr.map {$0 &#43; 1} //$0 代表map的第0个参数 filter filter 理解为对数组中每个元素进行一个相同的判断, 判断为真则返回当前元素
+==(filter的返回值必须为Bool)==
+filter 的标准格式:">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

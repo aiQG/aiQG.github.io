@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/macho%E6%96%87%E4%BB%B6/" />
 
   
@@ -14,7 +14,7 @@
 Load Commands: 描述了怎样加载每个 Segment 的信息. 在 Mach-O 文件中可以有多个 Segment, 每个 Segment 可能包含一个或多个 Section.
 Data: Segment 的具体数据, 包含了代码和数据等.
 Mach-O 头部定义(macOS 10.15 sdk):
-/* * The 64-bit mach header appears at the very beginning of object files for * 64-bit architectures. */ struct mach_header_64 { uint32_t	magic;	/* mach magic number identifier */ cpu_type_t	cputype;	/* cpu specifier */ cpu_subtype_t	cpusubtype;	/* machine specifier */ uint32_t	filetype;	/* type of file */ uint32_t	ncmds;	/* number of load commands */ uint32_t	sizeofcmds;	/* the size of all the load commands */ uint32_t	flags;	/* flags */ uint32_t	reserved;	/* reserved */ }; /* Constant for the magic field of the mach_header_64 (64-bit architectures) */ #define MH_MAGIC_64 0xfeedfacf /* the 64-bit mach magic number */ #define MH_CIGAM_64 0xcffaedfe /* NXSwapInt(MH_MAGIC_64) */  cputype 和 cpusubtype 确定 cpu 类型、平台">
+/* * The 64-bit mach header appears at the very beginning of object files for * 64-bit architectures. */ struct mach_header_64 { uint32_t	magic;	/* mach magic number identifier */ cpu_type_t	cputype;	/* cpu specifier */ cpu_subtype_t	cpusubtype;	/* machine specifier */ uint32_t	filetype;	/* type of file */ uint32_t	ncmds;	/* number of load commands */ uint32_t	sizeofcmds;	/* the size of all the load commands */ uint32_t	flags;	/* flags */ uint32_t	reserved;	/* reserved */ }; /* Constant for the magic field of the mach_header_64 (64-bit architectures) */ #define MH_MAGIC_64 0xfeedfacf /* the 64-bit mach magic number */ #define MH_CIGAM_64 0xcffaedfe /* NXSwapInt(MH_MAGIC_64) */ cputype 和 cpusubtype 确定 cpu 类型、平台">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

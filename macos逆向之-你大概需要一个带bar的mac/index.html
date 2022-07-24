@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/macos%E9%80%86%E5%90%91%E4%B9%8B-%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%B8%A6bar%E7%9A%84mac/" />
 
   
@@ -13,11 +13,12 @@
     <meta name="description" content="//这是一个macOS下用swift5 &#43; SpriteKit框架写出来的touchbar上的游戏 考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法…
 //动态分析链接
 得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个touchbarGame这个就是游戏本体
- 关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
- //关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&#34;shot&#34;,“rock&#34;和&#34;enemy&#34;的图片, 猜测是&#34;打飞机的游戏”(跑不起来只能猜了呗…) //这个游戏打起来是这样的……ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的  OC调用函数的机制是&#34;send message&#34;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl&#43;x查看函数的交叉引用几乎是找不到啥信息的了
- 因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
-  发现有个&#34;/114514) R(estart)&#34; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&#34;set&#34;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
-  可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&#34;Physics Simulation&#34;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0   //也可以尝试搜索一下包含&#34;print&#34;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里">
+关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
+//关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&#34;shot&#34;,“rock&#34;和&#34;enemy&#34;的图片, 猜测是&#34;打飞机的游戏”(跑不起来只能猜了呗…) //这个游戏打起来是这样的……
+ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的 OC调用函数的机制是&#34;send message&#34;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl&#43;x查看函数的交叉引用几乎是找不到啥信息的了
+因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
+发现有个&#34;/114514) R(estart)&#34; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&#34;set&#34;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
+可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&#34;Physics Simulation&#34;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0 //也可以尝试搜索一下包含&#34;print&#34;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

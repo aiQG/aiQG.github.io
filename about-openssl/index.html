@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/about-openssl/" />
 
   
     
     <meta name="description" content="openssl实现了大部分的加密
--out #输出文件 -in #输入文件 - RSA openssl genrsa -out 1.key 1024 #生成私钥对：RSA PRIVATE KEY openssl rsa -in k.txt -pubout -out p.txt #取出公钥：PUBLIC KEY（文件中记录算法类型） openssl rsa -in k.txt -RSAPublicKey_out -out p.txt #取出RSAPublicKey格式公钥：RSA PUBLIC KEY  快速使用:
-echo -n &#34;Y0u_h4v3_4_Sm4rt_Br41n&#34; | openssl sha1 # -n 表示不接收换行符  openssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式） 可以使用在线平台解码 http://lapo.it/asn1js/ 也可以用openssl的asn1parse命令查看
- asn1parse是一个诊断工具，可以解析ASN.1结构的密钥，证书等
-  生成RSA:
+-out #输出文件 -in #输入文件 - RSA openssl genrsa -out 1.key 1024 #生成私钥对：RSA PRIVATE KEY openssl rsa -in k.txt -pubout -out p.txt #取出公钥：PUBLIC KEY（文件中记录算法类型） openssl rsa -in k.txt -RSAPublicKey_out -out p.txt #取出RSAPublicKey格式公钥：RSA PUBLIC KEY 快速使用:
+echo -n &#34;Y0u_h4v3_4_Sm4rt_Br41n&#34; | openssl sha1 # -n 表示不接收换行符 openssl生成的公私钥和一些信息是用ASN.1(RSAPublicKey)/PKCS#8(PUBLIC KEY)等编码格式来保存的，所以解base64并不能直接得到公私钥（得到DER编码格式） 可以使用在线平台解码 http://lapo.it/asn1js/ 也可以用openssl的asn1parse命令查看
+asn1parse是一个诊断工具，可以解析ASN.1结构的密钥，证书等
+生成RSA:
 私钥：
-openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.txt #解码ASN.1  返回：">
+openssl genrsa -out k.txt 50 #生成50位的私钥 openssl asn1parse -i -in k.txt #解码ASN.1 返回：
+0:d=0 hl=2 l= 55 cons: SEQUENCE 2:d=1 hl=2 l= 1 prim: INTEGER :00 5:d=1 hl=2 l= 7 prim: INTEGER :03A20D44C84679 14:d=1 hl=2 l= 3 prim: INTEGER :010001 19:d=1 hl=2 l= 7 prim: INTEGER :021B398DFA6501 28:d=1 hl=2 l= 4 prim: INTEGER :01F85261 34:d=1 hl=2 l= 4 prim: INTEGER :01D81B19 40:d=1 hl=2 l= 4 prim: INTEGER :015DE4E1 46:d=1 hl=2 l= 3 prim: INTEGER :5435F1 51:d=1 hl=2 l= 4 prim: INTEGER :E068D6">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

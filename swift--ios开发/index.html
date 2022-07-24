@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift--ios%E5%BC%80%E5%8F%91/" />
 
   
     
     <meta name="description" content="ios开发理念和以往开发有些不同, iOS讲究在使用之前才初始化, 而不是在程序启动时全部完成初始化(例如在按钮执行函数内进行警告窗口的声明&#43;初始化, 而不能在函数外提前初始化)
-//按钮: 点击弹出警告框 @IBAction func bt(_ sender: Any) { let uiAlert: UIAlertController = UIAlertController(title: &#34;这是title&#34;, message: &#34;这是message&#34;, preferredStyle: .actionSheet) let uiAAction: UIAlertAction = UIAlertAction(title: &#34;what?&#34;, style: .cancel, handler: nil) let uiaaction2: UIAlertAction = UIAlertAction(title: &#34;2&#34;, style: .destructive, handler: nil) let uiui: UIAlertAction = UIAlertAction(title: &#34;4&#34;, style: .default, handler: nil) uiAlert.addAction(uiAAction) uiAlert.addAction(uiaaction2) uiAlert.addAction(uiui) self.present(uiAlert, animated: true, completion: nil) }  关于session(AVCaptureSession) session可以有多个input和output 当startRunning()后创建一个Connection session可以在input和output之间处理数据(暂时理解为管理数据的转发)(有点像交换机?) output可以设置setSampleBufferDelegate(一个队列(线程?)) 获得SampleBuffer后会调用captureOutput()
+//按钮: 点击弹出警告框 @IBAction func bt(_ sender: Any) { let uiAlert: UIAlertController = UIAlertController(title: &#34;这是title&#34;, message: &#34;这是message&#34;, preferredStyle: .actionSheet) let uiAAction: UIAlertAction = UIAlertAction(title: &#34;what?&#34;, style: .cancel, handler: nil) let uiaaction2: UIAlertAction = UIAlertAction(title: &#34;2&#34;, style: .destructive, handler: nil) let uiui: UIAlertAction = UIAlertAction(title: &#34;4&#34;, style: .default, handler: nil) uiAlert.addAction(uiAAction) uiAlert.addAction(uiaaction2) uiAlert.addAction(uiui) self.present(uiAlert, animated: true, completion: nil) } 关于session(AVCaptureSession) session可以有多个input和output 当startRunning()后创建一个Connection session可以在input和output之间处理数据(暂时理解为管理数据的转发)(有点像交换机?) output可以设置setSampleBufferDelegate(一个队列(线程?)) 获得SampleBuffer后会调用captureOutput()
 关于图像识别 使用setSampleBufferDelegate需要继承AVCaptureVideoDataOutputSampleBufferDelegate 才能调用captureOutput()//这里有个重载captureOutput(_:didOutput:from:)(写入视频帧时调用); captureOutput(_:didDrop:from:)(视频帧被丢弃时调用)//()何时丢弃 VNImageRequestHandler()可以初始化图像请求 perform()开始执行 VNDetectTextRectanglesRequest()请求分析图像, 返回分析结果 ">
   
 

@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/%E5%8D%97%E9%82%AEcgctf%E5%B9%B3%E5%8F%B0%E9%83%A8%E5%88%86-write-up/" />
 
   
     
     <meta name="description" content="CG-CTF 2018.7
- Welcome to http://aiqg.vip/
-  web  md5 collision 看源代码  &lt;?php $md51 = md5(&#39;QNKCDZO&#39;); $a = @$_GET[&#39;a&#39;]; $md52 = @md5($a); if(isset($a)){ if ($a != &#39;QNKCDZO&#39; &amp;&amp; $md51 == $md52) { echo &#34;nctf{*****************}&#34;; } else { echo &#34;false!!!&#34;; }} else{echo &#34;please input a&#34;;} ?&gt;  要满足md51==md52 并且 a!=‘QNKCDZO’ 结合php的md5想到0e绕过
+Welcome to http://aiqg.vip/
+web md5 collision 看源代码 &lt;?php $md51 = md5(&#39;QNKCDZO&#39;); $a = @$_GET[&#39;a&#39;]; $md52 = @md5($a); if(isset($a)){ if ($a != &#39;QNKCDZO&#39; &amp;&amp; $md51 == $md52) { echo &#34;nctf{*****************}&#34;; } else { echo &#34;false!!!&#34;; }} else{echo &#34;please input a&#34;;} ?&gt; 要满足md51==md52 并且 a!=‘QNKCDZO’ 结合php的md5想到0e绕过
 令a=s878926199a （过md5后是0e开头） 构造
- http://chinalover.sinaapp.com/web19/?a=s878926199a
- 即可 nctf{md5_collision_is_easy}
-  签到2 从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到) 直接将源代码的10修改成11，输入zhimakaimen nctf{follow_me_to_exploit}   ·这题不是web 打开看到一奇怪的图片 下载下来用文本打开 最后一行 nctf{photo_can_also_hid3_msg}">
+http://chinalover.sinaapp.com/web19/?a=s878926199a
+即可 nctf{md5_collision_is_easy}
+签到2 从响应头可以看到字符串长度被限制在10个(网页源代码里也可以看到) 直接将源代码的10修改成11，输入zhimakaimen nctf{follow_me_to_exploit} ·这题不是web 打开看到一奇怪的图片 下载下来用文本打开 最后一行 nctf{photo_can_also_hid3_msg}
+层层递进 打开似乎看到一大堆广告 查看Network发现一个奇怪的404.html 进去看源码 nctf{this_is_a_fl4g} AAencode js的aa加密 打开时一堆表情&#43;乱码￼ (若都是表情则省去下面一步 具体情况因人而异) 下载此页￼￼ 随便找一个网站解去 nctf{javascript_aaencode} 单身二十年 点击链接很明显发生了一个跳转 直接下载链接地址 搞定 nctf{yougotit_script_now} php decode 找个在线运行php的网站 复制代码 将eval改成echo即可 nctf{gzip_base64_hhhhhh} 文件包含 提示了LFI 网页输出show.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -14,8 +14,8 @@
       
       <guid>https://aiQG.github.io/rsa-attack/</guid>
       <description>爆破出n的因数, p/q相差很大或很小 可以分解n
-  低模指数e=3, 已知m高位和n,c 可以求出完整明文
-  # sage n = e = 3 c = m = #完整的m k = #未知的位数 PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = (x + m)^e-c x0 = f.small_roots(X=2^kbits, beta=1)[0] #明文为m+x0  已知p（或q）高位, 已知n,c,e 可求出p,q  #sage n = e = p = #完整的p pk = #原p的位数 k = #p未知的位数 pbar = p_fake &amp;amp; (2^pbits-2^kbits) # PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.</description>
+低模指数e=3, 已知m高位和n,c 可以求出完整明文
+# sage n = e = 3 c = m = #完整的m k = #未知的位数 PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = (x + m)^e-c x0 = f.small_roots(X=2^kbits, beta=1)[0] #明文为m+x0 已知p（或q）高位, 已知n,c,e 可求出p,q #sage n = e = p = #完整的p pk = #原p的位数 k = #p未知的位数 pbar = p_fake &amp;amp; (2^pbits-2^kbits) # PR.&amp;lt;x&amp;gt; = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.small_roots(X=2^kbits, beta=0.4)[0] print x0 + pbar #计算出来的p 低模指数e=3, 已知n, c和私钥d的低位(在模指数低的情况下，d高位的一半可以认为已知) #sage def partial_p(p0, kbits, n): PR.</description>
     </item>
     
   </channel>

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/%E4%BB%8Eprint%E5%BC%80%E5%A7%8B/" />
 
   
     
     <meta name="description" content="看了几天的metadata感觉没什么收获, 发现对swift的一些特性还不是很清楚, 决定从最常用的print开始分析
-func callFunc() { print(&#34;HelloWorld!&#34;) }  callFunc() @ hackSwift: 0x100000a50: push rbp 0x100000a51: mov rbp, rsp 0x100000a54: sub rsp, 0x30 0x100000a58: mov rax, qword ptr [rip &#43; 0x5b1] ; (void *)0x00007fff90c55908: type metadata for Any 0x100000a5f: add rax, 0x8	; Any的Super point 0x100000a63: mov edi, 0x1 ; print第一个参数的个数 0x100000a68: mov rsi, rax ; 初始化(Any)数组 0x100000a6b: call 0x100000e60 ; symbol stub for: Swift._allocateUninitializedArray&lt;A&gt;(Builtin.Word) -&gt; (Swift.Array&lt;A&gt;, Builtin.RawPointer) 0x100000a70: lea rdi, [rip &#43; 0x4d5] ; &#34;HelloWorld!">
+func callFunc() { print(&#34;HelloWorld!&#34;) } callFunc() @ hackSwift: 0x100000a50: push rbp 0x100000a51: mov rbp, rsp 0x100000a54: sub rsp, 0x30 0x100000a58: mov rax, qword ptr [rip &#43; 0x5b1] ; (void *)0x00007fff90c55908: type metadata for Any 0x100000a5f: add rax, 0x8	; Any的Super point 0x100000a63: mov edi, 0x1 ; print第一个参数的个数 0x100000a68: mov rsi, rax ; 初始化(Any)数组 0x100000a6b: call 0x100000e60 ; symbol stub for: Swift._allocateUninitializedArray&lt;A&gt;(Builtin.Word) -&gt; (Swift.Array&lt;A&gt;, Builtin.RawPointer) 0x100000a70: lea rdi, [rip &#43; 0x4d5] ; &#34;HelloWorld!">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

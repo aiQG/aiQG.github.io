@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94/" />
 
   
     
     <meta name="description" content="//回来恶补基础知识…
-  结构体 结构体中的赋值就是默认值 能够修改值的变量用var声明 常量用let声明
-struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321)  `swift ruct A { var var_1: Int = 1000 let let_1: Int = 2000 r my2:A = A() //已有默认值可以不用初始化结构体成员 r my3:A = A(var_1: 123) //可以修改变量(var)的值 var my4:A = A(let_1: 321)//不可修改常量(let)的值      类 Swift 的类由编译器自动生成对外接口">
+结构体 结构体中的赋值就是默认值 能够修改值的变量用var声明 常量用let声明
+struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321) `swift ruct A { var var_1: Int = 1000 let let_1: Int = 2000 r my2:A = A() //已有默认值可以不用初始化结构体成员 r my3:A = A(var_1: 123) //可以修改变量(var)的值 var my4:A = A(let_1: 321)//不可修改常量(let)的值 类 Swift 的类由编译器自动生成对外接口
+class A { var var_1:Int let let_1:Int init(var_1: Int, let_1: Int) { self.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C/" />
 
   
     
-    <meta name="description" content="iOSApp(基于SpriteKit) 用代码实现了基本场景 //删除两个sks文件///GameScene.sks Actions.sks  GameScene.swift
-import SpriteKit class gameScene: SKScene { let label = SKLabelNode(text: &#34;Hello World!!!&#34;)//一个字符串 override func didMove(to view: SKView) { label.fontName = &#34;Avenir&#34; label.position = CGPoint(x: view.frame.width / 2, y: view.frame.height - label.fontSize )//设置lable的位置 addChild(label)//将标签作为子节点 添加 到场景的节点树 }//在场景的相应视图呈现后立即运行的方法 }//继承了标准SpriteKit场景的子类  GameViewController.swift
-import SpriteKit class GameViewController: UIViewController { override func viewDidLoad(){ let scene = gameScene(size: view.frame.size)//初始化一个场景 let skView = view as! SKView //将控制器的视图转换为SpriteKit视图 skView.presentScene(scene)//呈现游戏场景 }//这个方法会在视图控制器加载到内存后立即运行 }//控制器的视图加载后 呈现游戏场景   参考资料 : https://www.">
+    <meta name="description" content="iOSApp(基于SpriteKit) 用代码实现了基本场景 //删除两个sks文件///GameScene.sks Actions.sks GameScene.swift
+import SpriteKit class gameScene: SKScene { let label = SKLabelNode(text: &#34;Hello World!!!&#34;)//一个字符串 override func didMove(to view: SKView) { label.fontName = &#34;Avenir&#34; label.position = CGPoint(x: view.frame.width / 2, y: view.frame.height - label.fontSize )//设置lable的位置 addChild(label)//将标签作为子节点 添加 到场景的节点树 }//在场景的相应视图呈现后立即运行的方法 }//继承了标准SpriteKit场景的子类 GameViewController.swift
+import SpriteKit class GameViewController: UIViewController { override func viewDidLoad(){ let scene = gameScene(size: view.frame.size)//初始化一个场景 let skView = view as! SKView //将控制器的视图转换为SpriteKit视图 skView.presentScene(scene)//呈现游戏场景 }//这个方法会在视图控制器加载到内存后立即运行 }//控制器的视图加载后 呈现游戏场景 参考资料 : https://www.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <meta name="generator" content="Hugo 0.95.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="canonical" href="https://aiQG.github.io/how-to-compile-android-kernel-on-osx/" />
 
   
@@ -16,10 +16,13 @@ First of All: 一个区分大小写的文件系统 (OSX文件系统不区分大�
 通过 repo 下载源码 下载方式(Google官方提供)
 执行 build/build.sh 构建内核 官方链接
 编译好的东西在 ./out/ 里
-配置环境   下载交叉编译器 下载 clang, 不再支持gcc.
-$ pwd /Path/To/prebuilts-master/clang/host $ git clone https://android.googlesource.com/platform/prebuilts/clang/host/darwin-x86    ./build/_setup_env.sh 替换 readlink 为 greadlink. export ROOT_DIR=$PWD 改为 export ROOT_DIR=$(greadlink -f $PWD)
-  ./build/build.sh 替换 readlink 为 greadlink. (可能需要brew install coreutils) 替换 tar 为 gtar.
-  ./private/msm-google/build.config.common 替换 linux-x86 为 darwin-x86.">
+配置环境 下载交叉编译器 下载 clang, 不再支持gcc.
+$ pwd /Path/To/prebuilts-master/clang/host $ git clone https://android.googlesource.com/platform/prebuilts/clang/host/darwin-x86 ./build/_setup_env.sh 替换 readlink 为 greadlink. export ROOT_DIR=$PWD 改为 export ROOT_DIR=$(greadlink -f $PWD)
+./build/build.sh 替换 readlink 为 greadlink. (可能需要brew install coreutils) 替换 tar 为 gtar.
+./private/msm-google/build.config.common 替换 linux-x86 为 darwin-x86. (同时确认所指向的几个路径正确)
+private/msm-google-modules/wlan/qcacld-3.0/Makefile ``readlink替换为greadlink`.
+./private/msm-google/Makefile
+给 HOSTCFLAGS 变量增加一个路径: HOSTCFLAGS := -isysroot /Applications/Xcode.">
   
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://aiQG.github.io/apple-touch-icon.png">

