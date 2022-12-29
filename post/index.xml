@@ -17,7 +17,7 @@
 以下方法同样适用于日区App Store.
 提前准备 信用卡. 最好是JCB, 当然VISA也行. 在国外, 信用卡就和国内的支付宝一样好用.
 iPhone/iPad/Mac&amp;hellip; 反正至少能登上Apple Books.
-(可选)梯子. 当然日区的梯子是最好的. 顺便推荐个机场虽然价格可能有点高, 但是稳定, 客服处理问题的速度也快.
+(可选)梯子. 当然日区的梯子是最好的.
 过程 登陆苹果官方网站, 注册Apple ID. 需要注意的是地区填&amp;quot;日本&amp;quot;就好, 其他都和正常注册一样, 电话号码可以用国内的电话号码.
 注册 登陆Apple ID, 填写付款方式. 当然除了卡信息以外, 其他随便填就好. 可以随便找个模板抄一抄.
 付款方式 买买买! 用日语可以到日语书
@@ -28,7 +28,7 @@ iPhone/iPad/Mac&amp;hellip; 反正至少能登上Apple Books.
 书库 其它 贴心的Apple提供了试读版, 点开图书的商店界面可以看到&amp;quot;無料サンプル&amp;quot;, 点击即可下载试读版. 试读-商店 下载试读版需要用到梯子! 否则会提示&amp;quot;不在你的国家或地区提供&amp;quot;的错误. (购买后下载不需要梯子, 只有下载试读版需要!)
 试读-错误 一般来说轻小说前几页都有精致的全彩插画. 正好试读版也仅提供前面一小部分的阅读. 所以&amp;hellip;
 白嫖插画 当然一般来说也能找到某些特殊类型的小说/漫画. 只要搜索引擎用得好, 又有啥难题不能解决呢?
-搜索特殊类型 特价/免费の小说/漫画专区, 白嫖党的福音! 免费&amp;amp;特价专区 可以直接搜索出版社的名称查找相关作品, 如&amp;quot;台灣角川&amp;quot;(注意使用繁体).</description>
+搜索特殊类型 特价/免费の小说/漫画专区, 白嫖党的福音! 免费&amp;amp;特价专区 可以直接搜索出版社的名称查找相关作品, 如&amp;quot;台灣角川&amp;quot;(注意使用繁体). 某些书可能直接找到的是日文版本(如《日常》), 这时候可以加上出版社进行搜索(如搜索:日常 台湾角川).</description>
     </item>
     
     <item>
@@ -379,6 +379,7 @@ UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码
       
       <guid>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</guid>
       <description>本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
+Hello Unreal Engine 4.2 目标：UE4源码 UE4比CTF有趣多了 * * 在百度搜UE4的教程少的可怜 //墙外的世界真美好 * * //听说下一个版本要出摧毁效果了，简直激动人心 *
 从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
 一、建立出生点
 建立一个BluePrint继承Actor，双击打开 添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。 创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数) actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作 二、建立GameMode（这个东西只有主机存在）
@@ -538,7 +539,7 @@ Re brainfxxker #include &amp;lt;iostream&amp;gt; #include &amp;lt;cctype&amp;gt;
       <guid>https://aiQG.github.io/swift-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94/</guid>
       <description>//回来恶补基础知识&amp;hellip;
 结构体 结构体中的赋值就是默认值 能够修改值的变量用var声明 常量用let声明
-struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321) `swift ruct A { var var_1: Int = 1000 let let_1: Int = 2000 r my2:A = A() //已有默认值可以不用初始化结构体成员 r my3:A = A(var_1: 123) //可以修改变量(var)的值 var my4:A = A(let_1: 321)//不可修改常量(let)的值 类 Swift 的类由编译器自动生成对外接口
+struct A { var var_1: Int let let_1: Int } //结构体成员必须初始化 var mystruct:A = A(var_1: 123, let_1: 321) //注意不能写成A(let_1 321, var_1: 123) //因为编译器会自动生成一个init(var_1:Int, let_1:Int)的构造函数 //所以也可以写成A.init(var_1: 123, let_1: 321) struct A { var var_1: Int = 1000 let let_1: Int = 2000 } var my2:A = A() //已有默认值可以不用初始化结构体成员 var my3:A = A(var_1: 123) //可以修改变量(var)的值 //var my4:A = A(let_1: 321)//不可修改常量(let)的值 类 Swift 的类由编译器自动生成对外接口
 class A { var var_1:Int let let_1:Int init(var_1: Int, let_1: Int) { self.</description>
     </item>
     

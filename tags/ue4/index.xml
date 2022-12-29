@@ -41,6 +41,7 @@ UE4打包是可以用AES加密资源文件，用RSA签名的//AES密钥硬编码
       
       <guid>https://aiQG.github.io/learning-ue4-%E4%B8%80network/</guid>
       <description>本文记录UE4学习笔记 本文使用第三人称模版 本文参考油管上kitty unreal和諶嘉誠CJC的教程
+Hello Unreal Engine 4.2 目标：UE4源码 UE4比CTF有趣多了 * * 在百度搜UE4的教程少的可怜 //墙外的世界真美好 * * //听说下一个版本要出摧毁效果了，简直激动人心 *
 从制作出生点开始讲起 //虽然ue4自带玩家出生点的控件
 一、建立出生点
 建立一个BluePrint继承Actor，双击打开 添加Box collision（用玩家是否与其重叠判断出生点是否可用）（为了方便选中可用加上一个Billboard），将Box collision作为蓝图自身，加上个箭头，标记正向。 创建一个函数，用于返回当前出生点是否被占用（actor数组长度大于0则被占用）(可以标注为纯虚函数) actor和出生点开始重叠/结束重叠，对actor数组进行增/减操作 二、建立GameMode（这个东西只有主机存在）
